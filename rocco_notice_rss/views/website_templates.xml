@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <record id="blog_blog_sport" model="blog.blog">
+            <field name="name">Sport</field>
+            <field name="subtitle">Notizie Sport</field>
+            <field name="description">Notizie Sport Italia</field>
+        </record>
+
+        <record id="menu_news_sport" model="website.menu">
+            <field name="name">News Sport</field>
+            <field name="url" eval="'/blog/'+str(ref('rocco_notice_rss.blog_blog_sport'))"/>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">50</field>
+        </record>
+    </data>
+    
+    <data>
+        <record model="ir.ui.view" id="rocco_notice_view_blog_blog_list">
+            <field name="name">blog.blog.list</field>
+            <field name="model">blog.blog</field>
+            <field name="inherit_id" ref="website_blog.view_blog_blog_list"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after" >
+            		<field name="x_rss_channel" />
+            		<field name="x_rss_number" />
+            		<field name="x_elimina_art" />
+            	</field>
+            </field>
+            </record>
+        <record model="ir.ui.view" id="rocco_notice_view_blog_blog_form">
+            <field name="name">blog.blog.form</field>
+            <field name="model">blog.blog</field>
+            <field name="inherit_id" ref="website_blog.view_blog_blog_form"/>
+            <field name="arch" type="xml">
+                            <field name="description"  position="after" >
+            					<field name="x_rss_channel" />
+            					<field name="x_rss_number" />
+            					<field name="x_elimina_art" />
+            				</field>
+            </field>
+            </record>
+        <record id="blog_tag_rocco_sport" model="blog.tag">
+            <field name="name">sport</field>
+        </record>
+        <record id="blog_tag_rocco_politica" model="blog.tag">
+            <field name="name">politica</field>
+        </record>
+        <record id="blog_tag_rocco_attualita" model="blog.tag">
+            <field name="name">attualità</field>
+        </record>
+        <record id="blog_tag_rocco_calcio" model="blog.tag">
+            <field name="name">Calcio</field>
+        </record>
+        
+        
+        
+        
+<!--        
+        <template id="notice_blog_rss_locs">
+        <channel>
+        <title><t t-esc="blog[0].name"/></title>
+        <link><t t-esc="website_url"/></link>
+        <description><t t-esc="blog[0].description"/></description>
+        <ttl>60</ttl>
+        <t t-foreach="posts" t-as="post">
+                <t t-set="url_x" t-value="'{0}blog/{1}/post/{2}'.format(url_root, slug(post.blog_id), slug(post))"/>
+            <item>
+                <title><t t-esc="post.name"/></title>
+                <link><t t-raw="url_x"/></link>
+                <guid><t t-raw="url_x"/></guid>
+                <pubDate><t t-esc="post.date_rfc2822"/></pubDate>
+                <description><t t-esc="post.content"/></description>
+                <category><t t-esc="post.blog_id.name"/></category>
+            </item>
+        </t>
+        </channel>
+    </template>
+--> 
+    </data>
+</openerp>
