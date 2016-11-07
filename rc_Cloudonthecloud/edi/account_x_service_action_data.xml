@@ -1,0 +1,628 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+        <!-- EDI related Email Templates menu -->
+        <record model="ir.actions.act_window" id="action_email_templates_x_service">
+            <field name="name">Email Templates</field>
+            <field name="res_model">email.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form,tree</field>
+            <field name="view_id" ref="email_template.email_template_tree" />
+            <field name="search_view_id" ref="email_template.view_email_template_search"/>
+            <field name="context" eval="{'search_default_model_id': ref('rc_Cloudonthecloud.model_account_x_service')}"/>
+        </record>
+        <!--Email template -->
+        <record id="email_template_edi_account_x_service_01
+            " model="email.template">
+            <field name="name">Attivazione Servizio</field>
+            <field name="email_from">${(object.user_id.email or '')|safe}</field>
+            <field name="subject">${object.partner_id.company_id.name} (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="rc_Cloudonthecloud.model_account_x_service"/>
+            <field name="auto_delete" eval="True"/>
+       <!--    <field name="report_template" ref="report_accountxservice01"/> -->   
+            <field name="report_name">${(object.name or '').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>Hello ${object.partner_id.name},</p>
+    
+    <p>Here is your ${object.state in ('draft', 'send')} from ${object.partner_id.company_id.name}: </p>
+
+    <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
+       &nbsp;&nbsp;<strong>Riferimenti</strong><br />
+       &nbsp;&nbsp;Servizio: <strong>${object.name}</strong><br />
+       &nbsp;&nbsp;total Servizio: <strong>${object.amount_total} ${object.partner_id.property_product_pricelist.currency_id.name}</strong><br />
+       &nbsp;&nbsp;data Servizio: ${object.date_service}<br />
+       % if object.x_nod_id:
+       &nbsp;&nbsp;Nome: ${object.x_nod_id.name}<br />
+       &nbsp;&nbsp;User Id: ${object.x_nod_id.usr_nods}<br />
+       &nbsp;&nbsp;Password: ${object.x_nod_id.passwd_nods}<br />
+       &nbsp;&nbsp;Url : ${object.x_nod_id.url_nods}<br />
+       % endif
+
+       % if object.user_id:
+       &nbsp;&nbsp;Commerciale di riferimento : <a href="mailto:${object.user_id.email or ''}?subject=Order%20${object.name}">${object.user_id.name}</a>
+       % endif
+    </p>
+
+
+    <br/>
+    <p>If you have any question, do not hesitate to contact us.</p>
+    <p>Thank you for choosing ${object.partner_id.company_id.name or 'us'}!</p>
+    <br/>
+    <br/>
+    <div style="width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;">
+        <h3 style="margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;">
+            <strong style="text-transform:uppercase;">${object.partner_id.company_id.name}</strong></h3>
+    </div>
+    <div style="width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
+        <span style="color: #222; margin-bottom: 5px; display: block; ">
+        % if object.partner_id.company_id.street:
+            ${object.partner_id.company_id.street}<br/>
+        % endif
+        % if object.partner_id.company_id.street2:
+            ${object.partner_id.company_id.street2}<br/>
+        % endif
+        % if object.partner_id.company_id.city or object.partner_id.company_id.zip:
+            ${object.partner_id.company_id.zip} ${object.partner_id.company_id.city}<br/>
+        % endif
+        % if object.partner_id.company_id.country_id:
+            ${object.partner_id.company_id.state_id and ('%s, ' % object.partner_id.company_id.state_id.name) or ''} ${object.partner_id.company_id.country_id.name or ''}<br/>
+        % endif
+        </span>
+        % if object.partner_id.company_id.phone:
+            <div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; ">
+                Phone:&nbsp; ${object.partner_id.company_id.phone}
+            </div>
+        % endif
+        % if object.partner_id.company_id.website:
+            <div>
+                Web :&nbsp;<a href="${object.partner_id.company_id.website}">${object.partner_id.company_id.website}</a>
+            </div>
+        %endif
+        <p></p>
+    </div>
+</div>
+            ]]></field>
+        </record>
+        
+        <record id="email_template_edi_account_x_service_trial" model="email.template">
+            <field name="name">Attivazione Servizio Test </field>
+            <field name="email_from">${(object.user_id.email or '')|safe}</field>
+            <field name="subject">${object.partner_id.company_id.name}  (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="rc_Cloudonthecloud.model_account_x_service"/>
+            <field name="auto_delete" eval="True"/>
+       <!--    <field name="report_template" ref="report_accountxservice01"/> -->   
+            <field name="report_name">${(object.name or '').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>Hello ${object.partner_id.name},</p>
+    
+    <p>Here is your ${object.state in ('draft', 'send')} from ${object.partner_id.company_id.name}: </p>
+
+    <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
+       &nbsp;&nbsp;<strong>Riferimenti</strong><br />
+       &nbsp;&nbsp;Servizio: <strong>${object.name}</strong><br />
+       % if object.amount_total:
+         Spesa Preventivata Servizio: <strong>${object.amount_total} ${object.partner_id.property_product_pricelist.currency_id.name}</strong><br />
+       % endif
+       &nbsp;&nbsp;Inizio Periodo di Prova: ${object.trial_start}<br />
+       &nbsp;&nbsp;Fine Periodo di Prova: ${object.trial_end}<br />
+       % if object.x_nod_id:
+       &nbsp;&nbsp;Nome: ${object.x_nod_id.name}<br />
+       &nbsp;&nbsp;User Id: ${object.x_nod_id.usr_nods}<br />
+       &nbsp;&nbsp;Password: ${object.x_nod_id.passwd_nods}<br />
+       &nbsp;&nbsp;Url : ${object.x_nod_id.url_nods}<br />
+       % endif
+
+       % if object.user_id:
+       &nbsp;&nbsp;Commerciale di riferimento : <a href="mailto:${object.user_id.email or ''}?subject=Order%20${object.name}">${object.user_id.name}</a>
+       % endif
+    </p>
+
+
+    <br/>
+    <p>If you have any question, do not hesitate to contact us.</p>
+    <p>Thank you for choosing ${object.partner_id.company_id.name or 'us'}!</p>
+    <br/>
+    <br/>
+    <div style="width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;">
+        <h3 style="margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;">
+            <strong style="text-transform:uppercase;">${object.partner_id.company_id.name}</strong></h3>
+    </div>
+    <div style="width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
+        <span style="color: #222; margin-bottom: 5px; display: block; ">
+        % if object.partner_id.company_id.street:
+            ${object.partner_id.company_id.street}<br/>
+        % endif
+        % if object.partner_id.company_id.street2:
+            ${object.partner_id.company_id.street2}<br/>
+        % endif
+        % if object.partner_id.company_id.city or object.partner_id.company_id.zip:
+            ${object.partner_id.company_id.zip} ${object.partner_id.company_id.city}<br/>
+        % endif
+        % if object.partner_id.company_id.country_id:
+            ${object.partner_id.company_id.state_id and ('%s, ' % object.partner_id.company_id.state_id.name) or ''} ${object.partner_id.company_id.country_id.name or ''}<br/>
+        % endif
+        </span>
+        % if object.partner_id.company_id.phone:
+            <div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; ">
+                Phone:&nbsp; ${object.partner_id.company_id.phone}
+            </div>
+        % endif
+        % if object.partner_id.company_id.website:
+            <div>
+                Web :&nbsp;<a href="${object.partner_id.company_id.website}">${object.partner_id.company_id.website}</a>
+            </div>
+        %endif
+        <p></p>
+    </div>
+</div>
+            ]]></field>
+        </record>
+        
+        <record id="email_template_edi_account_x_service_notify_expire" model="email.template">
+            <field name="name">Servizi Cloud in Scadenza - Invio  Email</field>
+            <field name="email_from">${(object.user_id.email or '')|safe}</field>
+            <field name="subject">${object.partner_id.company_id.name}  (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="rc_Cloudonthecloud.model_account_x_service_notify"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>Hello ${object.partner_id.name},</p>
+    
+    <p>Here is your ${object.state in ('draft', 'send')} from ${object.partner_id.company_id.name}: </p>
+
+    <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
+       &nbsp;&nbsp;<strong>I seguenti servizi sono in scadenza</strong><br />
+       &nbsp;&nbsp;Totale importo: <strong>${object.amount_total} ${object.partner_id.property_product_pricelist.currency_id.name}</strong><br />
+       % if object.user_id:
+       &nbsp;&nbsp;Commerciale di riferimento : <a href="mailto:${object.user_id.email or ''}?subject=Order%20${object.name}">${object.user_id.name}</a>
+       % endif
+    </p>
+    <br/>
+    %for notify in object.notify_ids:
+    <p>
+       &nbsp;&nbsp;Servizio: ${notify.x_service_id.name}<br />
+       &nbsp;&nbsp;Scadenza : ${notify.x_service_id.date_next_invoice}<br />
+       &nbsp;&nbsp;Importo : ${notify.x_service_id.amount_total}<br />
+       % if object.x_nod_id:
+       &nbsp;&nbsp;Nome: ${notify.x_service_id.x_nod_id.name}<br />
+       &nbsp;&nbsp;User Id: ${notify.x_service_id.x_nod_id.usr_nods}<br />
+       &nbsp;&nbsp;Password: ${notify.x_service_id.x_nod_id.passwd_nods}<br />
+       &nbsp;&nbsp;Url : ${notify.x_service_id.x_nod_id.url_nods}<br />
+       % endif
+    
+    </p>
+     % endfor
+
+    % if object.paypal_url:
+    <br/>
+    <p>It is also possible to directly pay with Paypal:</p>
+        <a style="margin-left: 120px;" href="${object.paypal_url}">
+            <img class="oe_edi_paypal_button" src="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"/>
+        </a>
+    % endif
+
+    <br/>
+    <p>If you have any question, do not hesitate to contact us.</p>
+    <p>Thank you for choosing ${object.partner_id.company_id.name or 'us'}!</p>
+    <br/>
+    <br/>
+    <div style="width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;">
+        <h3 style="margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;">
+            <strong style="text-transform:uppercase;">${object.partner_id.company_id.name}</strong></h3>
+    </div>
+    <div style="width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
+        <span style="color: #222; margin-bottom: 5px; display: block; ">
+        % if object.partner_id.company_id.street:
+            ${object.partner_id.company_id.street}<br/>
+        % endif
+        % if object.partner_id.company_id.street2:
+            ${object.partner_id.company_id.street2}<br/>
+        % endif
+        % if object.partner_id.company_id.city or object.partner_id.company_id.zip:
+            ${object.partner_id.company_id.zip} ${object.partner_id.company_id.city}<br/>
+        % endif
+        % if object.partner_id.company_id.country_id:
+            ${object.partner_id.company_id.state_id and ('%s, ' % object.partner_id.company_id.state_id.name) or ''} ${object.partner_id.company_id.country_id.name or ''}<br/>
+        % endif
+        </span>
+        % if object.partner_id.company_id.phone:
+            <div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; ">
+                Phone:&nbsp; ${object.partner_id.company_id.phone}
+            </div>
+        % endif
+        % if object.partner_id.company_id.website:
+            <div>
+                Web :&nbsp;<a href="${object.partner_id.company_id.website}">${object.partner_id.company_id.website}</a>
+            </div>
+        %endif
+        <p></p>
+    </div>
+</div>
+            ]]></field>
+        </record>
+        
+        <record id="email_template_edi_account_x_service_notify_trial_expire" model="email.template">
+            <field name="name">Servizi Cloud Prova in Scadenza - Invio  Email</field>
+            <field name="email_from">${(object.user_id.email or '')|safe}</field>
+            <field name="subject">${object.partner_id.company_id.name}  (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="rc_Cloudonthecloud.model_account_x_service_notify"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>Hello ${object.partner_id.name},</p>
+    
+    <p>from ${object.partner_id.company_id.name}: </p>
+
+    <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
+       &nbsp;&nbsp;<strong>${object.name}</strong><br />
+       % if object.amount_total>0:
+       &nbsp;&nbsp;Totale importo: <strong>${object.amount_total} ${object.partner_id.property_product_pricelist.currency_id.name}</strong><br />
+       % endif
+       % if object.user_id:
+       &nbsp;&nbsp;Commerciale di riferimento : <a href="mailto:${object.user_id.email or ''}?subject=Order%20${object.name}">${object.user_id.name}</a>
+       % endif
+    </p>
+    <br/>
+    %for notify in object.notify_ids:
+    <p>
+       &nbsp;&nbsp;Servizio: ${notify.x_service_id.name}<br />
+       &nbsp;&nbsp;Scadenza : ${notify.x_service_id.date_next_invoice}<br />
+       &nbsp;&nbsp;Importo : ${notify.x_service_id.amount_total}<br />
+       % if object.x_nod_id:
+       &nbsp;&nbsp;Nome: ${notify.x_service_id.x_nod_id.name}<br />
+       &nbsp;&nbsp;User Id: ${notify.x_service_id.x_nod_id.usr_nods}<br />
+       &nbsp;&nbsp;Password: ${notify.x_service_id.x_nod_id.passwd_nods}<br />
+       &nbsp;&nbsp;Url : ${notify.x_service_id.x_nod_id.url_nods}<br />
+       % endif
+    
+    </p>
+     % endfor
+
+
+    <br/>
+    <p>If you have any question, do not hesitate to contact us.</p>
+    <p>Thank you for choosing ${object.partner_id.company_id.name or 'us'}!</p>
+    <br/>
+    <br/>
+    <div style="width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;">
+        <h3 style="margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;">
+            <strong style="text-transform:uppercase;">${object.partner_id.company_id.name}</strong></h3>
+    </div>
+    <div style="width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
+        <span style="color: #222; margin-bottom: 5px; display: block; ">
+        % if object.partner_id.company_id.street:
+            ${object.partner_id.company_id.street}<br/>
+        % endif
+        % if object.partner_id.company_id.street2:
+            ${object.partner_id.company_id.street2}<br/>
+        % endif
+        % if object.partner_id.company_id.city or object.partner_id.company_id.zip:
+            ${object.partner_id.company_id.zip} ${object.partner_id.company_id.city}<br/>
+        % endif
+        % if object.partner_id.company_id.country_id:
+            ${object.partner_id.company_id.state_id and ('%s, ' % object.partner_id.company_id.state_id.name) or ''} ${object.partner_id.company_id.country_id.name or ''}<br/>
+        % endif
+        </span>
+        % if object.partner_id.company_id.phone:
+            <div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; ">
+                Phone:&nbsp; ${object.partner_id.company_id.phone}
+            </div>
+        % endif
+        % if object.partner_id.company_id.website:
+            <div>
+                Web :&nbsp;<a href="${object.partner_id.company_id.website}">${object.partner_id.company_id.website}</a>
+            </div>
+        %endif
+        <p></p>
+    </div>
+</div>
+            ]]></field>
+        </record>
+<!-- Servizi scaduti -->
+        <record id="email_template_edi_account_x_service_notify_expired" model="email.template">
+            <field name="name">Servizi Cloud Scaduti - Invio  Email</field>
+            <field name="email_from">${(object.user_id.email or '')|safe}</field>
+            <field name="subject">${object.partner_id.company_id.name}  (Ref ${object.name or 'n/a' })</field>
+            <field name="partner_to">${object.partner_id.id}</field>
+            <field name="model_id" ref="rc_Cloudonthecloud.model_account_x_service_notify"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="report_name">${(object.name or '').replace('/','_')}_${object.state == 'draft' and 'draft' or ''}</field>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html"><![CDATA[
+<div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: #FFF; ">
+
+    <p>Hello ${object.partner_id.name},</p>
+    
+    <p>from ${object.partner_id.company_id.name}: </p>
+
+    <p style="border-left: 1px solid #8e0000; margin-left: 30px;">
+       &nbsp;&nbsp;<strong>I seguenti servizi sono scaduti</strong><br />
+       &nbsp;&nbsp;Totale importo: <strong>${object.amount_total} ${object.partner_id.property_product_pricelist.currency_id.name}</strong><br />
+       % if object.user_id:
+       &nbsp;&nbsp;Commerciale di riferimento : <a href="mailto:${object.user_id.email or ''}?subject=Order%20${object.name}">${object.user_id.name}</a>
+       % endif
+    </p>
+    <br/>
+    %for notify in object.notify_ids:
+    <p>
+       &nbsp;&nbsp;Servizio: ${notify.x_service_id.name}<br />
+       &nbsp;&nbsp;Scadenza : ${notify.x_service_id.date_next_invoice}<br />
+       &nbsp;&nbsp;Importo : ${notify.x_service_id.amount_total}<br />
+       % if object.x_nod_id:
+       &nbsp;&nbsp;Nome: ${notify.x_service_id.x_nod_id.name}<br />
+       &nbsp;&nbsp;User Id: ${notify.x_service_id.x_nod_id.usr_nods}<br />
+       &nbsp;&nbsp;Password: ${notify.x_service_id.x_nod_id.passwd_nods}<br />
+       &nbsp;&nbsp;Url : ${notify.x_service_id.x_nod_id.url_nods}<br />
+       % endif
+    
+    </p>
+     % endfor
+
+    % if object.paypal_url:
+    <br/>
+    <p>It is also possible to directly pay with Paypal:</p>
+        <a style="margin-left: 120px;" href="${object.paypal_url}">
+            <img class="oe_edi_paypal_button" src="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"/>
+        </a>
+    % endif
+
+    <br/>
+    <p>If you have any question, do not hesitate to contact us.</p>
+    <p>Thank you for choosing ${object.partner_id.company_id.name or 'us'}!</p>
+    <br/>
+    <br/>
+    <div style="width: 375px; margin: 0px; padding: 0px; background-color: #8E0000; border-top-left-radius: 5px 5px; border-top-right-radius: 5px 5px; background-repeat: repeat no-repeat;">
+        <h3 style="margin: 0px; padding: 2px 14px; font-size: 12px; color: #DDD;">
+            <strong style="text-transform:uppercase;">${object.partner_id.company_id.name}</strong></h3>
+    </div>
+    <div style="width: 347px; margin: 0px; padding: 5px 14px; line-height: 16px; background-color: #F2F2F2;">
+        <span style="color: #222; margin-bottom: 5px; display: block; ">
+        % if object.partner_id.company_id.street:
+            ${object.partner_id.company_id.street}<br/>
+        % endif
+        % if object.partner_id.company_id.street2:
+            ${object.partner_id.company_id.street2}<br/>
+        % endif
+        % if object.partner_id.company_id.city or object.partner_id.company_id.zip:
+            ${object.partner_id.company_id.zip} ${object.partner_id.company_id.city}<br/>
+        % endif
+        % if object.partner_id.company_id.country_id:
+            ${object.partner_id.company_id.state_id and ('%s, ' % object.partner_id.company_id.state_id.name) or ''} ${object.partner_id.company_id.country_id.name or ''}<br/>
+        % endif
+        </span>
+        % if object.partner_id.company_id.phone:
+            <div style="margin-top: 0px; margin-right: 0px; margin-bottom: 0px; margin-left: 0px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px; ">
+                Phone:&nbsp; ${object.partner_id.company_id.phone}
+            </div>
+        % endif
+        % if object.partner_id.company_id.website:
+            <div>
+                Web :&nbsp;<a href="${object.partner_id.company_id.website}">${object.partner_id.company_id.website}</a>
+            </div>
+        %endif
+        <p></p>
+    </div>
+</div>
+            ]]></field>
+        </record>
+
+        
+        </data>
+<data noupdate="1">
+
+        <record id="x_paypal_acquirer" model="x.portal.payment.acquirer">
+            <field name="name">Paypal_Portal</field>
+            <field name="form_template"><![CDATA[
+% if object.company_id.paypal_account:
+         <a style="margin-left: 120px;" href="${object.paypal_url}">
+            <img class="oe_edi_paypal_button" src="https://www.paypal.com/en_US/i/btn/btn_paynowCC_LG.gif"/>
+        </a>
+% endif
+ 
+            ]]></field>
+        </record>
+        <record id="x_portal_domain" model="x.portal.domain">
+            <field name="name">Domain_Portal</field>
+            <field name="partner_id">1</field>
+            <field name="form_domain"><![CDATA[
+% if object.company_id.x_url_domain:
+         <a style="margin-left: 120px;" href="${object.company_id.x_url_domain}">
+            Acquisisci Dominio: ${object.company_id.x_url_domain}
+        </a>
+% endif
+ 
+            ]]></field>
+        </record>
+        
+    
+</data>
+
+    <data>
+        <record id="x_acquirer_form" model="ir.ui.view">
+            <field name="model">x.portal.payment.acquirer</field>
+            <field name="arch" type="xml">
+                <form string="Payment Acquirer" version="7.0">
+                    <group col="1">
+                        <div class="oe_title">
+                          <label for="name" class="oe_edit_only"/><h1><field name="name"/></h1>
+                          <div class="oe_edit_only"><field name="visible"/><label for="visible"/></div>
+                        </div>
+                        <group string="Form Template">
+                            <div>
+                                <p>
+                                This is an HTML form template to submit a payment through this acquirer.
+                                The template will be rendered with <a href="http://www.makotemplates.org/" target="_blank">Mako</a>, so it may use Mako expressions.
+                                The Mako evaluation context provides:
+                                <ul>
+                                    <li>reference: the reference number of the document to pay</li>
+                                    <li>kind: the kind of document on which the payment form is rendered (translated to user language, e.g. "Invoice")</li>
+                                    <li>currency: the currency record in which the document is issued (e.g. currency.name could be EUR)</li>
+                                    <li>amount: the total amount to pay, as a float</li>
+                                    <li>object: the document on which the payment form is rendered (usually an invoice or sales order record)</li>
+                                    <li>quote(): a method to quote special string character to make them suitable for inclusion in a URL</li>
+                                    <li>cr: the current database cursor</li>
+                                    <li>uid: the current user id</li>
+                                    <li>ctx: the current context dictionary</li>
+                                </ul>
+                                If the template renders to an empty result in a certain context it will be ignored, as if it was inactive.
+                                </p>
+                            </div>
+                            <field name="form_template" nolabel="1" colspan="2"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="x_acquirer_list" model="ir.ui.view">
+            <field name="model">x.portal.payment.acquirer</field>
+            <field name="arch" type="xml">
+                <tree string="Payment Acquirers">
+                    <field name="name"/>
+                    <field name="visible"/>
+                </tree>
+            </field>
+        </record>
+        <record id="acquirer_search" model="ir.ui.view">
+            <field name="model">x.portal.payment.acquirer</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <!--  Acquirers list action is visible in Invoicing Settings  -->
+        <record model="ir.actions.act_window" id="action_acquirer_list">
+            <field name="name">Payment Acquirers</field>
+            <field name="res_model">x.portal.payment.acquirer</field>
+        </record>
+<!-- inizio 29-10-2014 rocco cesetti -->
+        <record id="x_portal_domain_form" model="ir.ui.view">
+            <field name="model">x.portal.domain</field>
+            <field name="arch" type="xml">
+                <form string="Acquisizione domini" version="7.0">
+                    <group col="1">
+                        <div class="oe_title">
+                          <label for="name" class="oe_edit_only"/><h1><field name="name"/></h1>
+                          <div class="oe_edit_only"><field name="visible"/><label for="visible"/></div>
+                        </div>
+                        <group string="Form Template">
+                            <div>
+                                <p>
+                                This is an HTML form template to submit a payment through this acquirer.
+                                The template will be rendered with <a href="${object.company.x_url_domain}" target="_blank">${object.company.x_url_doamin}</a>, so it may use Mako expressions.
+                                The Mako evaluation context provides:
+                                <ul>
+                                    <li>reference: the reference number of the document to pay</li>
+                                    <li>kind: the kind of document on which the payment form is rendered (translated to user language, e.g. "Invoice")</li>
+                                    <li>currency: the currency record in which the document is issued (e.g. currency.name could be EUR)</li>
+                                    <li>amount: the total amount to pay, as a float</li>
+                                    <li>object: the document on which the payment form is rendered (usually an invoice or sales order record)</li>
+                                    <li>quote(): a method to quote special string character to make them suitable for inclusion in a URL</li>
+                                    <li>cr: the current database cursor</li>
+                                    <li>uid: the current user id</li>
+                                    <li>ctx: the current context dictionary</li>
+                                </ul>
+                                If the template renders to an empty result in a certain context it will be ignored, as if it was inactive.
+                                </p>
+                            </div>
+                            <field name="partner_id" />
+                            <field name="form_domain" />
+                            <field name="domain" />
+                            <field name="x_url_domain_option" />        
+                            </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="x_portal_domain_form_2" model="ir.ui.view">
+            <field name="model">x.portal.domain</field>
+            <field name="arch" type="xml">
+                <form string="Acquisizione domini" version="8.0">
+                    <group col="1">
+                        <div class="oe_title">
+                          <h2><field name="state"/></h2>
+                        </div>
+                        <group string="Acquisizione Dominio">
+                            <field name="partner_id" 
+                                 on_change="partner_id_change(partner_id, context)"
+                                 domain="[('customer','=',True)]"
+                                 />
+							<field name="name" invisible="1"/>
+                             <field name="form_domain" invisible="1"/>
+                            <field name="domain" invisible="1"/>
+                            </group>
+                        <group string="Domini" >
+                        	<button name="confirm_dummy" string="APRI LINK" type="object" class="oe_highlight"/>
+                         </group>
+                        <group string="Link" >
+                            <field name="x_url_domain_option" />        
+                            <field name="message"  invisible="1"/>        
+                         </group>
+                        </group>
+                    <footer>
+                        <button name="request_url_post" string="Invia Richiesta" states="nessuno" type="object" class="oe_highlight"/>
+                        <button name="confirm_url_post" string="Compra" type="object" states="nessuno" class="oe_highlight"/>
+
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="x_portal_domain_list" model="ir.ui.view">
+            <field name="model">x.portal.domain</field>
+            <field name="arch" type="xml">
+                <tree string="Portla Domain">
+                     <field name="name"/>
+                     <field name="partner_id"/>
+                     <field name="domain"/>
+                    </tree>
+            </field>
+        </record>
+        <record id="x_portal_domain_search" model="ir.ui.view">
+            <field name="model">x.portal.domain</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="domain"/>
+                </search>                   
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_x_portal_domain_list">
+            <field name="name">Portal domain</field>
+            <field name="res_model">x.portal.domain</field>
+            <field name="view_id" ref="x_portal_domain_form_2"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="x_portal_domain_search"/>
+        </record>
+        <menuitem
+            action='action_x_portal_domain_list'
+            id='action_x_portal_domain_list_menu'
+            parent='menu_cloudonthecloud_main'
+            sequence='20' />
+        
+<!-- fine 29-10-2014 rocco cesetti -->
+
+    </data>
+
+
+</openerp>

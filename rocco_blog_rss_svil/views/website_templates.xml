@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_website_form_mm" model="ir.ui.view">
+            <field name="name">website.form</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_form"/>
+            <field name="arch" type="xml">
+                <field name="default_lang_id" position="after">
+                      <field name="menu_id" />
+                </field>
+            </field>
+        </record>
+        <record id="view_website_tree_mm" model="ir.ui.view">
+            <field name="name">website.tree</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_tree"/>
+            <field name="arch" type="xml">
+                <field name="default_lang_id" position="after">
+                      <field name="menu_id" />
+                </field>
+            </field>
+        </record>
+
+        <record id="main_menu_mm" model="website.menu">
+            <field name="name">Menu moda marche</field>
+            <field name="url">/page/site_mm</field>
+            <field name="sequence" type="int">100</field>
+            <field name="parent_id" ref="website.main_menu"/>
+        </record>
+
+        <record id="menu_homepage_mm" model="website.menu">
+            <field name="name">home_mm</field>
+            <field name="url">/page/site_mm/homepage</field>
+            <field name="parent_id" ref="main_menu_mm"/>
+            <field name="sequence" type="int">110</field>
+        </record>
+
+        <record id="menu_contactus_mm" model="website.menu">
+            <field name="name">Contact us mm</field>
+            <field name="url">/page/site_mm/contactus</field>
+            <field name="parent_id" ref="main_menu_mm"/>
+            <field name="sequence" type="int">160</field>
+        </record>
+        <record id="menu_shop_mm" model="website.menu">
+            <field name="name">shop mm</field>
+            <field name="url">/page/site_mm/shop</field>
+            <field name="parent_id" ref="main_menu_mm"/>
+            <field name="sequence" type="int">120</field>
+        </record>
+        <record id="action_open_website_mm" model="ir.actions.act_url">
+            <field name="name">Website Shop</field>
+            <field name="target">self</field>
+            <field name="url">/page/site_mm/shop_mm#tutorial.shop=true</field>
+        </record>
+        <record id="marchemoda_website" model="website">
+            <field name="name">www.marchemoda.it</field>
+            <field name="company_id" eval="4" />
+            <field name="language_ids" eval="[(6, 0, [ ref('base.lang_en')])]"/>
+            <field name="default_lang_id" ref="base.lang_en"/>
+            <field name="user_id" ref="base.public_user"/>
+            <field name="menu_id" ref="main_menu_mm"/>
+        </record>
+    </data>
+    <data>
+    <template id="rocco_blog_rss_icon" inherit_id="website.footer_default" name="RSS Icon">
+        <xpath expr="//h2" position="inside">
+            <!-- <a href="/blog/product/post"><i class="fa fa-rss"/></a> -->            
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 1)">Feed 100</a>
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 2)">Feed 200</a>
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 3)">Feed 300</a>
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 4)">Feed 400</a>
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 5)">Feed 500</a>
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 6)">Feed >500</a>
+         </xpath>
+    </template>
+<!--
+        <template id="shop_mm" inherit_id="website_sale.assets_frontend">
+  		<xpath expr="." position="inside">
+            <title>Moda Marche shop</title>
+         </xpath>
+       </template>
+	<template id="homepage_site_mm" name="Homepage_mm" inherit_id="website.homepage" >
+  		<xpath expr="." position="inside">
+            <title>Moda Marche</title>
+        </xpath>
+	</template>
+<template id="homepage_site_mm_1" name="Homepage_mm">
+    <t t-call="website.layout">
+      <div id="wrap_mm" class="oe_structure"></div>
+        <div class="container">
+            <title>Benvenuti su modamarche.it</title>
+                 <p><t t-esc="company"/></p>
+                 <p><t t-esc="res_company"/></p>
+        </div>
+      </t>
+  </template>
+
+ <template id="company_description_site_mm" name="Company Description" inherit_id="website.company_description" >
+  		<xpath expr="." position="inside">
+            <title>Moda Marche</title>
+        </xpath>
+</template>
+-->
+<template id="layout_logo_show_mm" inherit_id="website.layout" customize_show="True" name="Show Logo mm">
+    <xpath expr="//header//a[@class='navbar-brand logo']" position="replace">
+        <t t-if="res_company.id == 1" >
+            <a href="/" class="navbar-brand logo">
+                <img t-att-src="'/logo_2.png?company_id=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+            </a>
+        </t>
+        <t t-if="res_company.id != 1" >
+            <a href="/page/site_mm" class="navbar-brand logo">
+            	<img t-att-src="'/logo_2.png?company_id=%s' % res_company.id" t-att-alt="'Logo of %s' % res_company.name" t-att-title="res_company.name"/>
+            </a>
+        </t>
+    </xpath>
+</template>
+<template id="homepage_mm" name="Homepage" page="True" priority="29">
+    <t t-call="website.layout">
+      <div id="wrap" class="oe_structure oe_empty"></div>
+    </t>
+</template>
+<template id="contactus_mm" name="Contact us" page="True">
+    <t t-call="website.layout">
+      <div id="wrap">
+        <div class="oe_structure"/>
+        <div class="container">
+            <h1>Contact us</h1>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="oe_structure">
+                        <div>
+                            <p>Contact us about anything related to our company or services.</p>
+                            <p>We'll do our best to get back to you as soon as possible.</p>
+                        </div>
+                    </div>
+                    <div class="text-center mt64" name="mail_button">
+                        <a t-attf-href="mailto:{{ res_company.email }}" class="btn btn-primary">Send us an email</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb32">
+                    <div groups="base.group_website_publisher" t-ignore="true" class="pull-right css_editable_mode_hidden" t-att-style="style or ''">
+                        <a class="btn btm-sm btn-default" t-att-href="'/web#return_label=Website&amp;model=%s&amp;id=%s' % (res_company._name, res_company.id)">Change address</a>
+                    </div>
+                    <t t-call="website.company_description"/>
+                </div>
+            </div>
+        </div>
+        <div class="oe_structure"/>
+      </div>
+    </t>
+</template>
+<template id="aboutus_mm" name="About us" page="True" >
+    <t t-call="website.aboutus">
+      <div id="wrap" class="oe_structure oe_empty"></div>
+    </t>
+</template>
+
+
+ 
+ <!-- Product Variants Template -->
+ <template id="variants_rocco" inherit_id="website_sale.product_variants">
+            <xpath expr="//span[contains(@t-esc, 'variant_id.name_get()[0][1]')]" position="replace">
+      				<t t-foreach="variant_id.attribute_value_ids" t-as="variant_id_1">
+
+          					<span t-field="variant_id_1.attribute_id.name"/>:<span t-field="variant_id_1.name"/> <br/>
+      				</t>
+
+           </xpath>
+
+
+</template>
+ 
+ 
+    </data>
+</openerp>

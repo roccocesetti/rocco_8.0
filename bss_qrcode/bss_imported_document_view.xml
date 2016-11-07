@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<!-- Form view -->
+		<record model="ir.ui.view" id="view_bss_qrcode_imported_document_form">
+	        <field name="name">Imported document</field>
+	        <field name="model">bss_qrcode.imported_document</field>
+	        <field name="arch" type="xml">
+	        	<form create="false" edit="false" string="Imported document" version="7.0"> 
+	        		<header>
+						<button name="action_processed" string="Processed" type="object" states="unprocessed" class="oe_highlight"/>
+						<button name="action_unprocessed" string="Unprocessed" type="object" states="processed" />
+						<field name="state" widget="statusbar" readonly="1" />
+	        		</header>
+		        	<sheet>
+		        		<label for="filename"/>
+	               		<field name="filename"/>
+	               		<label for="import_id"/>
+	               		<field name="import_id"/>
+	               		<label for="status"/>
+						<field name="status"/>
+						<label for="message"/>
+	               		<field name="message"/>
+	               		<label for="qrcode_create_date"/>
+	               		<field name="qrcode_create_date"/>
+	               		<label for="oe_object"/>
+	               		<field name="oe_object"/>
+	               		<label for="report"/>
+	               		<field name="report"/>
+					</sheet>
+				</form>
+	        </field>
+    	</record>
+    
+    	<!-- Tree view -->
+		<record model="ir.ui.view" id="view_bss_qrcode_imported_document_tree">
+	        <field name="name">Imported document</field>
+	        <field name="model">bss_qrcode.imported_document</field>
+            <field name="arch" type="xml">
+            	<tree colors="darkgreen:status=='success';darkred:status=='fail';darkred:status=='not_found'" create="false" edit="false" string="Imported document" version="7.0">
+               		<field name="filename" />
+               		<field name="import_id" />
+					<field name="status" />
+					<field name="state" />			               		
+               		<field name="message" />
+               		<field name="qrcode_create_date" />
+               		<field name="oe_object" />
+               		<field name="report" />
+                </tree>
+        	</field>
+		</record>
+		
+		<!-- Filter view -->
+		<record model="ir.ui.view" id="view_bss_qrcode_imported_document_filter">
+            <field name="name">Imported document</field>
+            <field name="model">bss_qrcode.imported_document</field>
+            <field name="arch" type="xml">
+                <search string="Imported document">
+                    <field name="status" string="Status"/>
+                    <field name="import_id" string="Import"/>
+                    <field name="filename" string="Filename"/>
+                    <filter 
+                    	name="Unsuccess"
+		                string="Unsuccess"
+		                domain="[('status','!=','success')]" 
+		                help="Failed or not found QR Code"/>
+                </search>
+             </field>
+         </record>
+	    
+	    <!-- Actions -->
+		<record model="ir.actions.act_window" id="action_bss_qrcode_imported_document_form">
+	    	<field name="name">Imported document</field>
+	        <field name="res_model">bss_qrcode.imported_document</field>
+	        <field name="view_mode">tree,form</field>
+	        <field name="context">{'search_default_import_id': import_id, 'search_default_status': status}</field>
+	    </record>
+
+	</data>
+</openerp>

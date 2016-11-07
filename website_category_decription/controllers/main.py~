@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+
+import base64
+
+import werkzeug
+import werkzeug.urls
+
+from openerp import http, SUPERUSER_ID
+from openerp.http import request
+from openerp.tools.translate import _
+from openerp.addons.website_sale.controllers.main import website_sale
+
+
+class website_sale(website_sale):
+
+    @http.route()
+    def shop(self, page=0, category=None, search='', **post):
+        res=super(website_sale, self).shop(page, category, search, **post)
+        data=res.qcontext
+        if category:
+            res.qcontext.update({'display_categ_desc': True})
+        return res
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

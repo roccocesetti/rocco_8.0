@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="stock_move_kanban_view_heartwood" model="ir.ui.view">
+            <field name="name">stock.move.kanban</field>
+            <field name="model">stock.move</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="product_id"/>
+                    <field name="x_image"/>
+                    <field name="location_id"/>
+                    <field name="location_dest_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_vignette oe_semantic_html_override">
+                                <a type="open"><img t-att-src="kanban_image('stock.move', 'x_image', record.id.value)" class="oe_kanban_image"/></a>
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open">
+                                             <span t-if="record.product_id">
+                                                 [<field name="product_id"/>]
+                                              </span>
+                                         </a>
+                                    </h4>
+                                    <ul>
+                                        <li><field name="state" invisible="1"/></li>
+                                        <li>qtà: <field name="product_qty"></field></li>
+                                        <li>PARTENZA: <field string="PARTENZA"  name="location_id"></field></li>
+                                        <li>ARRIVO: <field string="ARRIVO" name="location_dest_id"></field></li>
+                    <li><button name="action_done" string="Conferma movimento"  states="draft,assigned,confirmed" icon="gtk-go-forward" type="object" groups="stock.group_stock_user" class="oe_highlight" help="Done"/>
+                    </li>             
+                   <li><button name="376" string="Scrap Products" type="action" icon="terp-gtk-jump-to-ltr" context="{'scrap': True}" states="draft,waiting,confirmed,assigned" groups="stock.group_stock_user"/>
+                    </li>
+                    </ul>
+                                
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="view_stock_move_tree_heartwood" model="ir.ui.view">
+            <field name="name">stock.move.tree.heartwood</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree_receipt_picking"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="replace">
+                      <field name="origin" invisible="1"/>
+
+                </field>
+                <!--
+                <field name="partner_id" position="replace">
+                      <field name="partner_id" invisible="1"/>
+
+                </field>
+                -->
+                <field name="product_id" position="after">
+                      <field name="x_image" widget="image" class="oe_avatar oe_left"/>
+
+                </field>
+                <field name="location_dest_id" position="replace">
+                      <field string="ARRIVO" name="location_dest_id" groups="stock.group_stock_user" invisible="0"/>
+
+                </field>
+                <field name="location_id" position="replace">
+                      <field string="PARTENZA" name="location_id" groups="stock.group_stock_user" invisible="0"/>
+
+                </field>
+            </field>
+        </record>
+        <record id="view_stock_picking_form_heartwood" model="ir.ui.view">
+            <field name="name">stock.picking.form.heartwood</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="warning.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="attributes">
+                    <attribute name="on_change">user_id_change(partner_id,x_user_id)</attribute>
+                </field>
+                 <field name="picking_type_id" position="replace">
+             	 </field>
+                  <field name="origin" position="after">
+                     		<field name="x_user_id" on_change="user_id_change(partner_id,x_user_id,context)"/>             	 
+                     		<field name="picking_type_id"  />
+                  </field>
+            </field>
+        </record>
+        <record id="view_partner_form_heartwood" model="ir.ui.view">
+            <field name="name">res.partner.form.heartwood</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="stock.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                 <field name="property_stock_supplier" position="after">
+                            <field name="x_property_stock_internal"/>
+            	</field>
+            </field>
+        </record>
+        <record id="view_users_tree_heartwood" model="ir.ui.view">
+            <field name="name">res.users.tree.heartwood</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree"/>
+            <field name="arch" type="xml">
+                 <field name="login_date" position="after">
+                            <field name="x_location_id"/>
+            	</field>
+            </field>
+        </record>
+        <record id="view_users_form_heartwood" model="ir.ui.view">
+            <field name="name">res.users.form.heartwood</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <notebook colspan="4" position="inside">
+                    <page string="heartwood">
+                        <group>
+                            <field name="x_location_id"/>
+                            <field name="x_picking_type_ids" widget="many2many_tags"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+        <record id="quant_search_view_heartwood" model="ir.ui.view">
+            <field name="name">sstock.quant.search.heartwood</field>
+            <field name="model">stock.quant</field>
+            <field name="inherit_id" ref="stock.quant_search_view"/>
+            <field name="arch" type="xml">
+                <filter name="internal_loc" position="after">
+                         <filter name='external_loc' string="Clienti" domain="[('location_id.usage','=', 'customer')]"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="action_view_res_user_form_heartwood" model="ir.actions.act_window">
+            <field name="name">Utenti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            </record>
+        <record id="action_view_heartwood_entrata_merce" model="ir.actions.act_window">
+            <field name="name">Entrata Merce</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('picking_type_id.code','=','incoming'),('picking_type_id.code','=','internal')]</field>
+            <field name="context">{'default_type': 'in', 'contact_display': 'partner_address', 'search_default_to_invoice': 1, 'search_default_done': 1}</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+        </record>
+        <record id="action_view_heartwood_uscita_merce" model="ir.actions.act_window">
+            <field name="name">Uscita Merce</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[('picking_type_id.code','=','outgoing'),('picking_type_id.code','=','internal')]</field>
+            <field name="context">{'default_type': 'out', 'contact_display': 'partner_address'}</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+        </record>
+        <record id="action_view_heartwood_ddt_out" model="ir.actions.act_window">
+            <field name="name">DDT OUT</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[]</field>
+            <field name="context">{'default_type': 'out', 'contact_display': 'partner_address',}</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+        </record>
+        <record id="action_view_heartwood_ddt_in" model="ir.actions.act_window">
+            <field name="name">DDT IN</field>
+            <field name="res_model">stock.picking</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+            <field name="domain">[]</field>
+            <field name="context">{'default_type': 'in', 'contact_display': 'partner_address',}</field>
+            <field name="search_view_id" ref="stock.view_picking_internal_search"/>
+        </record>
+        <record id="action_view_heartwood_merce_in_transito" model="ir.actions.act_window">
+            <field name="name">Merce in Transito</field>
+            <field name="res_model">stock.move</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <!-- <field name="domain">[('picking_id.picking_type_id.code', '=', 'internal'), ('location_id.usage', '=', 'internal'), ('location_dest_id.usage', '=', 'internal')]</field> -->
+            <field name="domain">[('picking_id.state','=','confirmed')]</field>
+
+            <field name="context">{'product_receive': True, 'search_default_future': True}</field>
+            <field name="view_id" ref="view_stock_move_tree_heartwood"/>
+        </record>
+        <record id="action_view_heartwood_type_operation" model="ir.actions.act_window">
+            <field name="name">Tipi operazione</field>
+            <field name="res_model">stock.picking.type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_view_heartwood_quant" model="ir.actions.act_window">
+            <field name="name">Tracciabilità</field>
+            <field name="res_model">stock.quant</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem
+        id="menu_view_heartwood"
+        sequence="0" name="heartwood "/>
+        <menuitem
+        id="menu_view_sub_heartwood"
+        parent="heartwood.menu_view_heartwood" sequence="10"  groups="heartwood.heartwood_manager,heartwood.heartwood_user" name="-heartwood-"/>
+        <menuitem
+        id="menu_view_uscita_heartwood"
+        action="action_view_heartwood_uscita_merce"
+        parent="heartwood.menu_view_sub_heartwood" sequence="30"  groups="stock.group_stock_manager,stock.group_stock_user" name="Uscita merce"/>
+        <menuitem
+        id="menu_view_entrata_heartwood"
+        action="action_view_heartwood_entrata_merce"
+        parent="heartwood.menu_view_sub_heartwood" sequence="20"  groups="stock.group_stock_manager,stock.group_stock_manager" name="Entrata merce"/>
+        <menuitem
+        id="menu_view_merce_in_transito_heartwood"
+        action="action_view_heartwood_merce_in_transito"
+        parent="heartwood.menu_view_sub_heartwood" sequence="40"  groups="stock.group_stock_manager,stock.group_stock_user" name="Merci in Transito"/>
+		<menuitem
+        id="menu_view_ddt_heartwood_out"
+        action="action_view_heartwood_ddt_out"
+        parent="heartwood.menu_view_sub_heartwood" sequence="50"  groups="stock.group_stock_manager,stock.group_stock_user" name="Picking out"/>
+		<menuitem
+        id="menu_view_ddt_heartwood_in"
+        action="action_view_heartwood_ddt_in"
+        parent="heartwood.menu_view_sub_heartwood" sequence="60"  groups="stock.group_stock_manager,stock.group_stock_user" name="Picking in"/>
+		<menuitem
+        id="menu_view_quant_heartwood"
+        action="action_view_heartwood_quant"
+        parent="heartwood.menu_view_sub_heartwood" sequence="70"  groups="stock.group_stock_manager,stock.group_stock_user" name="Tracciatura"/>
+               <menuitem
+        id="menu_view_operazioni_heartwood"
+        action="action_view_heartwood_type_operation"
+        parent="heartwood.menu_view_sub_heartwood" sequence="100"  groups="stock.group_stock_manager" name="tipi di operazione"/>
+        
+        <menuitem
+        action="base.action_res_users"
+        id="menu_view_res_user_form_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" sequence="110"  groups="base.group_system"/>
+         
+        <record id="view_key_heartwood_form" model="ir.ui.view">
+            <field name="name">rc.stock.key.form</field>
+            <field name="model">rc.stock.key</field>
+            <field name="arch" type="xml">
+                <form string="UserKey e ApiKey modulo magazzino" version="7.0">
+                    <group>
+                        <field name="apiuser"/>
+                    	<field name="apikey"/>
+                   </group>
+                    <footer>
+                   </footer>
+                </form>
+            </field>
+        </record>      
+        <record id="view_key_heartwood_tree" model="ir.ui.view">
+            <field name="name">rc.stock.key.tree</field>
+            <field name="model">rc.stock.key</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="UserKey e ApiKey modulo magazzino">
+                    <field name="apiuser"/>
+                    <field name="apikey"/>
+                 </tree>
+            </field>
+        </record>
+       <record id="action_view_key_stock_heartwood" model="ir.actions.act_window">
+            <field name="name">usr e apikey modulo produzione </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rc.stock.key</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+               
+        <menuitem
+        action="action_view_key_stock_heartwood"
+        id="menu_view_key_stock_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" 
+        groups="heartwood.heartwood_manager"  sequence="100"/>
+
+
+        <record id="view_product_import_heartwood" model="ir.ui.view">
+            <field name="name">Import Product</field>
+            <field name="model">product.import</field>
+            <field name="arch" type="xml">
+                <form string="Importazione Prodotti" >
+                    <group>
+                        <field name="name" />
+                        <field name="data"/>
+                        <field name="overwrite"/>
+                        <field name="tax_id"/>
+                        <field name="tax_id_acq"/>
+                        <field name="uom_id"/>
+                        <field name="row_ini"/>
+                        <field name="rows"/>
+                      </group>
+					<ul>
+                    <li>Inserire nel foglio a partire dalla cella A1,A2,A3 MARCA,FORNITORE,CATEGORIA</li>
+                    </ul>
+                    <footer>
+                        <button name="import_product" string="_Import" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_product_import_heartwood" model="ir.actions.act_window">
+            <field name="name">Importa Schede prodotto</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.import</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+        action="action_view_product_import_heartwood"
+        id="menu_view_product_import_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" groups="heartwood.heartwood_manager"  sequence="110"/>
+
+        <record id="action_view_product_temp_heartwood" model="ir.actions.act_window">
+            <field name="name">Modelli/Prodotti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <menuitem
+        action="action_view_product_temp_heartwood"
+        id="menu_view_product_temp_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" groups="heartwood.heartwood_manager"  sequence="120"/>
+        
+        <record id="action_view_product_var_heartwood" model="ir.actions.act_window">
+            <field name="name">varianti prodotto</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <menuitem
+        action="action_view_product_var_heartwood"
+        id="menu_view_product_var_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" groups="heartwood.heartwood_manager"  sequence="130"/>
+        
+        <record id="action_view_product_attr_heartwood" model="ir.actions.act_window">
+            <field name="name">Attributi </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.attribute</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+        action="action_view_product_attr_heartwood"
+        id="menu_view_product_attr_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" groups="heartwood.heartwood_manager"  sequence="140"/>
+        
+        <record id="action_view_product_attr_value_heartwood" model="ir.actions.act_window">
+            <field name="name">Valore Attributi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.attribute.value</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+        action="action_view_product_attr_value_heartwood"
+        id="menu_view_product_value_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" groups="heartwood.heartwood_manager"  sequence="150"/>
+        
+        <record id="action_view_product_attr_line_heartwood" model="ir.actions.act_window">
+            <field name="name">modello Valore Attributi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.attribute.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+        action="action_view_product_attr_line_heartwood"
+        id="menu_view_product_attr_line_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" groups="heartwood.heartwood_manager"  sequence="160"/>
+
+        <record id="product_product_tree_view_heartwood" model="ir.ui.view">
+            <field name="name">hw varianti prodotto</field>
+            <field name="model">product.product</field>
+            <field name="arch" type="xml">
+			 <tree string="Varianti" editable="top" >
+                    <field name="default_code"/>
+                    <field name="name"/>
+                    <field name="attribute_value_ids" widget="many2many_tags" />
+                    <field name="lst_price" invisible="1"/>
+                    <field name="price" invisible="not context.get('pricelist',False)" />
+                    <field name="uom_id" invisible="1"/>
+                    <field name="ean13" invisible="1"/>
+                    <field name="image"/>
+                    <field name="state" invisible="1"/>
+                    <field name="product_tmpl_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_product_product_tree_view_heartwood" model="ir.actions.act_window">
+            <field name="name">Inserimento foto prodotti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_id" ref="product_product_tree_view_heartwood"/>
+        </record>
+        <menuitem
+        action="action_product_product_tree_view_heartwood"
+        id="menu_product_product_tree_view_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" groups="heartwood.heartwood_manager"  sequence="170"/>
+
+        <record model="ir.ui.view" id="view_company_inherit_form">
+            <field name="name">res.company.form.heartwood</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Heartwood" position="inside">
+                        <separator string="Heartwood" colspan="4"/>
+                        <group string="Parametri per la Riconciliazione">
+                        <field name="x_pubblico_id"   colspan ="2"/>
+                        <field name="x_ingrosso_id" colspan ="2"/>
+                        <field name="x_costo_id" colspan ="2"/>
+                        <field name="x_iva_acq_id" colspan ="2"/>
+                        <field name="x_iva_ven_id" colspan="2"/>
+                        <field name="x_uom_id" colspan ="2"/>
+                        <field name="x_row_ini" colspan ="2"/>
+                        <field name="x_row_fin" colspan ="2"/>
+                  		</group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+        <record id="product_product_tree_view_heartwood_2" model="ir.ui.view">
+            <field name="name">product.product.tree.heartwood</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                	<field name="lst_price" position="replace">
+                    	<field name="pubblico_default"/>
+                    	<field name="ingrosso_default"/>
+                    	<field name="costo_default"/>
+                	</field>
+            </field>
+        </record>
+        <record id="product_product_kanban_view_heartwood" model="ir.ui.view">
+            <field name="name">product.product.kanban.heartwood</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_kanban_view"/>
+            <field name="arch" type="xml">
+                	<field name="lst_price" position="replace">
+                    	<field name="pubblico_default"/>
+                    	<field name="ingrosso_default"/>
+                    	<field name="costo_default"/>
+                	</field>
+                <xpath expr="//ul/li/field[@name='lst_price']" position="replace">
+                    	Pubblico:<field name="pubblico_default"/>
+                    	Ingrosso:<field name="ingrosso_default"/>
+                    	Costo:<field name="costo_default"/>
+            	</xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,12 @@
+
+from openerp import api, fields, models
+from openerp.models import Model
+
+class product_public_category(Model):
+    _inherit = "product.public.category"
+
+    description = fields.Html('Description for Category', translate=True)
+
+product_public_category()
+
+

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+          <report auto="False" 
+            id="rocco_ext_banca_distinta_bancaria_print" 
+            model="riba.distinta" 
+            name="rocco_ext_banca.distinta.bancaria.print"  
+            file="rocco_ext_banca/report/distinta_bancaria.mako" 
+            string="Distinta Bancaria" report_type="webkit" />
+          
+</data>
+</openerp>
+
+

@@ -1,0 +1,190 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * bss_qrcode
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-04 07:24+0000\n"
+"PO-Revision-Date: 2014-04-04 09:36+0200\n"
+"Last-Translator: Mourad <mourad.bengmah@blues2.ch>\n"
+"Language-Team: \n"
+"Language: fr_CH\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Pootle 2.5.0\n"
+"X-POOTLE-MTIME: 1396597004.0\n"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.import,terminated:0
+msgid "Terminated"
+msgstr "Terminé"
+
+#. module: bss_qrcode
+#: model:ir.model,name:bss_qrcode.model_bss_qrcode_success
+msgid "Successfully imported files"
+msgstr "Documents importés avec succès"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.qrcode,oe_id:0
+msgid "Openerp id"
+msgstr "Identifiant OpenERP"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,filename:0
+#: field:bss_qrcode.qrcode,filename:0
+msgid "Filename"
+msgstr "Nom du fichier"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,oe_version:0
+msgid "Version"
+msgstr "Version"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,import_id:0
+msgid "Imported date"
+msgstr "Date d'importation"
+
+#. module: bss_qrcode
+#: selection:bss_qrcode.imported_document,status:0
+msgid "QR Code not found"
+msgstr "QR Code non trouvé"
+
+#. module: bss_qrcode
+#: model:ir.model,name:bss_qrcode.model_bss_qrcode_qrcode
+msgid "QR Code generation and files association"
+msgstr "Génération de QR Code et association de fichiers"
+
+#. module: bss_qrcode
+#: model:ir.model,name:bss_qrcode.model_bss_qrcode_import
+msgid "Imported files by xmlrpc"
+msgstr "Importation"
+
+#. module: bss_qrcode
+#: view:bss_qrcode.import:0
+#: model:ir.actions.act_window,name:bss_qrcode.action_bss_qrcode_import_form
+msgid "Import"
+msgstr "Importation"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.import,identifier:0
+msgid "Identifier from java"
+msgstr "Identifiant provenant de Java"
+
+#. module: bss_qrcode
+#: view:bss_qrcode.import:0
+msgid "All documents"
+msgstr "Tous les documents"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.import,status:0
+#: field:bss_qrcode.imported_document,status:0
+msgid "Status"
+msgstr "Statut"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.qrcode,server_id:0
+msgid "Server id"
+msgstr "Identifiant du serveur"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,qrcode_create_date:0
+msgid "First downloaded date"
+msgstr "Date du premier téléchargement"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,oe_object:0
+msgid "Object"
+msgstr "Objet"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.qrcode,oe_version:0
+msgid "Openerp version"
+msgstr "Version d'OpenERP"
+
+#. module: bss_qrcode
+#: model:ir.model,name:bss_qrcode.model_bss_qrcode_imported_document
+msgid "Imported QR Code documented"
+msgstr "Documents avec QR Code importés"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,user_id:0
+#: field:bss_qrcode.qrcode,user_id:0
+msgid "User id"
+msgstr "Identifiant de l'utilisateur"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,report:0
+#: field:bss_qrcode.qrcode,report:0
+msgid "Report"
+msgstr "Rapport"
+
+#. module: bss_qrcode
+#: model:ir.model,name:bss_qrcode.model_bss_qrcode_fail
+msgid "Failed imported files"
+msgstr "Documents importés échoués"
+
+#. module: bss_qrcode
+#: selection:bss_qrcode.import,status:0
+msgid "All documents succeed"
+msgstr "Tous les documents réussis"
+
+#. module: bss_qrcode
+#: selection:bss_qrcode.imported_document,status:0
+msgid "Success"
+msgstr "Succès"
+
+#. module: bss_qrcode
+#: model:ir.model,name:bss_qrcode.model_bss_qrcode_qrcode_not_found
+msgid "Imported files where QR Code were not found"
+msgstr "Documents importés où le QR Code n'a pas été trouvé"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.import,create_date:0
+#: field:bss_qrcode.qrcode,create_date:0
+msgid "Date created"
+msgstr "Date de création"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.import,imported_document_ids:0
+msgid "Imported documents"
+msgstr "Documents importés"
+
+#. module: bss_qrcode
+#: selection:bss_qrcode.import,status:0
+msgid "At least one failed document"
+msgstr "Au moins un document échoué"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.qrcode,oe_object:0
+msgid "Openerp object"
+msgstr "Objet OpenERP"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,qrcode_id:0
+msgid "File"
+msgstr "Fichier"
+
+#. module: bss_qrcode
+#: selection:bss_qrcode.imported_document,status:0
+msgid "Fail"
+msgstr "Échoué"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,message:0
+msgid "Message"
+msgstr "Message"
+
+#. module: bss_qrcode
+#: field:bss_qrcode.imported_document,oe_id:0
+msgid "Id"
+msgstr "Identifiant"
+
+#. module: bss_qrcode
+#: view:bss_qrcode.imported_document:0
+#: model:ir.actions.act_window,name:bss_qrcode.action_bss_qrcode_imported_document_form
+msgid "Imported document"
+msgstr "Document importé"

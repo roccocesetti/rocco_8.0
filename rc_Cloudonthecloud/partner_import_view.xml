@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_partner_import" model="ir.ui.view">
+            <field name="name">Importazione partner</field>
+            <field name="model">res.partner.import</field>
+            <field name="arch" type="xml">
+                <form string="Importazione partner" version="7.0">
+                    <group>
+                        <field name="name" />
+                        <field name="data"/>
+                        <field name="overwrite"/>
+                    </group>
+                    <footer>
+                        <button name="import_partner" string="_Import" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_partner_import" model="ir.actions.act_window">
+            <field name="name">Import partner</field>
+            <field name="res_model">res.partner.import</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_partner_import"/>
+        </record>        
+        
+        <menuitem action="action_view_partner_import" 
+         id="menu_view_partner_import" 
+         parent="menu_cloudonthecloud_main" 
+         name="Importazione Clienti" 
+         sequence="5" groups="base.group_sale_salesman"/>
+        
+    </data>
+</openerp>

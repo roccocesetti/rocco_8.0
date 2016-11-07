@@ -1,0 +1,13 @@
+﻿delete from pos_order_line;
+delete from event_event_ticket;
+delete from procurement_order;
+delete from stock_quant;
+delete from sale_quote_line;
+delete from stock_inventory_line;
+delete from sale_quote_option;
+delete from stock_production_lot;
+delete from mrp_production;
+delete from mrp_bom_line;
+delete from mrp_production_product_line;
+delete from account_invoice_line;
+delete from account_invoice;

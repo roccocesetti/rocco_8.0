@@ -1,0 +1,6 @@
+"id","group_id:id","name","model_id","perm_create","perm_unlink","perm_write","perm_read"
+"rc_mrp_rtl_tools","res_groups_rtl","Macchine utensili","rc.mrp.machine_tools",1,1,1,1
+"rc_mrp_rtl_head","res_groups_rtl","testata rilevazione","rc.mrp.rtl.head",1,1,1,1
+"rc_mrp_rtl_body","res_groups_rtl","Corpo rilevazione","rc.mrp.rtl.body",1,1,1,1
+"rc_mrp_rtl_key","res_groups_rtl","chiavi rilevazione","rc.mrp.rtl.key",1,1,1,1
+

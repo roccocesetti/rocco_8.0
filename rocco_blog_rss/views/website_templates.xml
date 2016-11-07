@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+    	<template id="rocco_blog_rss_icon" inherit_id="website.footer_default" name="RSS Icon">
+        	<xpath expr="//h2" position="inside">
+            <!-- <a href="/blog/product/post"><i class="fa fa-rss"/></a> -->            
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 1)">Feed 100</a>
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 2)">Feed 200</a>
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 3)">Feed 300</a>
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 4)">Feed 400</a>
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 5)">Feed 500</a>
+            <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 6)">Feed >500</a>
+         	</xpath>
+    	</template>
+    	<template id="rocco_blog_rss_meta_tag" inherit_id="website.layout" name="RSS_after_meta_tag">
+            <xpath expr="//head//meta[@name='generator']" position="after">
+				<meta name="google-site-verification" t-att-content="main_object and 'website_meta_google_site_verification' in main_object and main_object.website_meta_google_site_verification or website_meta_google_site_verification" />
+         	</xpath>
+    	</template>
+  
+	<!-- Product Variants Template -->
+ 	<template id="variants_rocco" inherit_id="website_sale.product_variants">
+            <xpath expr="//span[contains(@t-esc, 'variant_id.name_get()[0][1]')]" position="replace">
+      				<t t-foreach="variant_id.attribute_value_ids" t-as="variant_id_1">
+          					<span t-field="variant_id_1.attribute_id.name"/>:<span t-field="variant_id_1.name"/> <br/>
+      				</t>
+      				<t t-foreach="variant_id.images_variant" t-as="variant_id_1">
+		                    <!-- Carousel indicators as Image Thumbnails -->
+        		            <div id="thumb_img_add_var">
+                		        <div id='carousel-custom' class='carousel slide var'>
+                        		    <!-- Indicators -->
+                            		<ol class='carousel-indicators var'>
+                                    		<li>
+                                        		<img onClick="pro_img_click(this)" class="image_thumb img-responsive var" t-att-src="'data:image/jpeg;base64,%s' %variant_id_1.image" />
+                                    		</li>
+                            		</ol>
+                        		</div>
+                    		</div>
+      				</t>
+
+           </xpath>
+
+	</template>
+ 
+ 
+    </data>
+</openerp>

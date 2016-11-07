@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<!-- Cloud --> 
+<template id="publish_cloud_management">
+    <div groups="base.group_website_publisher" t-ignore="true" class="pull-right css_editable_mode_hidden" t-att-style="style or ''">
+        <div t-attf-class="btn-group js_publish_management #{object.firma_contratto and 'css_published' or 'css_unpublished'}" t-att-data-id="object.id" t-att-data-object="object._name" t-att-data-controller="publish_controller">
+            <button class="btn btn-danger js_publish_btn">Non Firmato</button>
+            <button class="btn btn-success js_publish_btn">Firmato</button>
+            <button type="button" t-attf-class="btn btn-default dropdown-toggle" t-att-id="'dopprod-%s' % object.id" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" t-att-aria-labelledby="'dopprod-%s' % object.id">
+                <li>
+                    <a href="#" class="js_publish_btn">
+                        <span class="css_unpublish">Non Firmato</span>
+                        <span class="css_publish">Firmato</span>
+                    </a>
+                </li>
+                <t t-raw="0"/>
+                <li t-if="publish_edit">
+                    <a t-attf-href="/web#return_label=Website&amp;view_type=form&amp;model=#{object._name}&amp;id=#{object.id}&amp;action=#{action}"
+                    title='Edit in backend'>Edit</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</template>
+
+
+<template id="cloud_kanban_card" name="cloudKanban">
+    <div class="thumbnail">
+        <a t-attf-href="/web#model=res.partner&amp;id=#{id}"><span t-field="name"/></a>
+        <div>
+            Assigned to <span t-field="user_id"/>
+        </div>
+        <div>
+            <span t-foreach="x_service_ids" t-as="x_service_id" class="label">
+                <t t-esc="notify_id.x_service_id.date_servicename"/>
+                <!--  
+                <t t-esc="x_service_id.date_service"/>
+                <t t-esc="x_service_id.date_next_invoice"/>
+                <t t-esc="x_service_id.amount_untaxed"/>
+                <t t-esc="x_service_id.amount_tax"/>
+                <t t-esc="x_service_id.amount_total"/>
+                -->
+                </span>
+        </div>
+    </div>
+</template>
+<template id="index" name="cloud">
+    <t t-call="website.layout">
+        <t t-set="additional_title">Servizi Cloud</t>
+        <div id="wrap">
+            <div class="oe_structure"/>
+            <div class="container">
+                <!-- 
+                <h4 t-field="name"/>
+                -->
+ 				<span t-field="date_service"/>
+ 				<span t-field="date_next_invoice"/>
+ 				<span t-field="amount_untaxed"/>
+ 				<span t-field="amount_tax"/>
+ 				<span t-field="amount_total"/>
+ 				    <t t-call="website.kanban">
+                    <t t-set="model">account.x.service</t>
+                    <t t-set="domain" t-value="[('partner_id', '=', partner_id.id)]"/>
+                    <t t-set="column">partner_id</t>
+
+                    <t t-set="template">website_cloud.cloud_kanban_card</t>
+                    <t t-set="step">10</t>
+                    <t t-set="scope">3</t>
+                </t>
+            </div>
+            <div class="oe_structure"/>
+      </div>
+    </t>
+</template>
+<template id="cloudus" name="cloud us" page="True">
+    <t t-call="website.layout">
+        <div id="wrap">
+            <div class="oe_structure">
+
+                <section>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h1 class="text-center">Servizi Cloud</h1>
+                                <h3 class="text-muted text-center">Servizi Cloud assegnati</h3>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 mt32">
+                                <p>
+                                      We are a team of passionate people whose goal is to improve everyone's
+                                      life through disruptive products. We build great products to solve your
+                                      business problems.
+                                </p>
+                                <p>
+                                      tutti 
+                                </p>
+                            </div>
+                            <div class="col-md-4 col-md-offset-2 mt16 mb16">
+                                <img src="/website/static/src/img/library/business_conference.jpg" class="img img-responsive shadow" alt="Our Team"/>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            <div class="oe_structure"></div>
+        </div>
+    </t>
+</template>
+
+<template id="cloudus_partner" inherit_id="website_cloud.cloudus"  name="cloud us partner" >
+  <t t-call="website.layout">
+    <xpath expr="//div[@class='oe_structure']" position="after">
+        <section class="container">
+            
+            <div class="col-sm-12 text-center" t-if="len(x_service_ids)">
+                <h2>Our Team</h2>
+            </div>
+            <div t-foreach="x_service_ids" t-as="x_service" class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                <t t-call="website.publish_management"><t t-set="object" t-value="x_service"/></t>
+                <div class="clearfix"/>
+                <!--  
+                <img t-att-src="x_service.img('image_medium')" class="img shadow img-rounded"/>
+                -->
+                <div class="mt8">
+                    <strong class="row" t-field="x_service.name"></strong>
+                    <strong class="row" t-field="x_service.street"></strong>
+                    <strong class="row" t-field="x_service.zip"></strong>
+                    <strong class="row" t-field="x_service.city"></strong>
+                    <strong class="row" t-field="x_service.state_id.name"></strong>
+                    <strong class="row" t-field="x_service.county_id.name"></strong>
+                </div>
+                <div t-field="x_service.partner_id"/>
+                <div t-field="x_service.user_id" class="text-muted mt16"/>
+            </div>
+        </section>
+    </xpath>
+</t>	
+</template>
+
+<template id="cloud_index" name="cloud index">
+    <t t-call="website.layout">
+           <script type="text/javascript" src="/website_sale/static/src/js/website_sale_tracking.js"></script>
+ 
+        <t t-set="additional_title">Servizi Cloud</t>
+        <div id="wrap">
+            <div class="oe_structure"/>
+            
+            <div class="container">
+            <t t-set="template">website_cloud.cloudus</t>
+                
+            <div class="col-sm-12 text-center" t-if="len(x_service_ids)">
+                <h2>
+                	<div class="row" t-field="x_service_ids[0].partner_id" style="text-align:left"/>
+                    <div class="row" t-field="x_service_ids[0].partner_id.street" style="text-align:left"></div>
+                </h2>
+                <h4>
+                    <div class="row" style="text-align:left">
+                    	<span t-field="x_service_ids[0].partner_id.zip"/>
+                    	<span t-field="x_service_ids[0].partner_id.city"/> 
+                    	<span t-field="x_service_ids[0].partner_id.state_id.name"/> 
+                    	<span t-field="x_service_ids[0].partner_id.country_id.name" />
+					</div>
+               </h4>
+ 
+            </div>
+            <div t-foreach="x_service_ids" t-as="x_service" class="col-sm-3 col-lg-2 mt16 text-center colsize">
+                <div class="clearfix"/>
+                	<div class="mt8">
+                    	Servizio: <strong t-field="x_service.name"></strong>
+                	</div>
+ 					<div class="row">
+ 						Tipo contratto: <span   t-field="x_service.x_contract_service_id"/>
+				 	</div>
+                	
+                	<t t-call="website_cloud.publish_cloud_management"><t t-set="object" t-value="x_service"/></t>                                
+ 					
+ 					<div class="row">
+                	
+                		assegnato a: <span t-field="x_service.user_id" class="text-muted mt16" />
+					
+					</div>
+ 					<div class="row">
+	 					Stato: <span t-field="x_service.state"/>
+					</div>
+ 					<div class="row">
+	 					Data inizio: <span   t-field="x_service.date_service"/>
+					</div>
+ 					<div class="row">
+ 						Data fine: <span  t-field="x_service.date_next_invoice"/>
+					</div>
+ 					<div class="row">
+ 						Importo: <span  t-field="x_service.amount_untaxed"/>
+					</div>
+ 					<div class="row">
+ 						Tassa: <span   t-field="x_service.amount_tax"/>
+					</div>
+ 					<div class="row">
+ 						totale: <span  t-field="x_service.amount_total"/>
+					</div>
+
+<!-- paypal inizio-->
+		          <div class="js_payment mb64 row" t-if="acquirers and x_service.amount_total" id="payment_method">
+   		              <div class="col-lg-5 col-sm-6"> 
+	   	               <h4>Payment Method:</h4 >
+	   	               <ul class="list-unstyled">
+	   	                 <li t-foreach="acquirers or []" t-as="acquirer">
+	   	                   <label t-if="acquirer.button">
+	   	                       <input t-att-value="acquirer.id" type="radio" name="acquirer" t-att-checked="acquirers[0] == acquirer"/>
+	   	                       <img class="media-object" style="width: 60px; display: inline-block;"
+	   	                           t-att-title="acquirer.name"
+	   	                           t-att-src="'/payment_%s/static/src/img/%s_icon.png' % (acquirer.provider, acquirer.provider)"/>
+	   	                           <span t-field="acquirer.name"/>
+	   	                   </label>
+	   	                 </li>
+	   	               </ul>
+	   	           </div>
+	   	           <div class="col-lg-3 col-sm-3">
+	   	               <t t-foreach="acquirers or []" t-as="acquirer">
+	   	                   <div t-att-data-id="acquirer.id" class="oe_sale_acquirer_button hidden pull-right">
+	   	                     <div t-raw="acquirer.button"/>
+	   	                     <div t-field="acquirer.pre_msg"/>
+	   	                   </div>
+	   	               </t>
+	   	           </div>
+       	   	  	  </div>
+			       <div class="js_payment mb64 row" t-if="not x_service.amount_total" id="payment_method">
+	   	         <div class="col-lg-8 col-sm-8">
+	   	           <form target="_self" action="/shop/payment/validate" method="post" class="pull-right">
+	   	               <a style="width:100px;" class="btn btn-primary a-submit">
+	   	                 <span>Pay Now <span class="fa fa-long-arrow-right"></span></span>
+	   	               </a>
+	   	           </form>
+	   	         </div>
+	   	        </div>
+
+<!-- paypal fine -->           
+            	</div>
+
+            </div>
+            <div class="oe_structure"/>
+      </div>
+    </t>
+</template>
+
+</data>
+</openerp>

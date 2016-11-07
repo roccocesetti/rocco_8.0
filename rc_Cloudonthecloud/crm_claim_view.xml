@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="action_view_x_service" model="ir.actions.act_window">
+            <field name="name">Servizi Cloud x partner</field>
+            <field name="res_model">account.x.service</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="rc_cloudonthecloud_account_x_service_view_search"/>
+            <field name="help" type="html">
+                <p>
+                    Elenca tutti i Servizi Allegati al Cliente
+                </p>
+            </field>
+        </record>        
+        
+        <record id="rc_cloudonthecloud_crm_case_claims_form_view" model="ir.ui.view">
+            <field name="name">crm.claim.x.service</field>
+            <field name="model">crm.claim</field>
+            <field name="inherit_id" ref="crm_claim.crm_case_claims_form_view"/>
+            <field name="priority" eval="60"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='description']" position="before">
+                        <field  string="Servizi Cloud" name="x_service_id" 
+                             
+                             groups="base.group_portal,base.group_sale_salesman"/>
+                </xpath>
+
+            </field>
+       </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!-- crm make cloud's view -->
+
+       <record id="view_crm_make_sale" model="ir.ui.view">
+          <field name="name">crm.make.cloud.form</field>
+          <field name="model">crm.make.cloud</field>
+          <field name="arch" type="xml">
+            <form string="Converti in Servizio Cloud" >
+                <group col="4">
+                    <field name="partner_id" required="1"/>
+                    <field name="close"/>
+                </group>
+                <footer>
+                    <button name="makecloud" string="_Create" type="object" class="oe_highlight"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+          </field>
+       </record>
+
+       <!-- crm make sale's  action -->
+
+       <record id="action_crm_make_cloud" model="ir.actions.act_window">
+          <field name="name">Crea Cloud</field>
+          <field name="type">ir.actions.act_window</field>
+          <field name="res_model">crm.make.cloud</field>
+          <field name="view_type">form</field>
+          <field name="view_mode">form</field>
+          <field name="target">new</field>
+       </record>
+        
+        <record model="ir.ui.view" id="crm_case_form_view_oppor">
+            <field name="name">CRM - Opportunities - Quote Inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='stage_id']" position="before">
+                        <button attrs="{'invisible': [('probability', '&lt;', 100)]}" string="Crea  Servizio Cloud" name="%(action_crm_make_cloud)d" type="action"/>
+                        <button attrs="{'invisible': [('probability', '=', 100)]}" string="Convert in Servizio Cloud" name="%(action_crm_make_cloud)d" type="action" class="oe_highlight"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+    <record model="ir.actions.act_window" id="crm_case_category_act_oppor11_coc">
+        <field name="name">Opportunities</field>
+        <field name="res_model">crm.lead</field>
+        <field name="view_mode">kanban,tree,graph,form,calendar</field>
+        <field name="domain">[('type','=','opportunity')]</field>
+        <field name="context">{
+                'stage_type': 'opportunity',
+                'default_type': 'opportunity',
+                'default_user_id': uid
+            }
+        </field>
+        <field name="view_id" eval="False"/>
+        <field name="search_view_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="help" type="html">
+            <p>
+                Odoo helps you keep track of your sales pipeline to follow
+                up potential sales and better forecast your future revenues.
+            </p><p>
+                You will be able to plan meetings and phone calls from
+                opportunities, convert them into quotations, attach related
+                documents, track all discussions, and much more.
+            </p>
+        </field>
+    </record>
+
+        <!-- add needaction_menu_ref to reload quotation needaction when opportunity needaction is reloaded -->
+        <record model="ir.actions.act_window" id="crm_case_category_act_oppor11_coc">
+            <field name="context">{'stage_type': 'opportunity', 'default_type': 'opportunity', 'default_user_id': uid, 'needaction_menu_ref': 'sale.menu_sale_quotations'}</field>
+        </record>
+
+        <record model="ir.ui.view" id="cloud_view_inherit123">
+            <field name="name">account.x.service.inherit</field>
+            <field name="model">account.x.service</field>
+            <field name="inherit_id" ref="rc_Cloudonthecloud.rc_cloudonthecloud_account_x_service_view_form"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="categ_ids" widget="many2many_tags" groups="base.group_sale_salesman"/>
+                    <field name="campaign_id" groups="base.group_sale_salesman"/>
+                    <field name="medium_id" groups="base.group_sale_salesman"/>
+                    <field name="source_id" groups="base.group_sale_salesman"/>
+                </field>
+
+            </field>
+        </record>
+    </data>
+</openerp>

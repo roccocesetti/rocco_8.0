@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <!--   Product Price List -->
+
+        <record id="view_product_price_list_heartwood" model="ir.ui.view">
+              <field name="name">Stampa Listini</field>
+              <field name="model">product.price_list.heartwood</field>
+              <field name="arch" type="xml">
+                <form string="Listino Prezzi">
+                    <group string="Parametri di stampa listini">
+                        <field name="price_list_pubblico" widget="selection"/>
+                        <field name="price_list_ingrosso" widget="selection"/>
+                        <field name="price_list_costo" widget="selection"/>
+                        <field name="partner_id" widget="selection"/>
+                        <field name="da_categoria" widget="selection"/>
+                         <field name="a_categoria" widget="selection"/>
+                        <field name="da_prodotto" widget="selection"/>
+                         <field name="a_prodotto" widget="selection"/>
+                         <field name="dispo" />
+                         </group>
+                    <footer>
+                        <button name="print_report" string="Stampa"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+        <act_window id="action_product_price_list_heartwood"
+            key2="client_print_multi"
+            name="Price List"
+            res_model="product.price_list.heartwood"
+            src_model="product.product"
+            groups="product.group_sale_pricelist"
+            view_mode="form" target="new" view_type="form" />
+        
+        <record id="action_product_price_list_heartwood_2" model="ir.actions.act_window">
+            <field name="name">Stampa Listini</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.price_list.heartwood</field>
+            <field name="src_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            </record>
+        <menuitem
+        action="action_product_price_list_heartwood_2"
+        id="menu_product_action_product_price_list_heartwood_2"
+        parent="heartwood.menu_view_sub_heartwood" groups="heartwood.heartwood_manager"  sequence="180"/>
+
+        <record id="action_product_pricelist_heartwood" model="ir.actions.act_window">
+            <field name="name">Listini</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pricelist</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            </record>
+        <menuitem
+        action="action_product_pricelist_heartwood"
+        id="menu_product_action_product_pricelist_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" groups="heartwood.heartwood_manager"  sequence="190"/>
+
+        <record id="action_product_price_item_list_heartwood" model="ir.actions.act_window">
+            <field name="name">Voci Listini</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pricelist.item</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            </record>
+        <menuitem
+        action="action_product_price_item_list_heartwood"
+        id="menu_product_action_product_price_item_list_heartwood"
+        parent="heartwood.menu_view_sub_heartwood" groups="heartwood.heartwood_manager"  sequence="200"/>
+
+        <record id="product_pricelist_item_tree_view_heartwood" model="ir.ui.view">
+            <field name="name">Voci listino</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="inherit_id" ref="product.product_pricelist_item_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                     		<field name="price_surcharge"  />
+                </field>
+            </field>
+        </record>
+        
+</data>
+</openerp>

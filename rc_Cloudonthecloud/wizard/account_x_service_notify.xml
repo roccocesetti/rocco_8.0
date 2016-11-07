@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="rc_cloudonthecloud_account_x_service_notify_view_search" model="ir.ui.view">
+            <field name="name">account.x.service.notify.view.search</field>
+            <field name="model">account.x.service.notify</field>
+            <field name="arch" type="xml">
+                <search string="Search Notifiche">
+                   <field name="name" />
+                   <field name="state" string="Stato"/>
+                   <field name="partner_id" />
+                   <field name="user_id"/>
+                   <field name="notify_ids"/>
+                   <field name="notify_ref" />
+                  <group expand="0" string="Group By">
+                       <filter string="Nome" icon="terp-personal" domain="[]" context="{'group_by':'name'}"/>
+                       <filter string="stato" icon="terp-go-week" domain="[]" context="{'group_by':'state'}"/>
+                       <filter string="utente" icon="terp-gtk-select-all" domain="[]" context="{'group_by':'user_id'}"/>
+                       <filter string="Cliente " icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'partner_id'}"/>
+                       <filter string="notify_ref" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'notify_ref'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="rc_cloudonthecloud_account_x_service_notify_view_form" model="ir.ui.view">
+            <field name="name">account.x.service.notify.view.form</field>
+            <field name="model">account.x.service.notify</field>
+            <field name="priority">2</field>
+            <field eval="1" name="sequence"/>          
+            <field name="arch" type="xml">
+                <form string="Notifiche">
+                    <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" />
+                            <field name="notify_ref" />
+                            </h1>
+                    </div>
+                    <group>
+                        <group>
+			                   <field name="state" string="Stato"/>
+			                   <field name="partner_id" />
+			                   <field name="user_id"/>
+			                   <field name="amount_untaxed"/>
+			                   <field name="amount_tax"/>
+			                   <field name="amount_total"/>
+			                   <field name="paypal_status" />
+			                   <field name="payment_acquirer_id" readonly="1" attrs="{'invisible': [('payment_acquirer_id', '=', False)]}"/>
+                               <field name="payment_tx_id" readonly="1" attrs="{'invisible': [('payment_acquirer_id', '=', False)]}"/>
+			                   	
+                  		</group>
+                        <br />
+                        <group>
+	                   			<field name="notify_ids"/>
+                        </group>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="rc_cloudonthecloud_account_x_service_notify_view_tree" model="ir.ui.view">
+            <field name="name">account.x.service.notify.view.tree</field>
+            <field name="model">account.x.service.notify</field>
+            <field name="arch" type="xml">
+                <tree string="Contracts">
+                    <field name="name" />
+                   <field name="notify_ref" />
+                    <field name="state"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="amount_total"/>
+	                <field name="notify_ids"/>
+                    <field name="paypal_status" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_rc_cloudonthecloud_account_x_notify" model="ir.actions.act_window">
+            <field name="name">Elenco Notifiche</field>
+            <field name="res_model">account.x.service.notify</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="view_id" ref="rc_cloudonthecloud_account_x_service_notify_view_form"/>
+            <field name="context">{'search_default_current':1}</field>
+            <field name="search_view_id" ref="rc_cloudonthecloud_account_x_service_notify_view_search"/>
+            </record>
+
+        <record id="action_rc_cloudonthecloud_account_x_notify_tree1" model="ir.actions.act_window">
+            <field name="name">Notifiche Cloud</field>
+            <field name="res_model">account.x.service.notify</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('partner_id','>',0)]</field>
+            <field name="context">{'search_default_current':1}</field>
+            <field name="search_view_id" ref="rc_cloudonthecloud_account_x_service_notify_view_search"/>
+        </record>
+        
+        
+        
+        <record id="view_account_x_service_notify" model="ir.ui.view">
+            <field name="name">account.x.service.notify.form2</field>
+            <field name="model">account.x.service.notify.make</field>
+            <field name="priority">1</field>
+            <field eval="1" name="sequence"/>          
+            <field name="arch" type="xml">
+                <form string="Crea Notifiche">
+                    <separator colspan="4" string="Vuoi Creare le notifiche dei servizi in Scadenza(s)?" />
+                    <group>
+                    </group>
+                    <footer>
+                        <button name="make_notify_expire" string="Create Notifiche servizi in scadenza" type="object" class="oe_highlight"/>
+                        or
+                        <button name="make_notify_exired" string="Create Notifiche servizi scaduti" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_account_x_service_notify" model="ir.actions.act_window">
+            <field name="name">Crea Notifiche</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="src_model">account.x.service</field>
+            <field name="res_model">account.x.service.notify.make</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_account_x_service_notify"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record>
+        <record model="ir.values" id="account_x_service_notify">
+            <!--  
+            	<field name="model_id" ref="rc_Cloudonthecloud.model_account_x_service" />
+            -->
+            <field name="name">Crea Notifiche</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_x_service_notify'))" />
+            <field name="key">action</field>
+            <field name="model">account.x.service</field>
+        </record>
+
+        <record id="view_account_x_service_notify_trial" model="ir.ui.view">
+            <field name="name">account.x.service.notify.form.trial</field>
+            <field name="model">account.x.service.notify.make</field>
+            <field name="arch" type="xml">
+                <form string="Crea Notifiche servizi Test">
+                    <separator colspan="4" string="Vuoi Creare veramente le notifiche dei servizi in prova(s)?" />
+                    <group>
+                    </group>
+                    <footer>
+                        <button name="make_notify_trial_expire" string="Create Notifiche servizi prova in scadenza" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_account_x_service_notify_trial" model="ir.actions.act_window">
+            <field name="name">Crea Notifiche Servizi in prova</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="src_model">account.x.service</field>
+            <field name="res_model">account.x.service.notify.make</field>
+            <field name="model_id" ref="rc_Cloudonthecloud.model_account_x_service_notify"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_account_x_service_notify_trial"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record>
+        <record model="ir.values" id="account_x_service_notify__trial">
+            <field name="model_id" ref="rc_Cloudonthecloud.model_account_x_service_notify" />
+            <field name="name">Crea Notifiche Servizi in prova</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_x_service_notify_trial'))" />
+            <field name="key">action</field>
+            <field name="model">account.x.service</field>
+        </record>
+        <record id="view_account_x_service_notify_invoice" model="ir.ui.view">
+            <field name="name">account.x.service.notify.form.invoice</field>
+            <field name="model">account.x.service.make.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Crea Fattura con data prox odierna">
+                    <separator colspan="4" string="Vuoi Creare veramente le fatture dei servizi (s)?" />
+                    <group>
+                    </group>
+                    <footer>
+                        <button name="validate_x_service_paid" string="Controllo servizi pagati" type="object" class="oe_highlight"/>
+                        or
+                        
+                        <button name="recurring_create_invoice" string="Create Fatture con scadenza odierna" type="object" class="oe_highlight"/>
+                        or
+
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+        <record id="action_account_x_service_invoice" model="ir.actions.act_window">
+            <field name="name">Fatturazione  ricorsiva </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="src_model">account.x.service</field>
+            <field name="res_model">account.x.service.make.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_account_x_service_notify_invoice"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record>
+        <record model="ir.values" id="account_x_service_invoice">
+         <field name="model_id" ref="rc_Cloudonthecloud.model_account_x_service" />
+            <field name="name">Crea Fatture  con data odierna</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_x_service_invoice'))" />
+            <field name="key">action</field>
+            <field name="model">account.x.service</field>
+        </record>
+        
+        <menuitem action="action_rc_cloudonthecloud_account_x_notify" id="rc_cloudonthecloud_action_account_x_service_notify_form" parent="menu_cloudonthecloud_main" name="Elenco Notifiche" sequence="7" groups="base.group_sale_salesman"/>
+        <menuitem action="action_account_x_service_notify" id="rc_cloudonthecloud_action_account_x_service_notify" parent="menu_cloudonthecloud_main" name="Servizi in Scadenza" sequence="7" groups="base.group_sale_salesman"/>
+        <menuitem action="action_account_x_service_notify_trial" id="rc_cloudonthecloud_action_account_x_service_notify_trial" parent="menu_cloudonthecloud_main" name="Servizi in Prova in Scadenza" sequence="7" groups="base.group_sale_salesman"/>
+        <menuitem action="action_account_x_service_invoice" id="rc_cloudonthecloud_action_action_account_x_service_invoice" parent="menu_cloudonthecloud_main" name="Fatturazione ricorsiva" sequence="7" groups="base.group_sale_salesman"/>
+        
+        </data>
+</openerp>

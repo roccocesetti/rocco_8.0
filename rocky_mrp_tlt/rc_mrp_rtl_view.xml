@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_rc_mrp_machine_tools_form" model="ir.ui.view">
+            <field name="name">rc.mrp.machine_tools.form</field>
+            <field name="model">rc.mrp.machine_tools</field>
+            <field name="arch" type="xml">
+                <form string="Macchine Utensili" >
+
+                    <group>
+                        <field name="name" />
+                        <field name="speed_rm"/>
+                    	<field name="forward_tool_mg"/>
+                    	<field name="active"/>
+                   </group>
+                    <footer>
+                   </footer>
+                </form>
+            </field>
+        </record>      
+        <record id="view_rc_mrp_machine_tools_tree" model="ir.ui.view">
+            <field name="name">rc.mrp.machine_tools.tree</field>
+            <field name="model">rc.mrp.machine_tools</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Macchine Utensili">
+                        <field name="name" />
+                        <field name="speed_rm"/>
+                    	<field name="forward_tool_mg"/>
+                    	<field name="active"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_rc_mrp_machine_tools_forwards_form" model="ir.ui.view">
+            <field name="name">rc.mrp.machine_tools_forwards.form</field>
+            <field name="model">rc.mrp.machine_tools.forwards</field>
+            <field name="arch" type="xml">
+                <form string="Macchine Utensili" >
+
+                    <group>
+                     	<field name="active"/>
+                        <field name="name" />
+                    <group string="Sgrossatura esterna">
+                        <field name="out_sgrossa_min"/>
+                    	<field name="out_sgrossa_max"/>
+                    	<field name="out_finisce_min"/>
+                        <field name="out_finisce_max" />
+                   </group>
+                    <group string="Sgrossatura interna">
+                        <field name="in_sgrossa_min"/>
+                    	<field name="in_sgrossa_max"/>
+                    	<field name="in_finisce_min"/>
+                        <field name="in_finisce_max" />
+                   </group>
+                    <group string="Formare">
+                        <field name="formare_min"/>
+                    	<field name="formare_max"/>
+                   </group>
+                    <group string="Troncare">
+                    	<field name="troncare_min"/>
+                    	<field name="troncare_max"/>
+                   </group>
+                   </group>
+                    <footer>
+                   </footer>
+                </form>
+            </field>
+        </record>      
+        <record id="view_rc_mrp_machine_tools_forwards_tree" model="ir.ui.view">
+            <field name="name">rc.mrp.machine_tools.forwards.tree</field>
+            <field name="model">rc.mrp.machine_tools.forwards</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Avanzamento Macchine Utensili">
+                     	<field name="active"/>
+                        <field name="name" />
+                        <field name="out_sgrossa_min"/>
+                    	<field name="out_sgrossa_max"/>
+                    	<field name="out_finisce_min"/>
+                        <field name="out_finisce_max" />
+                        <field name="in_sgrossa_min"/>
+                    	<field name="in_sgrossa_max"/>
+                    	<field name="in_finisce_min"/>
+                        <field name="in_finisce_max" />
+                        <field name="formare_min"/>
+                    	<field name="formare_max"/>
+                    	<field name="troncare_min"/>
+                    	<field name="troncare_max"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_rc_mrp_machine_tools_centered_form" model="ir.ui.view">
+            <field name="name">rc.mrp.machine_tools_centered.form</field>
+            <field name="model">rc.mrp.machine_tools.centered</field>
+            <field name="arch" type="xml">
+                <form string="Centrinatura Macchine Utensili" >
+
+                    <group>
+                     	<field name="active"/>
+                        <field name="name" />
+                    <group string="Diametro pezzo">
+                        <field name="pezzo_diametro_min"/>
+                    	<field name="pezzo_diametro_max"/>
+                   </group>
+                    <group string="Diametro  centrino">
+                        <field name="D_diametro"/>
+                   </group>
+                    <group string="Profondità Centrino">
+                        <field name="L_centrino_A"/>
+                    	<field name="L_centrino_B"/>
+                   </group>
+                   </group>
+                    <footer>
+                   </footer>
+                </form>
+            </field>
+        </record>      
+        <record id="view_rc_mrp_machine_tools_centered_tree" model="ir.ui.view">
+            <field name="name">rc.mrp.machine_tools.centered.tree</field>
+            <field name="model">rc.mrp.machine_tools.centered</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Centrinatura Macchine Utensili">
+                     	<field name="active"/>
+                        <field name="name" />
+                        <field name="pezzo_diametro_min"/>
+                    	<field name="pezzo_diametro_max"/>
+                    	<field name="D_diametro"/>
+                        <field name="L_centrino_A" />
+                        <field name="L_centrino_B"/>
+                </tree>
+            </field>
+        </record>
+
+
+        
+        <record id="view_rc_mrp_rtl_head_form" model="ir.ui.view">
+            <field name="name">rc.mrp.rtl.head.form</field>
+            <field name="model">rc.mrp.rtl.head</field>
+            <field name="arch" type="xml">
+                <form string="Calcolo dei tempi di Lavorazione" version="7.0">
+                    <group>
+                    	<field invisible="1" name="state"/>
+                        <field name="name" />
+                        <field name="product_id" />
+                        <field name="tool_id" on_change="onchange_tool_id(tool_id,context)"/>
+                        <field name="speed_rm"/>
+                        <field name="forward_tool_mg"/>
+                        <field name="D_pezzo"/>
+                        <field name="forward_id"/>
+                        <field name="centered_id"/>
+                   </group>
+                    <group states="choose" string="Export Settings">
+                        <field name="format" invisible="1"/>
+                    </group>
+                    <group states="choose">
+                        <button name="act_getfile" string="Export" type="object" class="oe_highlight"/> or 
+                        <button special="cancel" string="Cancel" type="object" class="oe_link"/>
+                    </group>
+                    <group states="get">
+                        <button special="cancel" string="Close" type="object"/>
+                    </group>
+                    <div states="get">
+                        <h2>Export Complete</h2>
+                        <p>Here is the exported  file: <field name="data" readonly="1" filename="name"/></p>
+                        <p>This file was generated using the universal <strong>Unicode/UTF-8</strong> file encoding, please be sure to view and edit
+                           using the same encoding.</p> 
+                        <p>The next step depends on the file format:
+                            <ul>
+                            <li>CSV format: you may edit it directly with your favorite spreadsheet software,
+                                the rightmost column (value) contains the translations</li>
+                           </ul>
+                        </p>
+                     </div>
+
+                    <group>
+                        <field name="boby_ids" />
+                   </group>
+                    <footer>
+                        <button name="union_file_plc" string="_unisci file plc" type="object" class="oe_highlight"/>
+                         or
+                        <button string="Cancel" class="oe_link" special="cancel" />                        
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="view_rc_mrp_rtl_head_tree" model="ir.ui.view">
+            <field name="name">Calcolo dei tempi di Lavorazione</field>
+            <field name="model">rc.mrp.rtl.head</field>
+            <field name="arch" type="xml">
+                <tree string="file plc" >
+                        <field name="name" />
+                        <field name="tool_id"/>
+                        <field name="forward_id"/>
+                        <field name="centered_id"/>
+                        <field name="speed_rm"/>
+                        <field name="forward_tool_mg"/>
+                        <field name="D_pezzo"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_rc_mrp_rtl_body_tree" model="ir.ui.view">
+            <field name="name">rc.mrp.rtl.body.tree</field>
+            <field name="model">rc.mrp.rtl.body</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Calcolo dei tempi di Lavorazione">
+                    <field name="name"/>
+                    <field name="text"/>
+                    <field name="time_rtl" />
+                    <field name="data" />
+                    <field name="head_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_rc_mrp_rtl_body_form" model="ir.ui.view">
+            <field name="name">rc.mrp.rtl.body.form</field>
+            <field name="model">rc.mrp.rtl.body</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Dettaglio file plc">
+                    <field name="name"/>
+                    <field name="text"/>
+                    <field name="time_rtl" />
+                    <field name="data" />
+                    <field name="head_id"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_rc_mrp_rtl_head_new_form" model="ir.actions.act_window">
+            <field name="name">CTL</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rc.mrp.rtl.head</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <record id="action_view_rc_mrp_rtl_head" model="ir.actions.act_window">
+            <field name="name">CTL</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rc.mrp.rtl.head</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_view_rc_mrp_rtl_body" model="ir.actions.act_window">
+            <field name="name">CTL Dettagli</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rc.mrp.rtl.head</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+       <record id="action_view_rc_mrp_machine_tools" model="ir.actions.act_window">
+            <field name="name">Macchine utensili </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rc.mrp.machine_tools</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+       <record id="action_view_rc_mrp_machine_tools_forwards" model="ir.actions.act_window">
+            <field name="name">Avanzamento </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rc.mrp.machine_tools.forwards</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+       <record id="action_view_rc_mrp_machine_tools_centered" model="ir.actions.act_window">
+            <field name="name">Centrinatura</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rc.mrp.machine_tools.centered</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+        action="action_view_rc_mrp_rtl_head_new_form"
+        id="menu_view_rc_mrp_rtl_head_new_form"
+        parent="mrp.menu_mrp_manufacturing" sequence="20"/>
+        <menuitem        
+        action="action_view_rc_mrp_rtl_head"
+        id="menu_view_rc_mrp_rtl_head"
+        parent="mrp.menu_mrp_manufacturing" sequence="21"/>       
+        <menuitem
+        action="action_view_rc_mrp_rtl_body"
+        id="menu_view_rc_mrp_rtl_body"
+        parent="mrp.menu_mrp_manufacturing" sequence="22"/>
+        <menuitem
+        action="action_view_rc_mrp_machine_tools"
+        id="menu_view_rc_mrp_machine_tools"
+        parent="mrp.menu_mrp_manufacturing"  sequence="23"/>
+        
+        <menuitem
+        action="action_view_rc_mrp_machine_tools_forwards"
+        id="menu_view_rc_mrp_machine_tools_forwards"
+        parent="mrp.menu_mrp_manufacturing"  sequence="24"/>
+        
+        <menuitem
+        action="action_view_rc_mrp_machine_tools_centered"
+        id="menu_view_rc_mrp_machine_tools_centered"
+        parent="mrp.menu_mrp_manufacturing"  sequence="25"/>
+         
+        <record id="view_key_mrp_form" model="ir.ui.view">
+            <field name="name">rc.mrp.rtl.key.form</field>
+            <field name="model">rc.mrp.rtl.key</field>
+            <field name="arch" type="xml">
+                <form string="UserKey e ApiKey modulo produzione" version="7.0">
+                    <group>
+                        <field name="apiuser"/>
+                    	<field name="apikey"/>
+                   </group>
+                    <footer>
+                   </footer>
+                </form>
+            </field>
+        </record>      
+        <record id="view_key_mrp_tree" model="ir.ui.view">
+            <field name="name">rc.mrp.rtl.key.tree</field>
+            <field name="model">rc.mrp.rtl.key</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="UserKey e ApiKey modulo produzione">
+                    <field name="apiuser"/>
+                    <field name="apikey"/>
+                 </tree>
+            </field>
+        </record>
+       <record id="action_view_key_mrp" model="ir.actions.act_window">
+            <field name="name">usr e apikey modulo produzione </field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rc.mrp.rtl.key</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+               
+        <menuitem
+        action="action_view_key_mrp"
+        id="menu_view_key_mrp"
+        parent="mrp.menu_mrp_manufacturing" 
+        groups="base.group_system"  sequence="24"/>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--res_request_link -->
+        <record id="res_request_link_id" model="res.request.link">
+           <field name="name">Cloud</field>
+           <field name="object">account.x.service</field>
+           <field name="priority">5</field>
+           </record>
+        
+        <!-- Cloud Portal Access Rules -->
+        
+        <record id="portal_account_x_service_user_rule" model="ir.rule">
+            <field name="name">Portal Personal Cloud</field>
+            <field name="model_id" ref="rc_Cloudonthecloud.model_account_x_service"/>
+            <field name="domain_force">[('partner_id','in',[user.partner_id.id])]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+            <field eval="1" name="perm_unlink"/>
+            <field eval="0" name="perm_write"/>
+            <field eval="1" name="perm_read"/>
+            <field eval="0" name="perm_create"/>
+        </record>
+        
+        <record model="ir.ui.view" id="view_cloud_kanban">
+            <field name="name">account.x.service.kanban</field>
+            <field name="model">account.x.service</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_background_grey">
+                    <group>
+                        <group>
+                            <field name="partner_id" string="Cliente"/>
+                            <field name="user_id"/>
+                            <field name="user_customer_id"/>
+                            <field name="x_contract_service_id" string="Tipo Contratto Servizi Cloud"/>
+                            <field name="firma_contratto" string="Firma contratto"/>
+                            <field name="x_nod_id" string=" Nodo"/>
+                        </group>
+                        <group>                        
+                            <field name="trial_start" string="Avvio periodo di prova"/>
+                            <field name="trial_end" string="Fine periodo di prova"/>
+                            <field name="trail_gg_alert" string="GG di alert Trials"/>
+                            <field name="date_alert_trial" string="Avviso Scadenza prova"/>
+                        </group>
+                        <group>                        
+                            <field name="date_service" string="Data avvio servizio"/>
+                            <field name="gg_alert" string="GG di alert"/>
+                            <field name="F_invoice_repeat" string="Ricorrenza Fatturazione"/>
+                            <field name="num_decorrenza" string="Numerosità decorrenza Fattura"/>
+                            <field name="decorrenza" string="Decorrenza"/>
+                            <field name="date_next_invoice" string="Prossima Fatturazione"/>
+                            <field name="date_alert_expire" string="Prossimo Avviso"/>
+                            <field name="x_service_policy" string="Politica del servizio"/>
+                            <field name="paypal_status" />
+                          </group>
+                        <group>                        
+                            <field name="type_service" string="Tipo Servizio"/>
+                            <field name="Imp_a_consumo" string="Importo Massimo da consumare"/>
+                          </group>
+                    </group>
+                    
+                    <templates>
+                        <t t-name="kanban-box">
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+       <record id="view_account_x_service_gantt" model="ir.ui.view">
+            <field name="name">account.x.service.gantt</field>
+            <field name="model">account.x.service</field>
+            <field name="arch" type="xml">
+                <gantt date_="num_decorrenza" date_start="date_service" progress="num_decorrenza" string="Cloud">
+                </gantt>
+            </field>
+        </record>
+        
+        <record id="open_view_cloud" model="ir.actions.act_window">
+            <field name="name">Cloud</field>
+            <field name="res_model">account.x.service</field>
+            <field name="view_type">form</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_cloud_kanban"/>
+            <field name="search_view_id" ref="rc_Cloudonthecloud.rc_cloudonthecloud_account_x_service_view_search"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                  Consulta i tuoi Servizi
+                </p>
+            </field>
+        </record>
+        <record id="open_view_firma_contratti" model="ir.actions.act_window">
+            <field name="name">firma Contratti</field>
+            <field name="res_model">account.x.service</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('firma_contratto','=',False)]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="rc_Cloudonthecloud.rc_cloudonthecloud_account_x_service_view_form_contratto"/>
+           <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                  Firma i contratti mancanti
+                </p>
+            </field>
+        </record>
+        <menuitem name="Clouds" id="portal_services_cloud" parent="portal.portal_menu"
+             sequence="50"/>
+        <menuitem name="Clouds" id="portal_services_cloud_action" parent="portal_services_cloud"
+            action="open_view_cloud" sequence="10" />
+        <menuitem name="Firma Contratti" id="portal_services_cloud_firma_contratti" parent="portal_services_cloud"
+            action="open_view_firma_contratti" sequence="20" />
+       
+    </data>
+</openerp>

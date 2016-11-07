@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+<template id="products_categories_description" inherit_id="website_sale.products_categories" active="False" customize_show="True" name="Product Categories Description">
+	<xpath expr="//div[@id='products_grid']" position="before">
+      <t t-if="category">
+	  <div class="text-muted col-md-9" t-field="category.description">
+      </div>
+	  </t>
+  </xpath>
+</template>
+</data>
+</openerp>

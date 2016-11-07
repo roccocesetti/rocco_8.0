@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_stampa_Distinta_bancaria" model="ir.ui.view">
+            <field name="name">stampa Distinta bancaria</field>
+            <field name="model">riba.distinta.print</field>
+            <field name="arch" type="xml">
+              <form string="Stampa distinta" version="7.0">
+                  <group string="Stampa distinta">
+                 </group>
+                  <footer>
+                      <button name="distinta_bancaria_print" string="Stampa Distinta" type="object" class="oe_highlight"/>
+                      or
+                      <button string="Cancel" class="oe_link" special="cancel"/>
+                  </footer>
+             </form>
+            </field>
+        </record>
+       <act_window name="Stampa Distinta Bancaria"
+            res_model="riba.distinta.print"
+            src_model="riba.distinta"
+            key2="client_action_multi"
+            multi="True"
+            view_mode="form"
+            view_type="form"
+            target="new"
+            id="action_view_stampa_Distinta_bancaria"/>
+       
+    </data>
+</openerp>

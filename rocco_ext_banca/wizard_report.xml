@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+        <record id="product_site_export_can" model="product.site.export.can">
+            <field name="anno">2016</field>
+            <field name="conto">0</field>
+             <field name="data_can">2016-01-31</field>
+        </record>
+            <field name="anno">2015</field>
+            <field name="conto">0</field>
+             <field name="data_can">2015-12-31</field>
+        </record>
+</data>
+</openerp>
+
+

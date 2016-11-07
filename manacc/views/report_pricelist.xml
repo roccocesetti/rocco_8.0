@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_pricelist_heartwood">
+    <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            <div class="page">
+                <h2>Listino Prezzi</h2>
+
+                <div class="row mt32 mb32">
+                    <div class="col-xs-3">
+                        <strong>Data</strong>:<br/>
+                        <t t-esc="formatLang(time.strftime('%Y-%m-%d'), date=True)"/>
+                    </div>
+                    <div class="col-xs-3">
+                                    <t t-if="get_marchio(data['form']['partner_id'])">
+ 										<img t-att-src="'data:image/png;base64,%s' % get_marchio(data['form']['partner_id'])"/>
+                                    </t> 
+
+                    </div>
+                </div>
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>
+                                <strong>Foto</strong>
+                            </th>
+                            <th>
+                                <strong>Description</strong>
+                            </th>
+                            <t t-foreach="get_titles(data['form'])" t-as="k">
+                                <th t-if="k.has_key('price_list_pubblico')"><strong t-esc="k['price_list_pubblico']"/> <span t-esc="get_currency(data['form']['price_list_pubblico'])"/></th>
+                                <th t-if="k.has_key('price_list_ingrosso')"><strong t-esc="k['price_list_ingrosso']"/> <span t-esc="get_currency(data['form']['price_list_ingrosso'])"/></th>
+                                <th t-if="k.has_key('price_list_costo')"><strong t-esc="k['price_list_costo']"/> <span t-esc="get_currency(data['form']['price_list_costo'])"/></th>
+                            </t>
+                                <th><strong>Qtà</strong></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="get_categories(objects,data)" t-as="c">
+                            <tr>
+                                <td colspan="100">
+                                    <strong t-esc="c['name']"/>
+                                </td>
+                            </tr>
+                            <tr t-foreach="c['products']" t-as="p">
+                                <td>
+                                    <t t-if="get_image(p['id'])">
+ 										<img t-att-src="'data:image/png;base64,%s' % get_image(p['id'])"/>
+                                    </t> 
+                                </td>
+                                <td>
+                                    <t t-if="p.get('code')">
+                                        [<span t-esc="p['code']"/>]
+                                    </t> 
+                                    <span t-esc="p['name']"/>
+                                </td>
+                                <td t-if="p.has_key('price_list_pubblico') and p['price_list_pubblico']"><strong t-esc="p['price_list_pubblico']"/></td>
+                                <td t-if="p.has_key('price_list_ingrosso') and p['price_list_ingrosso']"><strong t-esc="p['price_list_ingrosso']"/></td>
+                                <td t-if="p.has_key('price_list_costo') and p['price_list_costo']"><strong t-esc="p['price_list_costo']"/></td>
+                                <td t-if="p.has_key('dispo') and p['dispo']"><strong t-esc="p['dispo']"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

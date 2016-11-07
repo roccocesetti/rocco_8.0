@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_x_service,account.x.service,model_account_x_service,base.group_sale_salesman,1,1,1,1
+access_account_x_service_line,account.x.service.line,model_account_x_service_line,base.group_sale_salesman,1,1,1,1
+access_account_x_service_make_invoice,account.x.service.make.invoice,model_account_x_service_make_invoice,base.group_sale_salesman,1,1,1,1
+access_account_x_service_notify,account.x.service.notify,model_account_x_service_notify,base.group_sale_salesman,1,1,1,1
+access_account_x_service_notify_line,account.x.service.notify.line,model_account_x_service_notify_line,base.group_sale_salesman,1,1,1,1
+access_account_x_nods,account.x.nods,model_account_x_nods,base.group_sale_salesman,1,1,1,1
+access_account_x_contract_service,account.x.contract.service,model_account_x_contract_service,base.group_sale_salesman,1,1,1,1
+access_account_x_service_public,cloud,model_account_x_service,base.group_public,1,0,0,0
+access_account_x_service_public,cloud,model_account_x_service_line,base.group_public,1,0,0,0
+access_account_x_service_portal,cloud,model_account_x_service,base.group_portal,1,0,0,0
+access_account_x_service_portal,cloud,model_account_x_service_line,base.group_portal,1,0,0,0
+access_account_x_service_x_portal,x.portal.payment.acquirer,model_x_portal_payment_acquirer,base.group_portal,1,0,0,0
+access_crm_make_cloud,crm.make.cloud,model_crm_make_cloud,base.group_sale_salesman,1,1,1,1
+access_x_portal_domain,x.portal.domain,model_x_portal_domain,base.group_portal,1,1,1,1

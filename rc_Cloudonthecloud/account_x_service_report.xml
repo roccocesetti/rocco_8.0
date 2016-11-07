@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+            id="report_account_x_service_01"
+            string="Servizi Cloud"
+            model="account.x.service" 
+            report_type="qweb-pdf"
+            file="rc_Cloudonthecloud.report_accountxservice01" 
+            name="rc_Cloudonthecloud.report_accountxservice01" 
+        />
+        <report 
+            id="report_account_x_service_trial"
+            string="Prova Servizi Cloud"
+            model="account.x.service" 
+            report_type="qweb-pdf"
+            file="rc_Cloudonthecloud.report_accountxservicetrial" 
+            name="rc_Cloudonthecloud.report_accountxservicetrial" 
+        />
+        
+        </data>
+</openerp>

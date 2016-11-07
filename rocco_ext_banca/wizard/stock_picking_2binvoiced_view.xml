@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_stock_picking_2binvoiced" model="ir.ui.view">
+            <field name="name">Annulla Fattura</field>
+            <field name="model">stock.picking.2binvoiced</field>
+            <field name="arch" type="xml">
+              <form string="Fatture da annullare" version="7.0">
+                  <group string="Fatture Da annullare">
+                 </group>
+                  <footer>
+                      <button name="stock_picking_2binvoiced_put" string="Annulla Fatture" type="object" class="oe_highlight"/>
+                      or
+                      <button string="Cancel" class="oe_link" special="cancel"/>
+                  </footer>
+             </form>
+            </field>
+        </record>
+       <act_window name="Annulla  Fatture"
+            res_model="stock.picking.2binvoiced"
+            src_model="account.invoice"
+            key2="client_action_multi"
+            multi="True"
+            view_mode="form"
+            view_type="form"
+            target="new"
+            id="action_view_stock_picking_2binvoiced"/>
+       
+    </data>
+</openerp>

@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        
+        <!-- Top menu item -->
+        <menuitem name="Cloudonthecloud"
+            id="menu_cloudonthecloud"
+            groups="base.group_sale_salesman"
+            sequence="95"/>
+        <menuitem id="menu_cloudonthecloud_main" parent="menu_cloudonthecloud" name="Cloudonthecloud" sequence="0" groups="base.group_sale_salesman"/>
+        <menuitem id="menu_cloudonthecloud_configuration" name="Configuration" parent="menu_cloudonthecloud_main" groups="base.group_sale_salesman" sequence="50"/>
+        <menuitem id="menu_cloudonthecloud_reporting" parent="base.menu_reporting" name="Human Resources" sequence="40" groups="base.group_sale_salesman"/>
+        <menuitem id="menu_cloudonthecloud_reporting_timesheet" name="Reports" parent="menu_cloudonthecloud_reporting" sequence="6" groups="base.group_sale_salesman"/>
+
+        <record id="transaction_form_account_x_service_notify" model="ir.ui.view">
+            <field name="name">payment.transaction.form.account_x_service_notify</field>
+            <field name="model">payment.transaction</field>
+            <field name="inherit_id" ref="payment.transaction_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='reference']" position="after">
+                    <field name="notify_id"/>
+                    <field name="x_service_id"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record id="action_payment_acquirer_notify" model="ir.actions.act_window">
+            <field name="name">Payment transaction</field>
+            <field name="res_model">payment.transaction</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form</field>
+        </record>
+
+        <record id="view_account_x_service_notify_make" model="ir.ui.view">
+            <field name="name">Crea Notifiche Cloud</field>
+            <field name="model">account.x.service.notify.make</field>
+            <field name="arch" type="xml">
+                <form string="Crea Notifiche">
+                    <footer>
+                        <button name="make_notify_expire" string="Create Notifiche Cloud in Scadenza" type="object" class="oe_highlight"/>
+                        or
+                        <button name="make_notify_exired" string="Create Notifiche Cloud Scadute" type="object" class="oe_highlight"/>
+                        or
+                        <button name="make_notify_trial_expire" string="Create Notifiche Cloud in prova" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_account_x_service_notify_make" model="ir.actions.act_window">
+            <field name="name">Crea Notifiche Cloud</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.x.service.notify.make</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_account_x_service_notify_make"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record>
+
+
+        <menuitem action="action_account_x_service_notify_make" id="rc_cloudonthecloud_action_account_x_service_notify_make" parent="menu_cloudonthecloud_main" name="Crea Notifiche 2" sequence="8" groups="base.group_sale_salesman"/>
+
+
+        
+<!-- inizio tabelle cloud-->
+
+<!-- inizio tabelle nodi-->
+        <record id="rc_cloudonthecloud_account_x_nods_view_search" model="ir.ui.view">
+            <field name="name">account.x.nods.view.search</field>
+            <field name="model">account.x.nods</field>
+            <field name="arch" type="xml">
+                <search string="Search nodi">
+                   <field name="name" string="Nome Nodi"/>
+                   <field name="active" string="Attivo"/>
+                   <field name="ip_pubblico"/>
+                   <field name="ip_locale"/>
+                   <field name="applicazione"/>
+                   <field name="x_service_partner" string="Cliente associato"/>
+                   <field name="parent_id"/>
+                   <field name="usr_nods"/>
+                   <field name="passwd_nods"/>
+                   <field name="url_nods"/>
+                   <field name="id_vm"/>
+                  <group expand="0" string="Group By">
+                       <filter string="Nodo" icon="terp-personal" domain="[]" context="{'group_by':'name'}"/>
+                       <filter string="Padre" icon="terp-personal" domain="[]" context="{'group_by':'parent_id'}"/>
+                       <filter string="Ip pubblico" icon="terp-go-week" domain="[]" context="{'group_by':'ip_pubblico'}"/>
+                       <filter string="Ip locale" icon="terp-gtk-select-all" domain="[]" context="{'group_by':'ip_locale'}"/>
+                       <filter string="Applicazione" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'applicazione'}"/>
+                       <filter string="Cliente Associato" icon="terp-stock_symbol-selection" domain="[]" context="{'group_by':'x_service_partner'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="rc_cloudonthecloud_account_x_nods_view_form" model="ir.ui.view">
+            <field name="name">account.x.nods.view.form</field>
+            <field name="model">account.x.nods</field>
+            <field name="arch" type="xml">
+                <form string="Nodi">
+                    <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Contract Reference"/>
+                            <field name="active" string="Attivo"/>
+
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+
+                   			<field name="parent_id"/>
+                   			<field name="usr_nods"/>
+                   			<field name="passwd_nods"/>
+                    		<field name="url_nods"/>
+                        </group>
+
+                        <group>
+                            <field name="ip_pubblico" />
+                            <field name="ip_locale"/>
+                   			<field name="id_vm"/>
+                        </group>
+                        <group>
+                            <field name="applicazione"/>
+                            <field name="x_service_partner" string="Cliente associato"/>
+                        </group>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="rc_cloudonthecloud_account_x_nods_view_tree" model="ir.ui.view">
+            <field name="name">rc_cloudonthecloud_account_x_nods.view.tree</field>
+            <field name="model">account.x.nods</field>
+            <field name="arch" type="xml">
+                <tree string="Contracts">
+                    <field name="name" />
+                    <field name="parent_id"/>
+                    <field name="usr_nods"/>
+                    <field name="url_nods"/>
+                    <field name="active"/>
+                    <field name="ip_pubblico"/>
+                    <field name="ip_locale"/>
+                    <field name="applicazione"/>
+                    <field name="x_service_partner" string="Cliente associato"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_rc_cloudonthecloud_account_x_nods" model="ir.actions.act_window">
+            <field name="name">Nodi</field>
+            <field name="res_model">account.x.nods</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_current':1}</field>
+            <field name="search_view_id" ref="rc_cloudonthecloud_account_x_nods_view_search"/>
+        </record>
+
+        
+<!-- inizio tabelle contratto -->
+        <record id="rc_cloudonthecloud_account_x_contract_service_view_search" model="ir.ui.view">
+            <field name="name">account.x.contract.service.view.search</field>
+            <field name="model">account.x.contract.service</field>
+            <field name="arch" type="xml">
+                <search string="Search contratti">
+                   <field name="name" string="Nome Contratto"/>
+                   <field name="active" string="Attivo"/>
+                   <field name="note"/>
+                   <group expand="0" string="Group By">
+                       <filter string="Contratto" icon="terp-personal" domain="[]" context="{'group_by':'name'}"/>
+                       <filter string="Sezione Contratto" icon="terp-go-week" domain="[]" context="{'group_by':'note'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="rc_cloudonthecloud_account_x_contract_service_view_form" model="ir.ui.view">
+            <field name="name">account.x.contract.service.view.form</field>
+            <field name="model">account.x.contract.service</field>
+            <field name="arch" type="xml">
+                <form string="Nodi">
+                    <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Contract Reference"/>
+                            <field name="active" string="Attivo"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="note" string="Sezione Contratto"/>
+                        </group>
+                    </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="rc_cloudonthecloud_account_x_contract_service_view_tree" model="ir.ui.view">
+            <field name="name">account.x.contract.service.view.tree</field>
+            <field name="model">account.x.contract.service</field>
+            <field name="arch" type="xml">
+                <tree string="Contracts">
+                    <field name="name" />
+                    <field name="active"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_rc_cloudonthecloud_account_x_contract_service" model="ir.actions.act_window">
+            <field name="name">Tipi Contratto servizi Cloud</field>
+            <field name="res_model">account.x.contract.service</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_current':1}</field>
+            <field name="search_view_id" ref="rc_cloudonthecloud_account_x_contract_service_view_search"/>
+        </record>
+
+<!-- inizio tabelle Servizi  -->
+        <record id="rc_cloudonthecloud_account_x_service_view_search" model="ir.ui.view">
+            <field name="name">account.x.service.view.search</field>
+            <field name="model">account.x.service</field>
+            <field name="arch" type="xml">
+                <search string="Search Servizi">
+                   <field name="name" string="Nome Servizio"/>
+                   <field name="state" />
+                   <field name="partner_id"/>
+                   <field name="x_nod_id"/>
+                   <field name="x_nods_parent_id"/>
+                   <field name="date_service"/>
+                   <group expand="0" string="Group By">
+                       <filter string="Servizio" icon="terp-personal" domain="[]" context="{'group_by':'name'}"/>
+                       <filter string="Stato" icon="terp-go-week" domain="[]" context="{'group_by':'state'}"/>
+                       <filter string="Cliente" icon="terp-go-week" domain="[]" context="{'group_by':'partner_id'}"/>
+                       <filter string="Prodotto" icon="terp-go-week" domain="[]" context="{'group_by':'product_id'}"/>
+                       <filter string="Nodo" icon="terp-go-week" domain="[]" context="{'group_by':'x_nod_id'}"/>
+                       <filter string="Nodo Padre" icon="terp-go-week" domain="[]" context="{'group_by':'x_nods_parent_id'}"/>
+                       <filter string="Data servizio" icon="terp-go-week" domain="[]" context="{'group_by':'date_service'}"/>
+                   </group>
+               </search>
+            </field>
+        </record>
+<!--inizio firma contratto -->
+        <record id="rc_cloudonthecloud_account_x_service_view_form_contratto" model="ir.ui.view">
+            <field name="name">account.x.service.view.form.contratto</field>
+            <field name="model">account.x.service</field>
+            <field name="arch" type="xml">
+                <form string="Firma contratto">
+                    <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                    </div>
+                        <h4>
+                            <field name="name" placeholder="Nome Del Servizio" readonly="1"/>
+                            <field name="state" string="Stato" widget="statusbar" statusbar_visible="draft,trial,send,progress,paid,done,expired,cancel" statusbar_colors='{"exception":"red","cancel":"red"}'/>
+                            <br/>
+                        	
+                        	<button name="action_firma_contratto" string="Firma Contratto" domain="[('firma_contratto','=',False)]" class="oe_highlight" type="object" groups="base.group_portal"/>
+
+                         </h4>
+                        
+                    <group>
+                        <group>
+                            <field name="x_contract_service_id" string="Tipo Contratto Servizi Cloud" readonly="1"/>
+                            <field name="firma_contratto" string="Firma contratto" readonly="1"/>
+                            </group>
+                        <group>                        
+                            <field name="date_service" string="Data avvio servizio" readonly="1"/>
+                          </group>
+                    </group>
+                     </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="rc_cloudonthecloud_account_x_service_view_tree_contratto" model="ir.ui.view">
+            <field name="name">account.x.service.view.tree.contratto</field>
+            <field name="model">account.x.service</field>
+            <field name="arch" type="xml">
+                <tree string="Contracts">
+                   <field name="name" />
+                   <field name="state" />
+                   <field name="firma_contratto" />
+                   <field name="partner_id"/>
+                   <field name="user_id"/>
+                    </tree>
+            </field>
+        </record>
+        
+<!--FINE firma contratto -->
+
+        <record id="rc_cloudonthecloud_account_x_service_view_form" model="ir.ui.view">
+            <field name="name">account.x.service.view.form</field>
+            <field name="model">account.x.service</field>
+            <field name="arch" type="xml">
+                <form string="Servizi Cloud">
+                    <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                    </div>
+                        <h4>
+                            <field name="name" placeholder="Nome Del Servizio"/>
+                            <field name="state" string="Stato" widget="statusbar" statusbar_visible="draft,trial,send,progress,paid,done,expired,cancel" statusbar_colors='{"exception":"red","cancel":"red"}'/>
+                            <br/>
+                            <field name="invoice_exists" invisible="1"/>
+                            <button name="action_trial_send" string="Notifica periodo di prova" type="object" states="draft,trial" class="oe_highlight" groups="base.group_sale_salesman"/>
+                            <button name="action_quotation_send" string="Notifica Servizio" type="object" states="draft,trial" class="oe_highlight" groups="base.group_sale_salesman"/>
+                            <button name="action_quotation_send" string="Reinvio Notifica Servizio" type="object" states="send,done,process,expire" class="oe_highlight" groups="base.group_sale_salesman"/>
+                        	<button name="action_view_invoice" string="Visualizza Fattura" type="object" class="oe_highlight"
+                            attrs="{'invisible': [('invoice_exists', '=', False)]}" groups="base.group_user"/>
+                            <button name="%(action_account_x_service_make_invoice)d" string="Crea Fattura"
+                            type="action" states="done" class="oe_highlight" groups="base.group_sale_salesman"/>
+                        	
+                        	<button name="action_button_confirm" states="draft" string="Conferma Servizi Cloud" type="object" groups="base.group_sale_salesman"/>
+                        	
+                        	<button name="action_button_confirm" states="send" string="Conferma Servizi Cloud" class="oe_highlight" type="object" groups="base.group_sale_salesman"/>
+
+                         </h4>
+                        
+                    <group>
+                        <group>
+                            <field name="portal_payment_options" groups="portal_sale.group_payment_options" />        
+                           <field name="partner_id" string="Cliente"
+                            context="{'partner_id':partner_id}"
+                              class="oe_inline"
+                              on_change="partner_id_change(partner_id, context)"
+                            />
+                            <field name="user_id"/>
+                            <field name="user_customer_id"/>
+                            <field name="x_contract_service_id" string="Tipo Contratto Servizi Cloud"/>
+                            <field name="firma_contratto" string="Firma contratto"/>
+                            <field name="x_nod_id" string=" Nodo"
+                              context="{'partner_id':partner_id,'x_nod_id':x_nod_id}"
+                              class="oe_inline"
+                              on_change="x_nod_id_change(partner_id,x_nod_id, context)"/>
+                  			<field name="x_nods_parent_id" groups="base.group_sale_salesman"/>
+                            
+                            </group>
+                         <group>                        
+                            <field name="trial_start" string="Avvio periodo di prova"/>
+                            <field name="trial_end" string="Fine periodo di prova"/>
+                            <field name="trail_gg_alert" string="GG di alert Trials"/>
+                            <field name="date_alert_trial" string="Avviso Scadenza prova"/>
+
+                        </group>
+                        <group>                        
+                            <field name="date_service" string="Data avvio servizio"/>
+                            <field name="gg_alert" string="GG di alert"/>
+                            <field name="F_invoice_repeat" string="Ricorrenza Fatturazione"/>
+                            <field name="num_decorrenza" string="Numerosità decorrenza Fattura"/>
+                            <field name="decorrenza" string="Decorrenza"/>
+                            <field name="date_next_invoice" string="Prossima Fatturazione"/>
+                            <field name="date_alert_expire" string="Prossimo Avviso"/>
+                            <field name="x_service_policy" string="Politica del servizio"/>
+                            <field name="paypal_status" readonly="1" groups="base.group_sale_salesman"/>
+                            <field name="paypal_id" readonly="1" groups="base.group_sale_salesman"/>
+                          
+                          </group>
+                        <group>                        
+                            <field name="type_service" string="Tipo Servizio"/>
+                            <field name="Imp_a_consumo" string="Importo Massimo da consumare"/>
+                          </group>
+                    </group>
+                    <notebook>
+                        <page string="Dettaglio Servizio">
+                            <field name="line_ids" groups="base.group_sale_salesman">
+                                <form string="Dettaglio Servizio">
+                                    <header groups="base.group_user">
+                                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors='{"exception":"red","cancel":"red"}'/>
+                                    </header>
+                                    <group>
+                                        <group>
+                                            <field name="product_id"
+                                                context="{'partner_id':parent.partner_id, 'quantity':service_qty, 'uom':service_uom}"
+                                                groups="base.group_user"
+                                                on_change="product_id_change(product_id, service_qty, False, service_uos_qty, False, name, parent.partner_id, False, True, parent.date_service, False, False, False,parent.user_id, context)"/>
+                                            <label for="service_qty"/>
+                                            <div>
+                                                <field
+                                                    context="{'partner_id':parent.partner_id, 'quantity'service_qty , 'uom':service_uom}"
+                                                    name="service_qty" class="oe_inline"
+                                                    on_change="product_id_change(product_id,service_qty,service_uom,service_qty,service_uos,name,parent.partner_id, False, False, parent.date_service, False, False, True,parent.user_id, context)"/>
+                                                <field name="service_uom" groups="product.group_uom" class="oe_inline oe_no_button"
+
+                                                    on_change="product_uom_change(product_id,service_qty,service_uom,service_uos_qty,service_uos,name,parent.partner_id, False, False, parent.date_service,parent.user_id, context)"/>
+                                            </div>
+                                            <label for="service_uos_qty" groups="product.group_uos"/>
+                                            <div groups="product.group_uos">
+                                                <field name="service_uos_qty" class="oe_inline"/>
+                                                <field name="service_uos" options='{"no_open": True}' class="oe_inline"/>
+                                            </div>
+                                            <field name="price_unit"/>
+                                           <field name="discount" groups="sale.group_discount_per_so_line"/>
+                                    	   <field name="tax_id"/>
+                                    		<field name="price_subtotal"/>
+                                            <field name="user_id"/>
+                                        </group>
+                                    </group>
+                                    <label for="name"/>
+                                    <field name="name"/>
+                                </form>
+                                <tree string="Dettaglio Servizio" editable="bottom">
+                                    <field name="state" invisible="1"/>
+                                    <field name="product_id"
+                                        context="{'partner_id':parent.partner_id, 'quantity':service_qty, 'tax_id':tax_id, 'uom':service_uom}"
+                                        groups="base.group_user" 
+                                        on_change="product_id_change(product_id, service_qty, False, service_uos_qty, False, name, parent.partner_id, False, True, parent.date_service, False, False, False,parent.user_id, context)"/>
+                                    <field name="name"/>
+                                    <field name="service_qty"
+                                        context="{'partner_id':parent.partner_id, 'quantity':service_qty, 'uom':service_uom}"
+                                        on_change="product_id_change(product_id, service_qty, service_uom, service_uos_qty, service_uos, name, parent.partner_id, False, False, parent.date_service, False, False, True,parent.user_id, context)"/>
+                                    <field name="service_uom"
+                                        on_change="product_uom_change(product_id, service_qty, service_uom, service_uos_qty, service_uos, name, parent.partner_id, False, False, parent.date_service,parent.user_id, context)"
+                                        groups="product.group_uom" options='{"no_open": True}'/>
+                                    <field name="service_uos_qty" groups="product.group_uos" invisible="1"/>
+                                    <field name="service_uos" string="UoS" groups="product.group_uos" invisible="1"/>
+                                    <field name="price_unit"/>
+                                    <field name="discount" groups="sale.group_discount_per_so_line" invisible="1"/>
+                                    <field name="tax_id" invisible="1"/>
+                                    <field name="price_subtotal"/>
+                                    <field name="user_id"/>
+                                 </tree>
+                            </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <label for="amount_total" />
+                                    <button name="button_dummy"
+                                        states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                </div>
+                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            
+                            <div class="oe_clear"/>
+                            <field name="note" class="oe_inline" placeholder="Terms and conditions..."/>
+                        </page>
+                        </notebook>
+                     </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="rc_cloudonthecloud_account_x_service_view_tree" model="ir.ui.view">
+            <field name="name">account.x.service.view.tree</field>
+            <field name="model">account.x.service</field>
+            <field name="arch" type="xml">
+                <tree string="Contracts">
+                   <field name="name" />
+                   <field name="type_service" string="Tipo Servizio"/>
+                   <field name="state" />
+                   <field name="firma_contratto" />
+                   <field name="partner_id"/>
+                   <field name="user_id"/>
+                   <field name="x_nod_id"/>
+                 	<field name="x_nods_parent_id"/>
+                  <field name="date_service"/>
+                   <field name="paypal_status"/>
+                    </tree>
+            </field>
+        </record>
+
+        <record id="action_rc_cloudonthecloud_account_x_service" model="ir.actions.act_window">
+            <field name="name">Servizi Cloud</field>
+            <field name="res_model">account.x.service</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_current':1}</field>
+            <field name="search_view_id" ref="rc_cloudonthecloud_account_x_service_view_search"/>
+        </record>
+        <record id="action_account_x_service_firma_contratti" model="ir.actions.act_window">
+            <field name="name">Firma servizi</field>
+            <field name="res_model">account.x.service</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_current':1}</field>
+            <field name="domain">[('firma_contratto','=',False)]</field>
+            <field name="view_id" ref="rc_cloudonthecloud_account_x_service_view_form_contratto"/>
+        </record>
+        
+        <record id="action_rc_cloudonthecloud_crm_claim_x_service" model="ir.actions.act_window">
+            <field name="name">Reclami</field>
+            <field name="res_model">crm.claim</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{'search_default_current':1}</field>
+            <field name="search_view_id" ref="crm_claim.view_crm_case_claims_filter"/>
+        </record>
+<!-- ineriths  tabelle partner  -->
+        <record id="action_view_x_service" model="ir.actions.act_window">
+            <field name="name">Servizi Cloud x partner</field>
+            <field name="res_model">account.x.service</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="rc_cloudonthecloud_account_x_service_view_search"/>
+            <field name="help" type="html">
+                <p>
+                    Elenca tutti i Servizi Allegati al Cliente
+                </p>
+            </field>
+        </record>        
+
+        <record id="rc_cloudonthecloud_account_x_service_view_task_partner_info_form" model="ir.ui.view">
+            <field name="name">res.partner.x.service.buttons</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="priority" eval="60"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" type="action" name="%(action_view_x_service)d" 
+                        context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}"
+                        icon="fa-tasks" groups="base.group_sale_salesman">
+                        <field  string="Servizi Cloud" name="x_service_count" widget="statinfo"/>
+                    </button>                             
+                    <button class="oe_inline oe_stat_button" type="object" name="create_user_portal" 
+                         icon="fa-tasks" groups="base.group_sale_salesman" string="Crea utente Portale">
+                    </button>                             
+
+                </xpath>
+                <field name="user_id" position="after">
+                  	<field name="website_published"/>      
+                </field>     
+
+            </field>
+       </record>
+        
+        <!-- Partner kanban view inherte -->
+        <record model="ir.ui.view" id="rc_cloudonthecloud_crm_lead_partner_kanban_view">
+            <field name="name">res.partner.kanban.saleorder.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="sale.crm_lead_partner_kanban_view"/>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <field name="sale_order_count" position="after">
+                    <field name="x_service_count"/>
+                </field>
+                <xpath expr="//div[@class='oe_kanban_partner_links']" position="inside">
+                    <a name="%(action_view_x_service)d" type="action" t-if="record.x_service_count.value>0">
+                        <t t-esc="record.x_service_count.value"/> Servizi Cloud
+                    </a>
+                </xpath>
+            </field>
+        </record>
+
+        
+<!-- fine tabelle cloud --> 
+
+       
+        <menuitem id="rc_cloudonthecloud_id_01" name="Contract" parent="menu_cloudonthecloud_configuration" sequence="30" groups="base.group_sale_salesman"/>
+        <menuitem id="base.menu_product" name="Products" parent="menu_cloudonthecloud_main" sequence="6" groups="base.group_sale_salesman"/>
+        <menuitem id="base.menu_partner_form" parent="menu_cloudonthecloud_main"  sequence="8" groups="base.group_sale_salesman"/>
+        <menuitem action="action_rc_cloudonthecloud_account_x_nods" id="rc_cloudonthecloud_account_x_nods_action_tree" parent="menu_cloudonthecloud_main" name="Nodi" sequence="5" groups="base.group_sale_salesman"/>
+        <menuitem action="action_rc_cloudonthecloud_account_x_contract_service" id="rc_cloudonthecloud_account_x_contract_service_action_tree" parent="menu_cloudonthecloud_main" name="Tipi Contratto Servizi Cloud" sequence="5" groups="base.group_sale_salesman"/>
+        <menuitem action="action_rc_cloudonthecloud_account_x_service" id="rc_cloudonthecloud_account_x_service_action_tree" parent="menu_cloudonthecloud_main" name="Servizi Cloud" sequence="5" groups="base.group_sale_salesman"/>
+        <menuitem
+            action='action_payment_acquirer_notify'
+            id='payment_acquirer__notify_menu'
+            parent='menu_cloudonthecloud_main'
+            sequence='10' />
+        <menuitem
+            action='action_rc_cloudonthecloud_crm_claim_x_service'
+            id='action_rc_cloudonthecloud_crm_claim_x_service_menu'
+            parent='menu_cloudonthecloud_main'
+            sequence='20' />
+        <menuitem name="Firma Contratti" id="rc_cloudonthecloud_cloud_firma_contratti" parent="menu_cloudonthecloud_main"
+            action="action_account_x_service_firma_contratti" sequence="30" groups="base.group_sale_salesman"/>
+        
+        </data>
+</openerp>
