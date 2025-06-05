@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+        <record id="wizard_import_fatturapa_form_view_prof2" model="ir.ui.view">
+            <field name="name">Import FatturaPA</field>
+            <field name="model">wizard.import.fatturapa</field>
+            <field name="arch" type="xml">
+                <form string="Import FatturaPA" >
+                    <group col="2" width="600" height="500">
+                        <group>
+                            <label string="Confirm?"/>
+                        </group>
+                        <newline/>
+                        <group col="3">
+                            <button icon="gtk-cancel" special="cancel" string="Cancel" colspan="1"/>
+                            <button colspan="1" icon="gtk-ok" name="importfatturapa2" string="Importa Fatture passive" type="object"></button>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_import_fatturapa_form_view_prof" model="ir.ui.view">
+            <field name="name">Import Fatture PA</field>
+            <field name="model">wizard.import.fatturapa</field>
+           <field name="inherit_id" ref="l10n_it_fatturapa_in.wizard_import_fatturapa_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/group/footer/button[@name='importFatturaPA']" position="after">
+                            <button colspan="1" icon="gtk-ok" name="importFatturaPA2" string="Crea FatturePA" type="object"></button>
+                </xpath>
+            </field>
+        </record>
+
+        <act_window name="Import FatturaPA"
+            res_model="wizard.import.fatturapa"
+            src_model="fatturapa.attachment.in"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_wizard_import_fatturapa"
+            view_id="wizard_import_fatturapa_form_view_prof"/>
+
+        <record id="action_fattura_pa_in_prof2" model="ir.actions.act_window">
+            <field name="name">Importa da provider</field>
+            <field name="res_model">wizard.import.fatturapa</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="wizard_import_fatturapa_form_view_prof2"></field>
+        </record>
+
+        <menuitem action="action_fattura_pa_in_prof2" id="menu_fattura_pa_in_prof2"
+                              parent="l10n_it_fatturapa.menu_fattura_pa_payables"></menuitem>
+
+
+<!-- rifiuto -->
+        <record id="wizard_import_fatturapa_rifiuto" model="ir.ui.view">
+            <field name="name">Accetta/rifiuta</field>
+            <field name="model">wizard.import.note</field>
+            <field name="arch" type="xml">
+                <form string="Accetta/rifiuta" >
+                    <group col="2" width="600" height="500">
+                        <group>
+                            <field name="name"></field>
+                        </group>
+                        <newline/>
+                        <group col="3">
+                            <button icon="gtk-cancel" special="cancel" string="Cancel" colspan="1"/>
+                            or
+                            <button colspan="1" icon="gtk-ok" name="accetta_fattura" string="Accetta fattura" type="object"></button>
+                            or
+                            <button colspan="1" icon="gtk-ok" name="rifiuto_fattura" string="rifiuto fattura" type="object"></button>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Accetta/Rifiuta Fattura"
+            res_model="wizard.import.note"
+            src_model="fatturapa.attachment.in"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_rifiuto_fattura"
+            view_id="wizard_import_fatturapa_rifiuto"/>
+        <act_window name="Accetta/Rifiuta Fattura"
+            res_model="wizard.import.note"
+            src_model="account.invoice"
+            view_mode="form"
+            target="new"
+            key2="client_action_multi"
+            id="action_rifiuto_fattura"
+            view_id="wizard_import_fatturapa_rifiuto"/>
+
+<!--  -->
+	</data>
+</openerp>

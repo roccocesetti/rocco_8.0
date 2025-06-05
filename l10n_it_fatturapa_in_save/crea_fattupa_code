@@ -1,0 +1,52 @@
+﻿
+CREATE SEQUENCE public.fatturapa_article_code_id_seq
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE public.fatturapa_article_code_id_seq
+  OWNER TO odoo_70svi;
+  
+CREATE TABLE public.fatturapa_article_code
+(
+  id integer NOT NULL DEFAULT nextval('fatturapa_article_code_id_seq'::regclass),
+  create_uid integer,
+  create_date timestamp without time zone,
+  write_date timestamp without time zone,
+  write_uid integer,
+  code_val character varying(35), -- Code Value
+  invoice_line_id integer, -- Related Invoice line
+  name character varying(35), -- Cod Type
+  CONSTRAINT fatturapa_article_code_pkey PRIMARY KEY (id),
+  CONSTRAINT fatturapa_article_code_create_uid_fkey FOREIGN KEY (create_uid)
+      REFERENCES public.res_users (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE SET NULL,
+  CONSTRAINT fatturapa_article_code_invoice_line_id_fkey FOREIGN KEY (invoice_line_id)
+      REFERENCES public.account_invoice_line (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE CASCADE,
+  CONSTRAINT fatturapa_article_code_write_uid_fkey FOREIGN KEY (write_uid)
+      REFERENCES public.res_users (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE SET NULL
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE public.fatturapa_article_code
+  OWNER TO odoo_70svi;
+COMMENT ON TABLE public.fatturapa_article_code
+  IS 'FatturaPA Article Code';
+COMMENT ON COLUMN public.fatturapa_article_code.code_val IS 'Code Value';
+COMMENT ON COLUMN public.fatturapa_article_code.invoice_line_id IS 'Related Invoice line';
+COMMENT ON COLUMN public.fatturapa_article_code.name IS 'Cod Type';
+
+
+-- Index: public.fatturapa_article_code_invoice_line_id_index
+
+-- DROP INDEX public.fatturapa_article_code_invoice_line_id_index;
+
+CREATE INDEX fatturapa_article_code_invoice_line_id_index
+  ON public.fatturapa_article_code
+  USING btree
+  (invoice_line_id);
+

@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="genesi3srl_manager" model="res.groups">
+			<field name="name">genesi3srl / Manager</field>
+		</record>		
+		<record id="genesi3srl_user" model="res.groups">
+			<field name="name">genesi3srl / User</field>
+		</record>		
+		</data>	
+</openerp>

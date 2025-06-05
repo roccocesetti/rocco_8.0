@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="ornate_shop_module" inherit_id="website.assets_frontend" name="Ornate Shop Module">
+          <xpath expr="." position="inside">
+            <link href="/ornate_shop_module/static/src/css/custom.css" rel="stylesheet" />
+          </xpath>
+        </template>
+
+        <template id="homepage_inherit" inherit_id="website.homepage">
+          <data inherit_id="website.homepage">
+            <xpath expr="//div" position="inside">
+              <div data-oe-id="318" data-oe-source-id="288" data-oe-xpath="/data/xpath/div[1]" data-oe-model="ir.ui.view" data-oe-field="arch">
+                <div class="oe_structure oe_empty" id="wrap">
+                  <section>
+                    <div class="carousel slide mb8" id="myCarousel_1461667333867" style="height: 672px; overflow: hidden;">
+                      <ol class="carousel-indicators">
+                        <li class="active" data-slide-to="0" data-target="#myCarousel_1461667333867" />
+                        <li data-slide-to="1" data-target="#myCarousel_1461667333867" />
+                        <li data-slide-to="2" data-target="#myCarousel_1461667333867" />
+                      </ol>
+                      <div class="carousel-inner">
+                        <div class="item oe_img_bg active" style="background-image: url(&quot;/ornate_shop_module/static/src/img/banner-10.jpg&quot;);">
+                          <div class="container">
+                            <div class="row content">
+                              <div class="carousel-content col-md-6 col-sm-12">
+                                <h2>If you don't drive your business, you will be driven out of business.</h2>
+                                <h3>- B. C. Forbes</h3>
+                                <p>
+                                  <a class="btn btn-success " href="/page/website.contactus">Contact us</a>
+                                </p>
+                              </div>
+                              <div class="carousel-img col-md-6 hidden-sm hidden-xs" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="item oe_img_bg" style="background-image: url(&quot;/ornate_shop_module/static/src/img/banner-6.jpg&quot;);">
+                          <div class="container">
+                            <div class="row content">
+                              <div class="carousel-content col-sm-12 col-md-7">
+                                <h2>We're all working together; that's the secret.</h2>
+                                <h3>- Sam Walton</h3>
+                                <p>
+                                  <a class="btn btn-success btn-large" href="/page/website.contactus">Contact us</a>
+                                </p>
+                              </div>
+                              <div class="carousel-img col-md-6 hidden-sm hidden-xs" />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="item oe_img_bg" style="background-image: url(&quot;/ornate_shop_module/static/src/img/banner-7.jpg&quot;);">
+                          <div class="container">
+                            <div class="row content">
+                              <div class="carousel-content col-md-6 col-sm-12">
+                                <h2>Our work is the presentation of our capabilities.</h2>
+                                <h3>-&amp;nbsp;Edward Gibbon</h3>
+                                <p>
+                                  <a class="btn btn-success btn-large" href="/page/website.contactus">Contact us</a>
+                                </p>
+                              </div>
+                              <div class="carousel-img col-md-6 hidden-sm hidden-xs" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="carousel-control left" data-slide="prev" data-target="#myCarousel_1461667333867" href="#myCarousel_1461667333867" style="width: 10%">
+                        <i class="fa fa-chevron-left" />
+                      </div>
+                      <div class="carousel-control right" data-slide="next" data-target="#myCarousel_1461667333867" href="#myCarousel_1461667333867" style="width: 10%">
+                        <i class="fa fa-chevron-right" style="" />
+                      </div>
+                    </div>
+                  </section>
+                  <section>
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-12 mb0">
+                          <h1 class="text-center">Our Products</h1>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                  <section class="mt16 mb0" style="height: 712px; overflow: hidden;">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <img alt="Odoo - Sample 1 for three columns" class="img img-rounded img-responsive" src="/ornate_shop_module/static/src/img/feature6.jpg" style="animation-play-state: paused; transition: none" />
+                          <h2 class="mt16" style="text-align: center;">Feature One</h2>
+                          <address style="text-align: center;">
+                            <span style="color:#333333;">Adapt these three columns to fit you design need. To duplicate, delete or move columns, select the column and use the top icons to perform your action.</span>
+                          </address>
+                        </div>
+                        <div class="col-md-4">
+                          <img alt="Odoo - Sample 1 for three columns" class="img img-rounded img-responsive" src="/ornate_shop_module/static/src/img/feature5.jpg" style="animation-play-state: paused; transition: none" />
+                          <h2 class="mt16" style="text-align: center;">
+                            <span style="line-height: 1.1;">Feature Two</span>
+                          </h2>
+                          <address style="line-height: 18.5714px; text-align: center;">To add a fourth column, reduce the size of these three columns using the right icon of each block. Then, duplicate one of the column to create a new one as a copy.</address>
+                        </div>
+                        <div class="col-md-4">
+                          <img alt="Odoo - Sample 1 for three columns" class="img img-rounded img-responsive" src="/ornate_shop_module/static/src/img/feature3.jpg" style="animation-play-state: paused; transition: none" />
+                          <h4 class="mt16">
+                            <span style="line-height: 1.1;" />
+                          </h4>
+                          <h2 class="mt16" style="font-family: 'Open Sans', sans-serif; color: rgb(51, 51, 51); text-align: center;">Feature Three</h2>
+                          <address style="line-height: 18.5714px; text-align: center;">Delete the above image or replace it with a picture that illustrates your message. Click on the picture to change it's&amp;nbsp;<em>rounded corner</em>&amp;nbsp;style.</address>
+                        </div>
+                        <div class="col-md-4">
+                          <h4 class="mt16" />
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                  <section class="parallax oe_img_bg mt0" data-scroll-background-offset="0" data-scroll-background-ratio="0.3" style="height: 408px; overflow: hidden; background-image: url(&quot;/ornate_shop_module/static/src/img/background7.jpg&quot;); background-attachment: scroll; background-position: 0px 1233.3px;">
+                    <div>
+                      <div>
+                        <div class="oe_structure">
+                          <div class="carousel quotecarousel slide mb0 mt92" id="myCarousel_1461682215929">
+                            <ol class="carousel-indicators mb0">
+                              <li class="active" data-slide-to="0" data-target="#myCarousel_1461682215929" />
+                              <li data-slide-to="1" data-target="#myCarousel_1461682215929" />
+                              <li data-slide-to="2" data-target="#myCarousel_1461682215929" />
+                            </ol>
+                            <div class="carousel-inner">
+                              <div class="item text_only active">
+                                <div class="container">
+                                  <div class="content">
+                                    <div class="row">
+                                      <blockquote class="mb16 mt0 col-md-10 col-md-offset-1">
+                                        <h3>
+                                            <span style="color:#000000;">“Create your own visual style… let it be unique for yourself and yet identifiable for others.”</span>
+                                        </h3>
+                                        <small>
+                                          <strong>
+                                            <strong style="margin: 0px; padding: 0px; border: 0px; font-stretch: inherit; font-size: 16.5px; line-height: 24.5px; font-family: 'open sans', sans-serif; vertical-align: baseline; color: rgb(59, 59, 59);">Orson Welles</strong>
+                                          </strong>
+                                        </small>
+                                      </blockquote>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="item text_only oe_dark">
+                                <div class="container">
+                                  <div class="content">
+                                    <div class="row">
+                                      <blockquote class="mb16 mt8 col-md-offset-1 col-md-10">
+                                        <h3>
+                                            <span style="color:#000000;">“Great web design without functionality is like a sports car with no engine.”</span>
+                                        </h3>
+                                        <strong>
+                                          <span style="color:#FFF0F5;"></span>&amp;nbsp;- Paul Cookson </strong>
+                                      </blockquote>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="item text_only">
+                                <div class="container">
+                                  <div class="content">
+                                    <div class="row">
+                                      <blockquote class="col-md-10 col-md-offset-1 mt0 mb32">
+                                        <h3>
+                                            <span style="color: rgb(0, 0, 0); line-height: 27.125px;">“Digital design is like painting, except the paint never dries.”</span>
+                                        </h3>
+                                        <small>
+                                          <strong style="margin: 0px; padding: 0px; border: 0px; font-stretch: inherit; font-size: 16.5px; line-height: 24.5px; font-family: 'open sans', sans-serif; vertical-align: baseline; color: rgb(59, 59, 59);">Neville Brody</strong>
+                                        </small>
+                                      </blockquote>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                  <section class="mt32 mb0" style="height: 392px; overflow: hidden;">
+                    <div class="container">
+                      <div class="row">
+                        <div class="mb16 col-md-6 mt16">
+                          <img alt="Odoo image and text block" class="img img-responsive shadow mb16" src="/ornate_shop_module/static/src/img/image1.jpg" style="" />
+                        </div>
+                        <div class="col-md-6 mb48 mt32">
+                          <h1 style="text-align: center;">The Designer</h1>
+                          <h4 style="text-align: justify;">
+                            <span style="color:#666666;">The life of a designer is a life of fight. Fight against the ugliness. Just like a doctor fights against disease. For us, the visual disease is what we have around, and what we try to do is cure it somehow with design.&amp;nbsp; <span style="font-family: inherit;">We create responsive websites which can easily adapt screen resolution of any device. No matter which device you or your customers are using, your website will always look great.</span></span>
+                          </h4>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                  <div class="carousel slide mb0 mt0" id="myCarousel_1461658185499" style="height: 424px; overflow: hidden;">
+                    <ol class="carousel-indicators">
+                      <li class="active" data-slide-to="0" data-target="#myCarousel_1461658185499" />
+                      <li data-slide-to="1" data-target="#myCarousel_1461658185499" />
+                    </ol>
+                    <div class="carousel-inner">
+                      <div class="item oe_img_bg active" style="background-image: url(&quot;/ornate_shop_module/static/src/img/image5.jpg&quot;);">
+                        <div class="container">
+                          <div class="row content">
+                            <div class="carousel-content col-sm-12 mb128 mt128 col-md-5">
+                              <h2 style="text-align: center;">Sell Easily</h2>
+                              <h3 style="text-align: center;">Write one sentence to convince visitor about your message.</h3>
+                              <p style="text-align: center;">
+                                <a class="btn btn-success btn-large" href="/page/website.contactus">Contact us</a>
+                              </p>
+                            </div>
+                            <div class="carousel-img hidden-sm hidden-xs col-md-7 mb0 mt32">
+                              <img alt="Banner Odoo Image" class="img-responsive" src="/ornate_shop_module/static/src/img/image4.jpg" style="animation-play-state: paused; transition: none" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="item oe_img_bg" style="background-image: url(&quot;/ornate_shop_module/static/src/img/velour.jpg&quot;);">
+                        <div class="container">
+                          <div class="row content">
+                            <div class="carousel-content col-md-6 col-sm-12 mb64 mt128">
+                              <h2 style="text-align: center;">Sell Online.</h2>
+                              <h3 style="text-align: center;">Write one sentence to convince visitor about your message.</h3>
+                              <p style="text-align: center;">
+                                <a class="btn btn-success btn-large" href="/page/website.contactus">Contact us</a>
+                              </p>
+                            </div>
+                            <div class="carousel-img col-md-6 hidden-sm hidden-xs mt128">
+                              <img alt="Banner Odoo Image" class="img-responsive" src="/ornate_shop_module/static/src/img/image2.png" style="animation-play-state: paused; transition: none" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="carousel-control left" data-slide="prev" data-target="#myCarousel_1461658185499" href="#myCarousel_1461658185499" style="width: 10%">
+                      <i class="fa fa-chevron-left" style="" />
+                    </div>
+                    <div class="carousel-control right" data-slide="next" data-target="#myCarousel_1461658185499" href="#myCarousel_1461658185499" style="width: 10%">
+                      <i class="fa fa-chevron-right" style="" />
+                    </div>
+                  </div>
+                  <section class="mt48" style="height: 456px; overflow: hidden;">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-6 mt16 mb16">
+                          <h1 style="text-align: center;">The Idea</h1>
+                          <h4 style="text-align: justify;">
+                            <span style="color:#333333;" />
+                            <span style="color:#666666;">Superior customer service should be reflected in everything from brand values to hiring, according to Ron Hovsepian, CEO of&amp;nbsp;IntraLinks, a provider of inter-enterprise content management and collaboration software. When setting goals for the new year, Hovsepian suggests gauging customer loyalty and clients’ perception of the business to single out those that tie back to the most valuable growth. "Using a net promoter score can help a company focus resources toward improving products and services for customers where it is needed most by implementing short, simple to communicate feedback survey</span>
+                            <span style="color:#333333;">.</span>
+                          </h4>
+                        </div>
+                        <div class="col-md-6 mt16">
+                          <img alt="Odoo text and image block" class="img img-responsive shadow mb16" src="/ornate_shop_module/static/src/img/idea.jpg" style="animation-play-state: paused; transition: none" />
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                  <section class="parallax oe_img_bg" data-scroll-background-offset="0" data-scroll-background-ratio="0.3" style="height: 512px; overflow: hidden; background-image: url(&quot;/ornate_shop_module/static/src/img/image7.jpg&quot;); background-attachment: scroll; background-position: 0px 1233.3px;">
+                    <div>
+                      <div>
+                        <div class="oe_structure">
+                          <div class="carousel quotecarousel slide mb0" id="myCarousel_1461947812260" style="height: 448px; overflow: hidden;">
+                            <div class="carousel-inner">
+                              <div class="item text_only active">
+                                <div class="container">
+                                  <div class="content">
+                                    <div class="row">
+                                      <div class="col-md-12 mt32 mb64">
+                                        <h1 class="text-center">
+                                          <span style="color:#000000;">Our References</span>
+                                        </h1>
+                                        <h3 class="text-muted text-center">
+                                          <span style="color:#000000;">More than 500 happy customers.</span>
+                                        </h3>
+                                      </div>
+                                      <div class="col-md-4 col-md-offset-1 mt16 mb32">
+                                        <blockquote>
+                                          <p>
+                                            <span style="color:#000000;">Write a quote here from one of your customers. Quotes are a great way to build confidence in your products or services.</span>
+                                          </p>
+                                          <small>
+                                            <span style="color:#000000;">Author of this quote</span>
+                                          </small>
+                                        </blockquote>
+                                      </div>
+                                      <div class="col-md-4 col-md-offset-2 mt16 mb32">
+                                        <blockquote>
+                                          <p>
+                                            <span style="color:#000000;">Odoo provides essential platform for our project management. Things are better organized and more visible with it.</span>
+                                          </p>
+                                          <small>
+                                            <span style="color:#000000;">John Doe, CEO</span>
+                                          </small>
+                                        </blockquote>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                  <hr />
+                </div>
+              </div>
+            </xpath>
+          </data>
+        </template>
+
+        <template id="clean_script" inherit_id="website.assets_frontend" name="Clean scripts">
+          <xpath expr="/t" position="inside">
+            <script type="text/javascript" src="/ornate_shop_module/static/src/js/custom.js" data-no-instant=""></script>
+            <script type="text/javascript">
+            	 $('.slider-for').slick({
+    		slidesToShow: 1,
+    		slidesToScroll: 1,
+    	 arrows: false,
+    		fade: true,
+    		asNavFor: '.slider-nav'
+    	});
+    	$('.slider-nav').slick({
+    	 slidesToShow: 3,
+    		slidesToScroll: 1,
+    		asNavFor: '.slider-for',
+    		centerMode: true,
+    		focusOnSelect: true,
+            arrows: false,
+    	});
+        </script>
+          </xpath>
+        </template>
+
+    </data>
+</openerp>

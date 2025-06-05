@@ -1,0 +1,1140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="vpicktree_webtex" model="ir.ui.view">
+			<field name="name">stock.picking.tree</field>
+			<field name="model">stock.picking</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="stock.vpicktree"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                              <field name="amount_untaxed" sum="Valore" />
+                 </field>
+           </field>
+        </record>
+        <record id="view_picking_form_webtex" model="ir.ui.view">
+			<field name="name">stock.picking.form</field>
+			<field name="model">stock.picking</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                             <field name="amount_untaxed" sum="Valore"/>
+                  </field>
+            </field>
+        </record>
+ 
+        <!--
+        JOURNAL
+         -->
+        <record id="view_journal_account_journal_form_webtex" model="ir.ui.view">
+            <field name="name">view.central.journal.account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='centralisation']" position="before">
+                    <field name="x_to_journal_id"/>
+                    <field name="x_to_company_journal_id" widget="many2many_tags"/>
+                   <field name="x_payment_term_id"/>
+           		</xpath>
+            </field>
+		</record>
+
+        <record id="view_order_tree_prof_webtex_state_inv_pick" model="ir.ui.view">
+			<field name="name">sale.order.tree</field>
+			<field name="model">sale.order</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="replace">
+                              <field name="state"/>
+                              <field name="x_invoice_state" invisible="1"/>
+                              <field name="x_picking_state" invisible="1"/>
+                              <field name="x_y_invoice_state" />
+                              <field name="x_y_picking_state" />
+                 </field>
+           </field>
+        </record>
+        <record id="view_order_form_prof_webtex_state_inv_pick" model="ir.ui.view">
+			<field name="name">sale.order.form</field>
+			<field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="date_order" position="after">
+                              <field name="x_invoice_state" invisible="1"/>
+                              <field name="x_picking_state" invisible="1"/>
+                              <field name="x_y_invoice_state" />
+                              <field name="x_y_picking_state" />
+                 </field>
+                <field name="amount_total" position="after">
+                              <field name="amount_qty" />
+                 </field>
+           </field>
+        </record>
+
+        <record id="wk_sale_shop_form_x_tag" model="ir.ui.view">
+            <field name="name">sale.shop</field>
+            <field name="model">sale.shop</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale_shop.wk_sale_shop_form"/>
+            <field name="arch" type="xml">  
+                <field name="name" position="after">
+                    <field name="x_tag"/>
+                    <field name="warehouse"/>
+                    <field name="x_chiudi"/>
+                    <field name="x_from_journal_id"/>
+                    <field name="x_to_journal_id"/>
+                    <field name="x_no_mail"/>
+                    <field name="x_no_change"/>
+                    <field name="x_id_order_state"/>
+                    </field>
+            </field>
+        </record>
+        <record id="wk_sale_shop_tree_x_tag" model="ir.ui.view">
+            <field name="name">sale.shop</field>
+            <field name="model">sale.shop</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="prestashop_bridge_multishop.odoo_shop_tree"/>
+            <field name="arch" type="xml">  
+                <field name="name" position="after">
+                    <field name="x_tag"/>
+                    <field name="x_chiudi"/>
+                    <field name="x_from_journal_id"/>
+                    <field name="x_to_journal_id"/>
+                    <field name="x_no_mail"/>
+                    <field name="x_no_change"/>
+                     <field name="x_id_order_state"/>
+                    
+                </field>
+             </field>
+        </record>
+        
+        <record id="product_product_tree_view_prof_webtex_editable" model="ir.ui.view">
+			<field name="name">product.template.tree</field>
+			<field name="model">product.template</field>
+            <field name="arch" type="xml">
+                   <tree string='Products' editable="top" >
+                              <field name="id" readonly="1"/>
+                              <field name="default_code"/>
+                              <field name="categ_id"/>
+                              <field name="name"/>
+ 							  <field name="route_ids" widget="many2many_tags"/>
+                              <field name="type"/>
+ 							  <field name="lst_price"/> 							  
+                    		  <field name="x_price_subtax"/>
+                    		  <field name="standard_price"/>
+                               </tree>
+           </field>
+        </record>
+        <record id="product_product_tree_view_prof_webtex_editable_2" model="ir.ui.view">
+			<field name="name">product.product.tree</field>
+			<field name="model">product.product</field>
+            <field name="arch" type="xml">
+                   <tree string='Products' editable="top" >
+                              <field name="id" readonly="1"/>
+                              <field name="default_code"/>
+                              <field name="categ_id"/>
+                              <field name="name"/>
+                              
+                              <field name="attribute_value_ids" widget="many2many_tags"/>
+ 							  <field name="description_purchase" />
+ 							  <field name="virtual_available" />
+ 							  <field name="price_extra"/> 							  
+ 							  <field name="lst_price"/> 							  
+ 							  <field name="x_price_subtax"/> 							  
+                    		  <field name="standard_price"/>
+                              </tree>
+           </field>
+        </record>
+
+
+
+
+        <record id="product_product_attribute_value_tree_prof_webtex_editable_2" model="ir.ui.view">
+			<field name="name">product.attribute.value.tree</field>
+			<field name="model">product.attribute.value</field>
+            <field name="inherit_id" ref="product.variants_tree_view"/>
+			<field name="arch" type="xml">
+                   <tree string='Variant Values' editable="top" >
+ 				     <field name="x_fatt_molt" />
+                   </tree>
+           </field>
+        </record>
+        <record id="action_product_product_tree_view_prof_webtex_editable" model="ir.actions.act_window">
+            <field name="name">Edit prodotti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="product_product_tree_view_prof_webtex_editable" />
+        </record>
+        <record id="action_product_product_tree_view_prof_webtex_editable_2" model="ir.actions.act_window">
+            <field name="name">Edit varianti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="product_product_tree_view_prof_webtex_editable_2" />
+        </record>
+        <menuitem
+        id="menu_view_prof_webtex"
+        sequence="01" name="profile_webtex"/>
+        <menuitem
+        id="menu_view_sub_prof_webtex"
+        parent="prof_webtex.menu_view_prof_webtex" sequence="10"  groups="prof_webtex.prof_webtex_manager,prof_webtex.prof_webtex_user" name="-prof_webtex-"/>
+        <menuitem  sequence="20"
+        action="action_product_product_tree_view_prof_webtex_editable"
+        id="menu_product_product_tree_view_prof_webtex_editable"
+        parent="prof_webtex.menu_view_sub_prof_webtex" />
+        <menuitem  sequence="22"
+        action="action_product_product_tree_view_prof_webtex_editable_2"
+        id="menu_product_product_tree_view_prof_webtex_editable_2"
+        parent="prof_webtex.menu_view_sub_prof_webtex" />
+<!-- attributi righe acquisto-->
+        <record id="purchase_order_form_webtex" model="ir.ui.view">
+			<field name="name">purchase.order.form.webtex</field>
+			<field name="model">purchase.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+                   <field name='date_planned' position="after" >
+ 				     <field name="x_attribute_value_ids"  />
+                   </field>
+           </field>
+        </record>
+<!-- attributi riche ordine-->
+        <record id="sale_order_form_webtex" model="ir.ui.view">
+			<field name="name">sale.order.form.webtex</field>
+			<field name="model">sale.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+			<field name="arch" type="xml">
+
+                   <field name='product_id' position="after" >
+ 				     <field name="x_attribute_value_ids"  />
+                   </field>
+           </field>
+        </record>
+        
+
+<!-- prodotti virtualmente non disponibili -->
+
+        <record id="product_product_tree_view_prof_webtex_no_disp" model="ir.ui.view">
+			<field name="name">product.product.tree</field>
+			<field name="model">product.product</field>
+			<field eval="500" name="priority"/>
+            <field name="arch" type="xml">
+                   <tree string='Products'  >
+                              <field name="id" readonly="1"/>
+                              <field name="default_code"/>
+                              <field name="categ_id"/>
+                              <field name="name"/>
+ 							  <field name="seller_id"/> 
+                              <field name="attribute_value_ids" widget="many2many_tags"/>
+  							  <field name="lst_price"/> 							  
+ 							  <field name="x_price_subtax"/> 							  
+                    		  <field name="standard_price"/>
+                    		  <field name="virtual_available"/>
+                    		  <field name="x_rio_stock"/>
+                    		  <field name="x_min_stock"/>
+                    		  <field name="seller_qty" invisible="1" />
+                   		  <field name="qty_available"/>
+                              </tree>
+           </field>
+        </record>
+
+        <record id="action_product_product_tree_view_prof_webtex_no_disp" model="ir.actions.act_window">
+            <field name="name">Prodotti Da riordinare</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('virtual_available','&lt;', 'x_min_stock')]</field>
+            <field name="view_id" ref="product_product_tree_view_prof_webtex_no_disp" />
+        </record>
+        <menuitem  sequence="500"
+        action="action_product_product_tree_view_prof_webtex_no_disp"
+        id="menu_product_product_tree_view_prof_webtex_no_disp"
+        parent="prof_webtex.menu_view_sub_prof_webtex" />
+
+        
+        <record id="view_res_partner_import" model="ir.ui.view">
+            <field name="name">importazione clienti/fornitori/banche </field>
+            <field name="model">res.partner.import.webtex</field>
+            <field name="type">form</field>           
+            <field name="arch" type="xml">
+                <form string="Importazione clienti/fornitori/banche" version="7.0">
+                    <group>
+                        <field name="name" />
+                        <field name="data"/>
+                        <field name="f_clienti"/>
+                         <field name="f_fornitori"/>
+                         <field name="overwrite"/>
+                         <field name="f_dimensioni"/>
+                   </group>
+                    <footer>
+                        <button name="import_res_partner" string="_Import" type="object" class="oe_highlight"/>
+                        or
+                        <button name="del_res_partner" string="Riorganizza clienti" type="object" class="oe_highlight"/>
+                        or
+                        <button name="update_categ_res_partner" string="crea categorie clienti" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_product" string="prodotti danea" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_account_account" string="_Banche" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_account_account_2" string="Abi Cab" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_account_pag" string="Pagamenti" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_articoli" string="prodotti" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_listini" string="listini" type="object" class="oe_highlight"/>
+                        or
+                       <button name="import_costi" string="costi" type="object" class="oe_highlight"/>
+                        or
+                       <button name="riorg_prodotti" string="riorganizza varianti" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />                       
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_res_partner_import" model="ir.actions.act_window">
+            <field name="name">Importazione Clienti/Fornitori/banche</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.import.webtex</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+   
+        
+        <menuitem  sequence="20"
+        action="action_view_res_partner_import"
+        id="menu_view_res_partner_import"
+        parent="prof_webtex.menu_view_sub_prof_webtex" />
+
+        
+        <record id="webtex_product_send_customer_logistic_info_form_view" model="ir.ui.view">
+            <field name="name">webtex.product.supplierinfo.form.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <form string="Supplier Information">
+                    <group col="4">
+                        <field name="name" context="{'default_supplier': 0, 'search_default_supplier': 1, 'default_supplier': 1}"/>
+                        <field name="product_tmpl_id"  on_change="on_change_product_id(product_id)"/>
+                        <field name="sequence" invisible="1"/>
+                        <field name="product_name"/>
+                        <field name="product_code"/>
+                        <field name="qty"/>
+                        <field name="min_qty"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection" invisible="1" />
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="webtex_product_supplierinfo_tree_view" model="ir.ui.view">
+            <field name="name">webtex.product.supplierinfo.tree.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <tree string="Supplier" editable="top" >
+                        <field name="name"/>
+                    	<field name="sequence" widget="handle" />
+                        <field name="product_tmpl_id" on_change="on_change_product_id(product_tmpl_id,context)"/>
+                        <field name="sequence" invisible="1"/>
+                        <field name="product_code"/>
+                        <field name="product_name"/>
+                        <field name="qty"/>
+                        <field name="min_qty"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="webtwex_product_supplierinfo_search_view" model="ir.ui.view">
+            <field name="name">webtex.product.supplierinfo.search.form</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <search string="Product">
+                   <field name="name" />
+                   <field name="product_tmpl_id" string="Prodotto interno" />
+                   <field name="product_code" string="Codice esterno" />
+                   <field name="product_name" string="Descriziopne esterna" />
+                   <separator/>
+                    <group  expand='0' string='Group by...'>
+                       <filter string='Supplier' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'name'}"/>
+                       <filter string='Prodotto interno' icon="terp-mrp" domain="[]" context="{'group_by' : 'product_tmpl_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+       <record id="action_webtex_product_supplierinfo_tree_view" model="ir.actions.act_window">
+            <field name="name">Edit articoli a fornitore</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.supplierinfo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="webtex_product_supplierinfo_tree_view" />
+        </record>
+        <menuitem
+        action="action_webtex_product_supplierinfo_tree_view" sequence="30"
+        id="menu_webtex_product_supplierinfo_tree_view"
+        parent="prof_webtex.menu_view_sub_prof_webtex" />
+
+        <record id="product_product_tree_view_prof_webtex_2" model="ir.ui.view">
+            <field name="name">product.product.tree.heartwood</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                	<field name="lst_price" position="after">
+                    	<field name="x_price_subtax"/>
+                    	<field name="standard_price"/>
+                	</field>
+            </field>
+        </record>
+        <record id="product_product_kanban_view_prof_webtex" model="ir.ui.view">
+            <field name="name">product.product.kanban.webtex</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_kanban_view"/>
+            <field name="arch" type="xml">
+                	<field name="lst_price" position="after">
+                    	<field name="x_price_subtax"/>
+                       <field name="standard_price"/>
+                	</field>
+                <xpath expr="//ul/li/field[@name='lst_price']" position="replace">
+                    	Pubblico:<field name="lst_price"/>
+                    	Pubblico ivato :<field name="x_price_subtax"/>
+                    	Costo :<field name="standard_price"/>
+            	</xpath>
+            </field>
+        </record>
+        <record id="product_template_tree_view_prof_webtex_2" model="ir.ui.view">
+            <field name="name">product.template.tree.webtex</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                	<field name="categ_id" position="after">
+                    	<field name="lst_price"/>
+                    	<field name="x_price_subtax"/>
+                    	<field name="standard_price"/>
+                	</field>
+            </field>
+        </record>
+        <record id="product_product_template_kanban_view_prof_webtex" model="ir.ui.view">
+            <field name="name">product.template.kanban.webtex</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view"/>
+            <field name="arch" type="xml">
+                	<field name="lst_price" position="after">
+                    	<field name="x_price_subtax"/>
+                    	<field name="standard_price"/>
+                	</field>
+                <xpath expr="//ul/li/field[@name='lst_price']" position="replace">
+                    	Pubblico:<field name="lst_price"/>
+                    	Pubblico ivato :<field name="x_price_subtax"/>
+                    	Costo :<field name="standard_price"/>
+            	</xpath>
+            </field>
+        </record>
+        <record id="res_partner_tree_view_prof_webtex_editable" model="ir.ui.view">
+			<field name="name">res.partner.tree</field>
+			<field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                   <tree string='Clienti e Forntiori' editable="top" >
+                              <field name="name" readonly="1" />
+ 							  <field name="street"  readonly="1" />
+ 							  <field name="city"  readonly="1" />
+ 							  <field name="state_id"  readonly="1" />
+ 							  <field name="category_id" widget="many2many_tags"/>
+                               </tree>
+           </field>
+        </record>
+        <record id="action_res_partner_tree_view_prof_webtex_editable" model="ir.actions.act_window">
+            <field name="name">Edit Clienti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="res_partner_tree_view_prof_webtex_editable" />
+        </record>
+        <menuitem  sequence="140"
+        action="action_res_partner_tree_view_prof_webtex_editable"
+        id="menu_res_partner_tree_view_prof_webtex_editable"
+        parent="prof_webtex.menu_view_sub_prof_webtex" />
+
+        <record id="product_template_form_view_x_dim" model="ir.ui.view">
+            <field name="name">product.template.from.dimension</field>
+            <field name="model">product.template</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">  
+                <field name="volume" position="before">
+                    <field name="x_imb_x" on_change="onchange_dim(x_imb_x,x_imb_y,x_imb_z,context)" invisible="1"/>
+                    <field name="x_imb_y" on_change="onchange_dim(x_imb_x,x_imb_y,x_imb_z,context)" invisible="1"/>
+                    <field name="x_imb_z" on_change="onchange_dim(x_imb_x,x_imb_y,x_imb_z,context)" invisible="1"/>
+                </field>
+             </field>
+        </record>
+<!--
+        <record id="product_normal_form_view_x_dim" model="ir.ui.view">
+            <field name="name">product.product.from.dimension</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">  
+                <field name="volume" position="before">
+                    <field name="x_imb_x" on_change="onchange_dim(x_imb_x,x_imb_y,x_imb_z,context)"  invisible="1"/>
+                    <field name="x_imb_y" on_change="onchange_dim(x_imb_x,x_imb_y,x_imb_z,context)" invisible="1"/>
+                    <field name="x_imb_z" on_change="onchange_dim(x_imb_x,x_imb_y,x_imb_z,context)" invisible="1"/>
+                </field>
+             </field>
+        </record>
+-->
+        </data>
+    <data noupdate="1">
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_assigned_picking_profwebtex~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_assigned_picking_profwebtex" model="ir.actions.server">
+            <field name="name">Trasferimento immediato merce pronta</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">action = env['sale.order'].move_assigned()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_assigned_picking_profwebtex_sale_order" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'sale.order'" name="model"/>
+            <field name="name">Traserimento immediato della merce pronta</field>
+            <field eval="'ir.actions.server,%d'%action_assigned_picking_profwebtex" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+        <record id="action_assigned_picking_profwebtex_picking" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'stock.picking'" name="model"/>
+            <field name="name">Traserimento immediato della merce pronta</field>
+            <field eval="'ir.actions.server,%d'%action_assigned_picking_profwebtex" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+      </data>
+      <data>
+       
+        <record id="view_import_inventario_webtex" model="ir.ui.view">
+              <field name="name">Importa inventario</field>
+              <field name="model">stock.import.inve.webtex</field>
+              <field name="arch" type="xml">
+                <form string="Importa Inventario">
+                    <group string="Importa Inventario [id(anche vuota),codice,descrizione,attributi,qtà reale]" >
+                        <field name="name" />
+                        <field name="data"/>
+                       <field name="location_id"/>
+                       <field name="del_inve"/>
+                     </group>
+                    <footer>
+                        <button name="import_inventario" string="Importa Inventario"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+        <record id="view_import_ddt_webtex" model="ir.ui.view">
+              <field name="name">Importa ddt</field>
+              <field name="model">stock.import.ddt.webtex</field>
+              <field name="arch" type="xml">
+                <form string="Importa DDT">
+                    <group string="Importa DDT(codice webtex,codice amazon,qtà)  " >
+                        <field name="name" />
+                        <field name="data"/>
+                       <field name="pick_type_id"/>
+                       <field name="del_ddt"/>
+                       <field name="prima"/>
+                       <field name="seconda"/>
+                     </group>
+                    <footer>
+                        <button name="import_ddt" string="Importa ddt"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+        </data>
+        <data noupdate="1">
+ 		
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_importazione inventario~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_import_inventario_webtex" model="ir.actions.server">
+            <field name="name">importazione inventario </field>
+            <field name="model_id" ref="stock.model_stock_inventory"/>
+            <field name="state">code</field>
+            <field name="code">action = env['stock.import.inve.webtex'].inv_open_tx()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_import_inventario_webtex" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'stock.inventory'" name="model"/>
+            <field name="name">importazione inventario </field>
+            <field eval="'ir.actions.server,%d'%action_import_inventario_webtex" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_importazione ddt~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_import_ddt_webtex" model="ir.actions.server">
+            <field name="name">importazione ddt</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">action = env['stock.import.ddt.webtex'].ddt_open_tx()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_import_ddt_webtex" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'stock.picking'" name="model"/>
+            <field name="name">importazione ddt </field>
+            <field eval="'ir.actions.server,%d'%action_import_ddt_webtex" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_importazione ddt su ordine~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_import_ddt_webtex_order" model="ir.actions.server">
+            <field name="name">Creazione fabbisogno su ordine</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">action = env['stock.import.ddt.webtex'].ddt_open_tx()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_import_ddt_webtex_order" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'sale.order'" name="model"/>
+            <field name="name">Creazione fabbisogno su ordine</field>
+            <field eval="'ir.actions.server,%d'%action_import_ddt_webtex_order" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+ 
+        </data>
+         <data noupdate="1">
+        		<record forcecreate="True" id="account_2_cifre" model="decimal.precision">
+            		<field name="name">account_2_cifre</field>
+            		<field name="digits">2</field>
+        		</record>
+        </data>
+      <data>
+       
+        <record id="view_product_product_purchase_webtex" model="ir.ui.view">
+              <field name="name">Crea ordine di acquisto</field>
+              <field name="model">product.product.purchase.webtex</field>
+              <field name="arch" type="xml">
+                <form string="Crea ordine di acquisto">
+                    <group string="Crea ordine di acquisto" >
+                        <field name="name" />
+                         <field name="partner_id"/>
+                        <field name="location_id"/>
+                        <field name="picking_type_id"/>
+                     </group>
+                    <footer>
+                        <button name="purchase_create_webtex" string="Crea"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+<!---
+        <act_window id="action_create_purchase_webtex_2"
+            key2="client_action_multi"
+            multi="True"
+            name="Creazione ordine di acquisto"
+            res_model="product.product.purchase.webtex"
+            src_model="product.product"
+            groups="prof_webtex.prof_webtex_manager"
+            view_mode="form" target="new" view_type="form" />
+-->
+        </data>
+
+        <data noupdate="1">
+ 		
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_creazione ordine di acquisto~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_create_purchase_webtex" model="ir.actions.server">
+            <field name="name">Creazione ordine di acquisto </field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="state">code</field>
+            <field name="code">action = env['product.product.purchase.webtex'].purchase_open_webtex()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_create_purchase_webtex" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'product.product'" name="model"/>
+            <field name="name">creazione ordine di acquisto </field>
+            <field eval="'ir.actions.server,%d'%action_create_purchase_webtex" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+ 		
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_controllo disponibilità~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_assign_webtex_prod_sale_order" model="ir.actions.server">
+            <field name="name">Controllo disponibilità </field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('stock.picking').action_assign_cron(cr,uid,ids=None,cron=False,context=context)</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+        <record id="action_assign_webtex_prod_sale_order" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'sale.order'" name="model"/>
+            <field name="name">Controllo disponibilità</field>
+            <field eval="'ir.actions.server,%d'%action_assign_webtex_prod_sale_order" name="value"/>
+            <field eval="True" name="object"/>
+            <field eval="True" name="active"/>
+        </record>
+        <record id="action_assign_webtex_prod" model="ir.actions.server">
+            <field name="name">Controllo disponibilità </field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('stock.picking').action_assign_cron(cr,uid,ids=None,cron=False,context=context)</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_assign_webtex_prod" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'stock.picking'" name="model"/>
+            <field name="name">Controllo disponibilità</field>
+            <field eval="'ir.actions.server,%d'%action_assign_webtex_prod" name="value"/>
+            <field eval="True" name="object"/>
+            <field eval="True" name="active"/>
+        </record>
+ 
+        </data>
+<data>
+        <record id="webtex_prestashop_order_view" model="ir.ui.view">
+            <field name="name">prestashop.order.webtex.tree.view</field>
+            <field name="model">prestashop.order</field>
+            <field name="arch" type="xml">
+                <tree string="log" editable="top" >
+                        <field name="name"/>
+                    	<field name="object_name"  />
+                        <field name="erp_id"/>
+                        <field name="presta_id"/>
+                </tree>
+            </field>
+        </record>
+       <record id="action_webtex_prestashop_order_tree_view" model="ir.actions.act_window">
+            <field name="name">POB TX-RX ordini clienti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">prestashop.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="webtex_prestashop_order_view" />
+        </record>
+        <menuitem
+        action="action_webtex_prestashop_order_tree_view" sequence="200"
+        id="menu_webtex_prestashop_order_tree_view"
+        parent="prof_webtex.menu_view_sub_prof_webtex" />
+
+        <record id="webtex_prestashop_order_log_form_view" model="ir.ui.view">
+            <field name="name">prestashop.order.log.form.view</field>
+            <field name="model">prestashop.order.log</field>
+            <field name="arch" type="xml">
+                <form string="log" >
+                    <group>
+                        <field name="name"   />
+                    	<field name="object_name" />
+                        <field name="ur_id"  />
+                        <field name="erp_id" />
+                        <field name="presta_id"  />
+                        <field name="data_log"  />
+                        <field name="object_name_save"  />
+                    </group>
+                    <footer>
+                        <button name="rip_ps_key" string="ripristina chiave prestashop"  type="object" class="oe_highlight"  />
+                    	or
+                        <button name="del_ps_key" string="Elimina chiave prestashop"  type="object" class="oe_highlight"  />
+                        or
+                        <button name="del_all_ps_key" string="Elimina tutte chiavi ordini completi prestashop"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+
+        <record id="webtex_prestashop_order_log_tree_view" model="ir.ui.view">
+            <field name="name">prestashop.order.log.tree.view</field>
+            <field name="model">prestashop.order.log</field>
+            <field name="arch" type="xml">
+                <tree string="log" editable="top" >
+                        <field name="create_uid"  readonly="1" />
+                        <field name="name"  readonly="1" />
+                    	<field name="object_name" readonly="1" />
+                        <field name="ur_id"  readonly="1" />
+                        <field name="erp_id" readonly="1" />
+                        <field name="presta_id" readonly="1" />
+                        <field name="data_log" readonly="1" />
+                        <field name="object_name_save" readonly="1" />
+                </tree>
+            </field>
+        </record>
+       <record id="action_webtex_prestashop_order_log_tree_view" model="ir.actions.act_window">
+            <field name="name">POB LOG TX-RX ordini clienti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">prestashop.order.log</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="webtex_prestashop_order_log_tree_view" />
+        </record>
+        <menuitem
+        action="action_webtex_prestashop_order_log_tree_view" sequence="210"
+        id="menu_webtex_prestashop_order_log_tree_view"
+        parent="prof_webtex.menu_view_sub_prof_webtex" />
+
+
+        <record id="view_invoice_form_ddt_webtex" model="ir.ui.view">
+            <field name="name">account.invoice.from.ddt</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                 <data>
+                   <xpath expr="//page[@string='Invoice Lines']"  position="after">
+                        <page string="Spedizioni">
+                    		<group string="Dati Spedizione">
+	                        		<field name="x_pack_ids"/>
+                    		</group>
+                    	</page>
+	               </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_invoice_form_ddt_webtex_sped" model="ir.ui.view">
+            <field name="name">account.invoice.form.ddt.sped</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="l10n_it_ddt.invoice_form_view_ddt"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Shipping Informations']" position="replace">
+                    <page string="Shipping Informations" invisible="1" >
+                        <group string="Shipping Informations">
+                            <field name="goods_description_id"
+                                widget="selection"/>
+                            <field name="carriage_condition_id"
+                                widget="selection"/>
+                            <field name="transportation_reason_id"
+                                widget="selection"/>
+                            <field name="transportation_method_id"
+                                widget="selection"/>
+                            <field name="parcels" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_invoice_form_x_pay_webtex" model="ir.ui.view">
+            <field name="name">account.invoice.tre.pay</field>
+            <field name="model">account.invoice</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                 <data>
+                   <field name="origin"  position="after">
+	                        		<field name="x_country_id" string="nazione"  />
+	                        		<field name="x_pay" string="Pagamento"  invisible="1" />
+	                        		<field name="payment_ids" string="Tutti i Pag.">
+	                        				<tree>
+	                        				 	<field name="journal_id" />
+	                        				</tree>
+                    				</field>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="invoice_tree_sel_purchase" model="ir.ui.view">
+            <field name="name">account.invoice.treesel_puchase</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state == 'draft';black:state in ('proforma','proforma2','open');gray:state == 'cancel'" string="Invoice">
+                    <field name="commercial_partner_id" invisible="1"/>
+                    <field name="date_invoice"/>
+                    <field name="number"/>
+                    <field name="supplier_invoice_number"/>
+                    <field name="partner_id" groups="base.group_user" string="Fornitore"/>
+
+                    <field name="reference" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="journal_id" invisible="0"/>
+                    <field name="period_id" invisible="1" groups="account.group_account_user"/>
+                    <field name="company_id" invisible="1"/>
+                    <field name="user_id" string="Responsible" invisible="1"/>
+                    <field name="date_due"/>
+                    <field name="origin" invisible="1"/>
+                    <field name="currency_id" groups="base.group_multi_currency"/>
+                    <field name="residual" sum="Residual Amount" invisible="1"/>
+                    <field name="amount_untaxed" sum="Untaxed Amount"/>
+                    <field name="amount_total" sum="Total Amount"/>
+                    <field name="state"/>
+                    <field name="type" invisible="context.get('type',True)"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_purchase_order_form_selpurchase" model="ir.ui.view">
+            <field name="name">purchase.order.form.selpurchase</field>
+            <field name="model">purchase.order</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form" />
+            <field name="arch" type="xml">
+                 <data>
+                   <xpath expr="//notebook[last()]" position="inside">
+                      <page string="Fatture Collegate">
+                          <group >
+ 				           <field name="invoice_ids" context="{'search_default_supplier':1,'search_default_partner_id': partner_id,'default_partner_id':partner_id, 'form_view_ref':'account.invoice_supplier_form', 'tree_view_ref':'prof_webtex.invoice_tree_sel_purchase','search_view_ref':'account.view_account_invoice_filter', 'default_type': 'in_invoice','default_purchase_id': active_id}" />
+                          </group>
+                      </page> 
+                   </xpath>                               
+                 </data>
+            </field>
+        </record>
+
+
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~Riapertura ordine di vendita~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        
+        <record id="view_sale_order_open_webtex" model="ir.ui.view">
+              <field name="name">Riapertura ordine di vendita</field>
+              <field name="model">sale.order</field>
+            <field eval="500" name="priority"/>
+              <field name="arch" type="xml">
+                <form string="Ricrea ordine di vendita">
+                    <group string="Ricrea ordine di vendita" >
+                     </group>
+                    <footer>
+                        <button name="action_reopen" string="Ricrea"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <record id="webtex_product_product_understock_tree_view" model="ir.ui.view">
+            <field name="name">product.product.understock.tree.view</field>
+            <field name="model">product.product.understock</field>
+            <field name="arch" type="xml">
+                <tree string="Under Stock" editable="top" colors="orange:(bom_count&gt;0 and kit==False);blue:bom_count&lt;1;">
+                     	<field name="product_id" readonly="1" />
+                     	<field name="partner_id" readonly="1" />
+                        <field name="virtual_available"  readonly="1" />
+                        <field name="x_min_stock" readonly="1" />
+                        <field name="x_rio_stock" readonly="1" />
+                        <field name="bom_count" readonly="1" />
+                        <field name="kit" readonly="1" />
+                </tree>
+            </field>
+        </record>
+       <record id="action_webtex_product_product_understock_tree_view" model="ir.actions.act_window">
+            <field name="name">Prodotti da approvvigionare</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product.understock</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="webtex_product_product_understock_tree_view" />
+        </record>
+
+        <record id="webtwex_product_understock_search_view" model="ir.ui.view">
+            <field name="name">webtex.product.product.understock.search.form</field>
+            <field name="model">product.product.understock</field>
+            <field name="arch" type="xml">
+                <search string="Product">
+                   <field name="partner_id" string="Fornitore" />
+                   <field name="name" />
+                   <field name="product_id" string="Prodotto" />
+                   <separator/>
+                    <group  expand='0' string='Group by...'>
+                       <filter string='Supplier' icon="terp-stock_symbol-selection"  context="{'group_by' : 'partner_id'}"/>
+                       <filter string='Prodotto' icon="terp-mrp" domain="[]" context="{'group_by' : 'product_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+
+
+        <menuitem
+        action="action_webtex_product_product_understock_tree_view" sequence="230"
+        id="menu_webtex_product_product_understock_tree_view"
+        parent="prof_webtex.menu_view_sub_prof_webtex" />
+
+		<!--
+        <record id="view_move_line_tree_inherits_webtex" model="ir.ui.view">
+            <field name="name">account.move.line.tree</field>
+            <field name="model">account.move.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="account.view_move_line_tree" />
+            <field name="arch" type="xml">
+                 <data>
+                    <field name="name"  position="after">
+                   		<field name="x_price_unit"/>
+            		</field>
+                 </data>
+           </field>
+        </record>
+        -->
+
+
+</data>
+        <data noupdate="1">
+ 		
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_eliminazione chiavi ps~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_del_key_ps_webtex" model="ir.actions.server">
+            <field name="name">del key ps</field>
+            <field name="model_id" ref="prof_webtex.model_prestashop_order_log"/>
+            <field name="state">code</field>
+            <field name="code">action = env['prestashop.order.log'].del_ps_key(multi=True)</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_del_key_ps_webtex" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'prestashop.order.log'" name="model"/>
+            <field name="name">del key ps</field>
+            <field eval="'ir.actions.server,%d'%action_del_key_ps_webtex" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~action ripristino chiavi ps~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_rip_key_ps_webtex_prd" model="ir.actions.server">
+            <field name="name">Rip key ps</field>
+            <field name="model_id" ref="prof_webtex.model_prestashop_order_log"/>
+            <field name="state">code</field>
+            <field name="code">action = env['prestashop.order.log'].rip_ps_key(multi=True)</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_rip_key_ps_webtex_prd" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'prestashop.order.log'" name="model"/>
+            <field name="name">Rip key ps</field>
+            <field eval="'ir.actions.server,%d'%action_rip_key_ps_webtex_prd" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+ 		
+    <!--~~~~~~~~~~~~~~~~~~~~~~action view_sale_order_open_webtex~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_reopen_sale_order_webtex" model="ir.actions.server">
+            <field name="name">Riapertura ordine</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">action = env['sale.order'].sale_order_open_webtex()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_reopen_sale_order_webtex" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'sale.order'" name="model"/>
+            <field name="name">Riapertura ordine</field>
+            <field eval="'ir.actions.server,%d'%action_reopen_sale_order_webtex" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+ 
+ 		
+    <!--~~~~~~~~~~~~~~~~~~~~~~action cancella approvvigionamento~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_cancel_procurement_webtex" model="ir.actions.server">
+            <field name="name">Annulla approvvigionamento</field>
+            <field name="model_id" ref="procurement.model_procurement_order"/>
+            <field name="state">code</field>
+            <field name="code">action = env['procurement.order'].cancel_ids()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_cancel_procurement_webtex" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'procurement.order'" name="model"/>
+            <field name="name">Annulla approvvigionamento</field>
+            <field eval="'ir.actions.server,%d'%action_cancel_procurement_webtex" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+    <!--~~~~~~~~~~~~~~~~~~~~~~crea ordine di approvvigionamento~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_ord_prod_procurement_webtex" model="ir.actions.server">
+            <field name="name">Crea approviginamento</field>
+            <field name="model_id" ref="product.model_product_product"/>
+            <field name="state">code</field>
+            <field name="code">action = env['product.product'].create_mo()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_ord_prod_procurement_webtex" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'product.product'" name="model"/>
+            <field name="name">Crea approvvigionamento</field>
+            <field eval="'ir.actions.server,%d'%action_ord_prod_procurement_webtex" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~crea ordine di approvvigionamento da understock~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_ord_prod_procurement_understock" model="ir.actions.server">
+            <field name="name">Crea approviginamento</field>
+            <field name="model_id" ref="prof_webtex.model_product_product_understock"/>
+            <field name="state">code</field>
+            <field name="code">action = env['product.product.understock'].create_mo()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_ord_prod_procurement_understock" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'product.product.understock'" name="model"/>
+            <field name="name">Crea approvvigionamento</field>
+            <field eval="'ir.actions.server,%d'%action_ord_prod_procurement_understock" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+    <!--~~~~~~~~~~~~~~~~~~~~~~crea ordine di acquisto da understock~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_ord_purchase_understock" model="ir.actions.server">
+            <field name="name">Crea Ordine di acquisto</field>
+            <field name="model_id" ref="prof_webtex.model_product_product_understock"/>
+            <field name="state">code</field>
+            <field name="code">action = env['product.product.understock'].purchase_open()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_ord_purchase_understock" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'product.product.understock'" name="model"/>
+            <field name="name">Crea ordine di acquisto</field>
+            <field eval="'ir.actions.server,%d'%action_ord_purchase_understock" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~crea  understock~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_understock" model="ir.actions.server">
+            <field name="name">Aggiorna riordino</field>
+            <field name="model_id" ref="prof_webtex.model_product_product_understock"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('product.product.understock').product_available_cron(cr,uid,[],context=context)</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_understock" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'product.product.understock'" name="model"/>
+            <field name="name">Aggiorna riordino</field>
+            <field eval="'ir.actions.server,%d'%action_understock" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+
+        <record model="ir.cron" id="product_product_understock_cron">
+            <field name="name">Cacolo approvviginamenti</field>
+            <field name="interval_number">4</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model" eval="'product.product.understock'"/>
+            <field name="function" eval="'product_available_cron'"/>
+            <field name="args" eval="'([],None)'" />
+        </record>
+
+
+        </data>
+        
+</openerp>

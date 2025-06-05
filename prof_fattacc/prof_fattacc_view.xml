@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+
+        <record id="view_invoice_form_ddt_fattacc" model="ir.ui.view">
+            <field name="name">account.invoice.from.ddt</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                 <data>
+                   <xpath expr="//page[@string='Invoice Lines']"  position="after">
+                        <page string="Spedizioni">
+                    		<group string="Dati Spedizione">
+	                        		<field name="x_pack_ids"/>
+                    		</group>
+                    	</page>
+	               </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_invoice_form_ddt_fattacc_sped" model="ir.ui.view">
+            <field name="name">account.invoice.form.ddt.sped</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="l10n_it_ddt.invoice_form_view_ddt"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Shipping Informations']" position="replace">
+                    <page string="Shipping Informations" invisible="1" >
+                        <group string="Shipping Informations">
+                            <field name="goods_description_id"
+                                widget="selection"/>
+                            <field name="carriage_condition_id"
+                                widget="selection"/>
+                            <field name="transportation_reason_id"
+                                widget="selection"/>
+                            <field name="transportation_method_id"
+                                widget="selection"/>
+                            <field name="parcels" />
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+</data>
+         
+</openerp>

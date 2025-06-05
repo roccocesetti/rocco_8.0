@@ -1,0 +1,2 @@
+﻿insert into stock_route_product (product_id,route_id)
+(select pp.id,1 form product_product ) 

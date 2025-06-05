@@ -1,0 +1,8 @@
+id,group_id:id,name,model_id,perm_create,perm_unlink,perm_write,perm_read
+res_users_manacc_manager,manacc_manager,Utenti,res.users,1,1,1,1
+res_users_manacc_user,manacc_user,utenti,res.users,0,0,0,1
+res_users_manacc_manager,manacc_manager,res.partner.import.manacc,res.partner.import.manacc,1,1,1,1
+res_users_manacc_user,manacc_user,res.partner.import.manacc,res.partner.import.manacc,1,1,1,1
+res_users_manacc_manager_stamp,manacc_manager,product.price_list.prof_manacc,product.price_list.prof_manacc,1,1,1,1
+res_users_manacc_user_stamp,manacc_user,product.price_list.prof_manacc,product.price_list.prof_manacc,1,1,1,1
+res_users_manacc_user_list_wizard,manacc_user,product.pricelist.wizard,product.pricelist.wizard,1,1,1,1

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!-- 
+        <record id="wizard_export_fatturapa_form_view" model="ir.ui.view">
+            <field name="name">Export Electronic Invoice</field>
+            <field name="model">wizard.export.fatturapa</field>
+            <field name="arch" type="xml">
+                <form string="Export Electronic Invoice">
+                    <group col="2" height="500" width="600">
+                        <group>
+                            <separator colspan="2" string="If you want to add a PDF version of the invoice into the XML, select which one"/>
+                            <field name="report_print_menu"
+                                   string="Attached report"
+                                   widget="selection"/>
+                        </group>
+                        <newline/>
+                        <group col="3">
+                            <button colspan="1" special="cancel" string="Cancel"/>
+                            <button colspan="1" name="exportFatturaPA" string="Export" type="object" class="oe_highlight"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <div></div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+-->
+
+        <record id="wizard_export_fatturapa_form_view_prof" model="ir.ui.view">
+            <field name="name">Crea Fatture PA</field>
+            <field name="model">wizard.export.fatturapa</field>
+          <!-- rocco 2020-11-07  
+           <field name="inherit_id" ref="prof_fatturapa_out.wizard_export_fatturapa_form_view"/>
+           -->
+           <field name="inherit_id" ref="l10n_it_fatturapa_out.wizard_export_fatturapa_form_view"/>
+            <field name="arch" type="xml">
+            <xpath expr="//field[@name='report_print_menu']" position="before">
+                <field name="include_ddt_data"/>
+                <field name="fiscal_document_type_id"/>
+            </xpath>
+                <xpath expr="/form/group/group/button[@name='exportFatturaPA']" position="replace">
+                            <button colspan="1" icon="gtk-ok" name="exportFatturaPA" string="Crea FatturePA" type="object"></button>
+                
+                </xpath>
+            
+            </field>
+        </record>
+        <!--
+        <act_window id="action_wizard_export_fatturapa" key2="client_action_multi" name="Crea FatturaPA" res_model="wizard.export.fatturapa" src_model="account.invoice" target="new" view_id="wizard_export_fatturapa_form_view" view_mode="form"></act_window>
+   		-->
+
+
+        <record id="wizard_show_fatturapa_form_view" model="ir.ui.view">
+            <field name="name">Visualizza FatturaPA</field>
+            <field name="model">wizard.show.fatturapa</field>
+            <field name="arch" type="xml">
+                <form string="Visualizza FatturaPA">
+                    <group col="2" height="500" width="600">
+                        <group>
+                        <field name="fatturapa" filename="fatturapa_name"/>
+                        <field name="fatturapa_name" invisible="1" />
+                        <field name="fatturapa_html"  invisible="0"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+   </data>
+
+</openerp>

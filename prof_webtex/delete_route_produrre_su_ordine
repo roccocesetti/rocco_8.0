@@ -1,0 +1,1 @@
+﻿delete  from stock_route_product srp where srp.route_id=1;

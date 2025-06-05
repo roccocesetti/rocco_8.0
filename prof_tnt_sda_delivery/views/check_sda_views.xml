@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <menuitem name="Chek Sda" id="menu_check" parent="prof_tnt_sda_delivery.menu_view_sub_profile_tnt_sda" sequence="30" groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_manager" />
+ 
+
+        <!-- check sda views -->
+        <record model="ir.ui.view" id="view_delivery_carrier_sda_check_list">
+            <field name="name">delivery.carrier.sda.check.list</field>
+            <field name="model">delivery.carrier.sda.check</field>
+            <field name="arch" type="xml">
+                <tree string="check ">
+                    <field name="sda_customer"/>
+                    <field name="sda_monitor"/>
+                    <field name="sda_monitor_count"/>
+                    <field name="sda_company_name"/>
+                    <field name="sda_company_city"/>
+                    <field name="sda_company_street"/>
+                    <field name="sda_user"/>
+                    <field name="sda_password"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_delivery_carrier_sda_check_form">
+            <field name="name">delivery.carrier.sda.check.form</field>
+            <field name="model">delivery.carrier.sda.check</field>
+            <field name="arch" type="xml">
+                <form string="Blog">
+                    <sheet>
+                        <group>
+                    <field name="sda_customer"/>
+                    <field name="sda_monitor"/>
+                    <field name="sda_monitor_count"/>
+                    <field name="sda_company_name"/>
+                    <field name="sda_company_city"/>
+                    <field name="sda_company_street"/>
+                    <field name="sda_user"/>
+                    <field name="sda_password"/>
+                    <field name="sda_url"/>
+                    <field name="sda_url_trk"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}' placeholder="Send a message to the group"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+         <!-- page search view  -->
+        <record model="ir.ui.view" id="view_delivery_carrier_sda_check_search">
+            <field name="name">delivery.carrier.sda.check.search</field>
+            <field name="model">delivery.carrier.sda.check</field>
+            <field name="arch" type="xml">
+                <search string="sda customer">
+                    <field name="sda_customer" string="Content" filter_domain="['|', ('sda_customer','ilike',self), ('content','ilike',self)]"/>
+                    <field name="write_uid"/>
+                    <field name="sda_monitor"/>
+                    <group expand="0" string="Group By">
+                        <filter string="sda_customer" domain="[]" context="{'group_by': 'sda_customer'}"/>
+                        <filter string="Author" domain="[]" context="{'group_by': 'create_uid'}"/>
+                        <filter string="Last Contributor" domain="[]" context="{'group_by': 'write_uid'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <!-- page action -->
+        <record model="ir.actions.act_window" id="action_check_sda">
+            <field name="name">Check Sda</field>
+            <field name="res_model">delivery.carrier.sda.check</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_delivery_carrier_sda_check_list"/>
+            <field name="search_view_id" ref="view_delivery_carrier_sda_check_search"/>
+        </record>
+        <menuitem id="menu_check_act" parent="menu_check" name="Controllo clienti" action="action_check_sda" sequence="50"/>
+    </data>
+</openerp>

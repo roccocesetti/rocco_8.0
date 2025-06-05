@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <record id="view_product_supplierinfo_tree" model="ir.ui.view">
+            <field name="name">product.supplierinfo.tree</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                    <tree>
+                    	<field name="nome_fornitore" />
+                   		<field name="name" />
+                    	<field name="categ_id" />
+                    	<field name="product_tmpl_id" />
+                    	<field name="qty_available" />
+                    	<field name="product_variant_ids" >
+                    			<tree>
+                    					<field name="name" />
+                    			</tree>
+                    	</field>
+            		</tree>
+            </field>
+        </record>
+       <record id="view_product_supplierinfo_tree_" model="ir.ui.view">
+            <field name="name">product.supplierinfo.search</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Product">
+                    <field name="nome_fornitore" string="nome Fornitore" />
+                    <field name="name" string="Fornitore" />
+                    <field name="product_tmpl_id" string="Prodotto" />
+                    <filter string="Disponibile" name="qty_available" icon="terp-accessories-archiver" domain="[('qty_available','>',0)]" help="Disponibile"/>
+                    <separator/>
+                    <field name="categ_id" string='Categoria prodotto'  filter_domain="[('categ_id', 'child_of', self)]"/>
+                    <field name="nome_fornitore" string='Non contiene il fornitore'  filter_domain="[('nome_fornitore', 'not ilike', self)]"/>
+                    <field string="Varianti" name="product_variant_ids" filter_domain="['|', ('product_variant_ids.name','ilike',self), ('product_variant_ids.attribute_value_ids.attribute_id.name','ilike',self)]"/>
+                    <group  expand='0' string='Group by...'>
+                       <filter string='Categoria prodotto' domain="[]" context="{'group_by' : 'categ_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+        <record id="action_view_product_supplierinfo_tree" model="ir.actions.act_window">
+            <field name="name">Prodotti per fornitore</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.supplierinfo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_product_supplierinfo_tree_" />
+        </record>
+
+
+        <menuitem  sequence="21"
+        action="action_view_product_supplierinfo_tree"
+        id="menu_view_product_supplierinfo_tree"
+        parent="prof_webtex.menu_view_sub_prof_webtex" />
+
+
+       <record id="view_invoice_tree_inherit_state_picking" model="ir.ui.view">
+            <field name="name">account.invoice.tree.state_picking</field>
+            <field name="model">account.invoice</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="prof_fatturapa_out.view_invoice_tree_inherit_fatturapa_prof" />
+            <field name="arch" type="xml">
+                 <data>
+                    <field name="date_invoice"  position="before">
+                    		<!-- <field name="x_y_picking_state" invisible="1"/>
+                    		<field name="state_picking"/>
+                    		-->
+                    		<field name="x_country_id"/>
+                    		<field name="x_category_id"/>
+                    		
+                    		
+            		</field>
+                 </data>
+            </field>
+        </record>
+       <record id="view_invoice_tree_inherit_state_picking_invoice" model="ir.ui.view">
+            <field name="name">account.invoice.tree.state_picking</field>
+            <field name="model">account.invoice</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="account.invoice_tree" />
+            <field name="arch" type="xml">
+                 <data>
+                    <field name="date_invoice"  position="before">
+                    		<!--  
+                    		<field name="x_y_picking_state" invisible="1"/>
+                    		<field name="state_picking"/>
+                    		-->
+                    		                    		<field name="x_country_id"/>
+                    		<field name="x_category_id"/>
+                    		
+            		</field>
+                 </data>
+            </field>
+        </record>
+
+       <record id="view_invoice_tree_inherit_state_picking_corr" model="ir.ui.view">
+            <field name="name">account.invoice.tree.state_picking</field>
+            <field name="model">account.invoice</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="l10n_it_corrispettivi.corrispettivi_tree" />
+            <field name="arch" type="xml">
+                 <data>
+                    <field name="date_invoice"  position="before">
+                    		<!-- 
+                    		<field name="x_y_picking_state" invisible="1"/>
+                    		<field name="state_picking"/>
+                    		-->
+                    		                    		<field name="x_country_id"/>
+                    		                    		                   		<field name="x_category_id" widget="many2many_tags"/>
+ 
+                    		
+            		</field>
+                 </data>
+            </field>
+        </record>
+
+
+
+        <record id="view_invoice_line_tree_inherit_id" model="ir.ui.view">
+            <field name="name">account.invoice.line.tree</field>
+            <field name="model">account.invoice.line</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="account.view_invoice_line_tree" />
+            <field name="arch" type="xml">
+                 <data>
+                    <field name="name"  position="before">
+                    		<field name="create_date"/>
+            		</field>
+                    <field name="name"  position="after">
+                   		<field name="partner_id" invisible="1"/>
+                   		<field name="product_id"/>
+            		</field>
+                 </data>
+            </field>
+        </record>
+
+
+        <record id="view_account_invoice_filter_inherit_id" model="ir.ui.view">
+            <field name="name">account.invoice.line.select</field>
+            <field name="model">account.invoice.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Invoice line">
+                    <field name="product_id" operator="child_of"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                    	<filter name="group_by_product_id" string="Prodotto" context="{'group_by':'product_id'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+
+        <record id="action_invoice_refund_out_tree_inherit_id" model="ir.actions.act_window">
+            <field name="name">Linee fattura</field>
+            <field name="res_model">account.invoice.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_invoice_line_tree_inherit_id"/>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="search_view_id" ref="view_account_invoice_filter_inherit_id"/>
+        </record>
+
+        <record model="ir.ui.view" id="partner_view_buttons_inherit_id">
+            <field name="name">partner.view.buttons.inherit_id</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="20"/>
+            <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <!--
+                    <button type="action" 
+                        class="oe_stat_button"
+                        id="invoice_line_button"
+                        icon="fa-pencil-square-o"
+                        name="%(action_invoice_refund_out_tree_inherit_id)d"
+                        attrs="{'invisible': [('customer', '=', False)]}" 
+                        context="{'search_default_partner_id': active_id,'default_partner_id': active_id}">
+                        <div><br/>Righe Fatturate</div>
+                    </button>
+                    -->
+                    <button type="object" 
+                        class="oe_stat_button"
+                        id="invoice_line_button"
+                        icon="fa-pencil-square-o"
+                        name="action_open_invoice_line"
+                         >
+                        <div><br/>Righe Fatturate</div>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+
+    <record id="ddt_sppp_line_stock_picking_package_preparation_form_net_weihgt" model="ir.ui.view">
+        <field name="name">ddt.net_weihgt.line.stock.picking.package.preparation.form</field>
+        <field name="model">stock.picking.package.preparation</field>
+        <field name="inherit_id" ref="l10n_it_ddt.ddt_stock_picking_package_preparation_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='weight_manual']" position="after">
+                <label for="net_weight_manual" />
+                <field name="net_weight_manual" nolabel="1" />
+            </xpath>
+        </field>
+    </record>
+
+
+</data>
+ <data noupdate="1">
+     <!--~~~~~~~~~~~~~~~~~~~~~~crea ordine di approvvigionamento~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_ord_create_order_webtex" model="ir.actions.server">
+            <field name="name">Crea ordine di vendita</field>
+            <field name="model_id" ref="account.model_account_invoice_line"/>
+            <field name="state">code</field>
+            <field name="code">action = self.pool.get('account.invoice.line').create_new_order(cr,uid,[],context)</field>
+            <!-- 
+            <field eval="prof_webtex.prof_webtex_manager" name="groups"/> 
+            -->
+        </record>
+
+        <record id="action_ord_create_order_webtex" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'account.invoice.line'" name="model"/>
+            <field name="name">Crea ordine di vendita</field>
+            <field eval="'ir.actions.server,%d'%action_ord_create_order_webtex" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+ 
+ </data>     
+</openerp>

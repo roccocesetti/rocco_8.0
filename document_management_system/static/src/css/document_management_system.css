@@ -1,0 +1,5 @@
+.openerp .o_kanban_document .oe_kanban_record .badge{
+    position: absolute;
+    left: 0;
+    top: 0;
+}

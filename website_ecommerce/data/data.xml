@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<record id="website.menu_homepage" model="website.menu">
+            <field name="name">Home</field>
+            <field name="menu_subheading">Overview</field>
+            <field name="url">/page/homepage</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">10</field>
+        </record>
+
+         <record id="website_sale.menu_shop" model="website.menu">
+            <field name="name">Shop</field>
+            <field name="menu_subheading">Shop</field>
+            <field name="url">/shop</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">20</field>
+        </record>
+
+        <record id="website_blog.menu_news" model="website.menu">
+            <field name="name">Blog</field>
+            <field name="menu_subheading">Blog Updates</field>
+            <field name="url">/blog</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">30</field>
+        </record>
+
+        <record id="website.menu_contactus" model="website.menu">
+            <field name="name">Contact us</field>
+            <field name="menu_subheading">Feedback</field>
+            <field name="url">/page/contactus</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">40</field>
+        </record>
+
+
+
+        <record id="img_library_01" model="ir.attachment">
+            <field name="name">img_library_01.jpg</field>
+            <field name="datas_fname">img_library_01.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/website_ecommerce/static/src/img/library/img_library_01.jpg</field>
+        </record>
+        <record id="img_library_02" model="ir.attachment">
+            <field name="name">img_library_02.jpg</field>
+            <field name="datas_fname">img_library_02.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/website_ecommerce/static/src/img/library/img_library_02.jpg</field>
+        </record>
+        <record id="img_library_03" model="ir.attachment">
+            <field name="name">img_library_03.jpg</field>
+            <field name="datas_fname">img_library_03.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/website_ecommerce/static/src/img/library/img_library_03.jpg</field>
+        </record>
+        <record id="img_library_04" model="ir.attachment">
+            <field name="name">img_library_04.jpg</field>
+            <field name="datas_fname">img_library_04.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/website_ecommerce/static/src/img/library/img_library_04.jpg</field>
+        </record>
+        <record id="img_library_05" model="ir.attachment">
+            <field name="name">img_library_05.jpg</field>
+            <field name="datas_fname">img_library_05.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/website_ecommerce/static/src/img/library/img_library_05.jpg</field>
+        </record>
+        <record id="img_library_06" model="ir.attachment">
+            <field name="name">img_library_06.jpg</field>
+            <field name="datas_fname">img_library_06.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/website_ecommerce/static/src/img/library/img_library_06.jpg</field>
+        </record>
+        <record id="img_library_07" model="ir.attachment">
+            <field name="name">img_library_07.jpg</field>
+            <field name="datas_fname">img_library_07.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/website_ecommerce/static/src/img/library/img_library_07.jpg</field>
+        </record>
+        <record id="img_library_08" model="ir.attachment">
+            <field name="name">img_library_08.jpg</field>
+            <field name="datas_fname">img_library_08.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/website_ecommerce/static/src/img/library/img_library_08.jpg</field>
+        </record>
+        <record id="img_library_09" model="ir.attachment">
+            <field name="name">img_library_09.jpg</field>
+            <field name="datas_fname">img_library_09.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/website_ecommerce/static/src/img/library/img_library_09.jpg</field>
+        </record>
+        <record id="img_library_10" model="ir.attachment">
+            <field name="name">img_library_10.jpg</field>
+            <field name="datas_fname">img_library_10.jpg</field>
+            <field name="res_model">ir.ui.view</field>
+            <field name="type">url</field>
+            <field name="url">/website_ecommerce/static/src/img/library/img_library_10.jpg</field>
+        </record>
+
+
+
+
+        <!-- Theme logo -->
+
+        <record id="theme_common.image_content_logo" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_logo.png</field>
+        </record>
+
+        <record id="theme_common.image_content_logo_small" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_logo_small.png</field>
+        </record>
+
+        <!-- Image for img tags with variations -->
+
+        <record id="theme_common.image_content_01" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_01.png</field>
+        </record>
+        <record id="theme_common.image_content_02" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_02.png</field>
+        </record>
+        <record id="theme_common.image_content_03" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_03.png</field>
+        </record>
+        <record id="theme_common.image_content_04" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_04.png</field>
+        </record>
+        <record id="theme_common.image_content_05" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_05.png</field>
+        </record>
+        <record id="theme_common.image_content_06" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_06.png</field>
+        </record>
+        <record id="theme_common.image_content_07" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_07.png</field>
+        </record>
+        <record id="theme_common.image_content_08" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_08.png</field>
+        </record>
+        <record id="theme_common.image_content_09" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_09.jpg</field>
+        </record>
+        <record id="theme_common.image_content_10" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_10.jpg</field>
+        </record>
+        <record id="theme_common.image_content_11" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_11.jpg</field>
+        </record>
+    <!--
+        <record id="theme_common.image_content_12" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_12.jpg</field>
+        </record>
+    -->
+        <record id="theme_common.image_content_13" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_13.jpg</field>
+        </record>
+        <record id="theme_common.image_content_14" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_14.png</field>
+        </record>
+        <record id="theme_common.image_content_15" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_15.png</field>
+        </record>
+        <record id="theme_common.image_content_16" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_16.png</field>
+        </record>
+        <record id="theme_common.image_content_17" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_17.png</field>
+        </record>
+        <record id="theme_common.image_content_18" model="ir.attachment">
+            <field name="url">/website_ecommerce/static/src/img/content/content_img_18.png</field>
+        </record>
+
+    </data>
+</openerp>

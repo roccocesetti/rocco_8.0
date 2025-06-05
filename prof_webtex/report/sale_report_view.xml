@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <record id="view_order_product_tree_duplicatestockmove" model="ir.ui.view">
+         <field name="name">sale.report.tree</field>
+         <field name="model">sale.report.duplicatestockmove</field>
+         <field name="arch" type="xml">
+             <tree string="dup stockmove ">
+                 <field name="id" />
+                 <field name="date_ord" />
+                 <field name="num_ord" />
+                 <field name="nr_so" />
+                 <field name="date_picking" />
+                 <field name="num_picking" />
+                 <field name="nr_pk" />
+                 <field name="note" />
+                 </tree>
+         </field>
+    </record>
+    <record id="view_order_product_graph_duplicatestockmove" model="ir.ui.view">
+         <field name="name">sale.report.graph</field>
+         <field name="model">sale.report.duplicatestockmove</field>
+         <field name="arch" type="xml">
+             <graph string="dup stockmove " type="pivot" stacked="True">
+                 <field name="date_ord" type="row"/>
+                 <field name="num_ord" type="row"/>
+                 <field name="nr_so" type="col"/>
+                 <field name="date_picking" type="col"/>
+                 <field name="num_picking" type="col"/>
+                 <field name="nr_pk" type="col"/>
+                
+                 </graph>
+         </field>
+    </record>
+    
+    <!-- Custom reports (aka filters) 
+    <record id="filter_sale_report_sales_funnel_duplicatestockmove" model="ir.filters">
+        <field name="name">Odini per data ordine</field>
+        <field name="model_id">sale.report.duplicatestockmove</field>
+        <field name="domain">['&amp;', ('date_ord','&lt;=', time.strftime('%Y-12-31')), '&amp;', ('date_ord','&gt;=',time.strftime('%Y-01-01')), ]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{}</field>
+        
+    </record>
+
+        <record id="filter_sale_report_sales_funnel_duplicatestockmove_picking" model="ir.filters">
+        <field name="name">Odini per data picking</field>
+        <field name="model_id">sale.report.duplicatestockmove</field>
+        <field name="domain">['&amp;', ('date_picking','&lt;=', time.strftime('%Y-12-31')), '&amp;', ('date_picking','&gt;=',time.strftime('%Y-01-01')), ]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{}</field>
+    </record>
+    -->
+    <record id="view_order_product_search_duplicatestockmove" model="ir.ui.view">
+        <field name="name">sale.report.search</field>
+        <field name="model">sale.report.duplicatestockmove</field>
+        <field name="arch" type="xml">
+            <search string="Sales stock move duplicate">
+                <field name="num_ord"/>
+                <field name="num_picking"/>
+                <field name="date_ord"/>
+                <field name="date_picking"/>
+ 				<field name="note" />
+                 <filter string="This Year" name="year" invisible="1" domain="[('date_ord','&lt;=', time.strftime('%%Y-12-31')),('date_ord','&gt;=',time.strftime('%%Y-01-01'))]"/>
+                <separator/>
+                <group expand="0" string="Extended Filters">
+                </group>
+                <group expand="1" string="Group By">
+                    <separator/>
+                    <filter string="Order Month" context="{'group_by':'date_ord:month'}" help="Ordered date of the sales order dup"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_order_report_all_sale_stockmoveduplicate" model="ir.actions.act_window">
+        <field name="name">ordini mov.dup.</field>
+        <field name="res_model">sale.report.duplicatestockmove</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="search_view_id" ref="view_order_product_search_duplicatestockmove"/>
+        <field name="view_id" ref="view_order_product_graph_duplicatestockmove"/>
+        <field name="context">{'group_by':[]}</field>
+        <field name="help">Questo report analizza i movimenti doppi.</field>
+    </record>
+    <record id="action_order_report_all_sale_tree_stockmoveduplicate" model="ir.actions.act_window">
+        <field name="name">ordini mov.dup.tree</field>
+        <field name="res_model">sale.report.duplicatestockmove</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+        <field name="search_view_id" ref="view_order_product_search_duplicatestockmove"/>
+        <field name="view_id" ref="view_order_product_tree_duplicatestockmove"/>
+        <field name="context">{'group_by':[]}</field>
+        <field name="help">Questo report analizza i movimenti doppi.</field>
+    </record>
+    
+    <menuitem action="action_order_report_all_sale_tree_stockmoveduplicate" 
+        id="menu_report_product_all_stockmoveduplicate_tree" parent="prof_webtex.menu_view_sub_prof_webtex" sequence="520"/>
+    <menuitem action="action_order_report_all_sale_stockmoveduplicate" 
+        id="menu_report_product_all_stockmoveduplicate" parent="prof_webtex.menu_view_sub_prof_webtex" sequence="530"/>
+
+
+
+
+</data>
+</openerp>

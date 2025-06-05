@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <!--   Product Price categ -->
+
+        <record id="view_product_product_categ_list_prof_webtex" model="ir.ui.view">
+              <field name="name">Estrazione prodotti</field>
+              <field name="model">product.categlist.prof_webtex</field>
+              <field name="arch" type="xml">
+                <form string="estrazione prodotti">
+                    <group string="Parametri di Estrazione prodotti">
+                   	     <field invisible="1" name="state"/>
+                         <field name="da_categoria" />
+                         <field name="a_categoria" />
+                         <field name="da_prodotto" />
+                         <field name="a_prodotto" />
+                         <field name="dispo" invisible="1"/>
+                         <field name="x_rio_stock" invisible="1"/>
+                         </group>
+                        <group colspan="4" states="choose" >
+                        	<h2>Crea file excel</h2>
+                       </group>
+                        <group colspan="4" states="get" >
+                            <field name="file_data" invisible="1"></field>
+                        	<h2>Fai il download del file excel</h2>
+                        <field name="data" readonly="0" invisible="0" filename="file_data"/>
+                        </group>
+                    <group>
+                        <button name="export_productcateg" string="Estrai"  type="object"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                        or
+                        <button name="ri_export_productcateg" string="riEstrai"  type="object"  />
+                    </group>
+                </form>
+              </field>
+        </record>
+
+        <act_window id="action_view_product_product_categ_grid_prof_webtex"
+            key2="client_print_multi"
+            name="estrazione prodotti"
+            res_model="product.categlist.prof_webtex"
+            src_model="product.product"
+            groups="product.group_sale_pricelist"
+            view_mode="form" target="new" view_type="form" />
+
+
+        <record id="action_view_product_product_categ_list_prof_webtex" model="ir.actions.act_window">
+            <field name="name">Estrazione per categoria</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.categlist.prof_webtex</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            </record>
+        <menuitem
+        action="action_view_product_product_categ_list_prof_webtex"
+        id="menu_action_view_product_product_categ_list_prof_webtex"
+        parent="prof_webtex.menu_view_sub_prof_webtex" groups="prof_webtex.prof_webtex_manager"  sequence="178"/>
+
+
+    <!--   Product valutazione esistenze -->
+
+        <record id="view_wizard_valuation_history_log" model="ir.ui.view">
+              <field name="name">Valutazione Esistenze</field>
+              <field name="model">wizard.valuation.history.log</field>
+              <field name="arch" type="xml">
+                <form string="estrazione valutazione esistenze">
+                    <group string="Valutazione esistenze">
+                         <field name="date" />
+                          </group>
+                        <group colspan="4"  >
+                            <field name="file_data" invisible="1"></field>
+                            <field name="file_data_csv" invisible="1"></field>
+                        	<h2>Fai il download del file excel</h2>
+	                        <group   >
+	                        <field name="data"  invisible="0" filename="file_data"/>
+	                        <field name="data_csv"  invisible="0" filename="file_data_csv"/>
+	                    	</group>
+                    	<group>
+                        <button name="view_open_table" string="Ricrea"  type="object"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </group>
+                        </group>
+                </form>
+              </field>
+        </record>
+        <record id="view_wizard_valuation_history_log_tree" model="ir.ui.view">
+              <field name="name">Valutazione Esistenze griglia</field>
+              <field name="model">wizard.valuation.history.log</field>
+              <field name="arch" type="xml">
+                <tree string="estrazione prodotti">
+                         <field name="date" />
+                          <field name="file_data" invisible="1"></field>
+                         <field name="data"  invisible="0" filename="file_data"/>
+                         <field name="file_data_csv" invisible="1"></field>
+                         <field name="data_csv"  invisible="0" filename="file_data_csv"/>
+                </tree>
+              </field>
+        </record>
+
+        <act_window id="action_view_wizard_valuation_history_log_multi"
+            key2="client_print_multi"
+            name="Valutazione esistenze"
+            res_model="wizard.valuation.history.log"
+            src_model="wizard.valuation.history"
+            groups="product.group_sale_pricelist"
+            view_mode="form" target="new" view_type="form" />
+
+
+        <record id="action_view_wizard_valuation_history_log" model="ir.actions.act_window">
+            <field name="name">Valutazione esistenze</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.valuation.history.log</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            </record>
+        <menuitem
+        action="action_view_wizard_valuation_history_log"
+        id="menu_action_view_wizard_valuation_history_log"
+        parent="prof_webtex.menu_view_sub_prof_webtex" groups="prof_webtex.prof_webtex_manager"  sequence="179"/>
+
+
+
+    <!--   Product Price List -->
+
+        <record id="view_product_price_list_prof_webtex" model="ir.ui.view">
+              <field name="name">Stampa Listini</field>
+              <field name="model">product.price_list.prof_webtex</field>
+              <field name="arch" type="xml">
+                <form string="Listino Prezzi">
+                    <group string="Parametri di stampa listini">
+                        <field name="price_list_pubblico" widget="selection"/>
+                        <field name="price_list_ingrosso" widget="selection"/>
+                        <field name="price_list_costo" widget="selection"/>
+                        <field name="partner_id" />
+                        <field name="da_categoria" />
+                         <field name="a_categoria" />
+                        <field name="da_prodotto" />
+                         <field name="a_prodotto" />
+                         <field name="dispo" />
+                         <field name="x_rio_stock" />
+                         </group>
+                    <footer>
+                        <button name="print_report" string="Stampa"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+        <act_window id="action_product_price_list_prof_webtex"
+            key2="client_print_multi"
+            name="Price List"
+            res_model="product.price_list.prof_webtex"
+            src_model="product.product"
+            groups="product.group_sale_pricelist"
+            view_mode="form" target="new" view_type="form" />
+        
+        <record id="action_product_price_list_prof_webtex_2" model="ir.actions.act_window">
+            <field name="name">Stampa Listini</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.price_list.prof_webtex</field>
+            <field name="src_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            </record>
+        <menuitem
+        action="action_product_price_list_prof_webtex_2"
+        id="menu_product_action_product_price_list_prof_webtex_2"
+        parent="prof_webtex.menu_view_sub_prof_webtex" groups="prof_webtex.prof_webtex_manager"  sequence="180"/>
+
+        <record id="action_product_pricelist_prof_webtex" model="ir.actions.act_window">
+            <field name="name">Listini</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pricelist</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            </record>
+        <menuitem
+        action="action_product_pricelist_prof_webtex"
+        id="menu_product_action_product_pricelist_prof_webtex"
+        parent="prof_webtex.menu_view_sub_prof_webtex" groups="prof_webtex.prof_webtex_manager"  sequence="190"/>
+
+        <record id="action_product_price_item_list_prof_webtex" model="ir.actions.act_window">
+            <field name="name">Voci Listini</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pricelist.item</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            </record>
+        <menuitem
+        action="action_product_price_item_list_prof_webtex"
+        id="menu_product_action_product_price_item_list_prof_webtex"
+        parent="prof_webtex.menu_view_sub_prof_webtex" groups="prof_webtex.prof_webtex_manager"  sequence="200"/>
+
+        <record id="product_pricelist_item_tree_view_prof_webtex" model="ir.ui.view">
+            <field name="name">Voci listino</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="inherit_id" ref="product.product_pricelist_item_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                     		<field name="price_surcharge"  />
+                </field>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="view_company_inherit_form_prof_webtex">
+            <field name="name">res.company.form.prof_webtex</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="prof_webtex" position="inside">
+                        <separator string="prof_webtex" colspan="4"/>
+                        <group string="Parametri listino">
+                        <field name="x_pubblico_id"   colspan ="2"/>
+                        <field name="x_ingrosso_id" colspan ="2"/>
+                        <field name="x_costo_id" colspan ="2"/>
+                  		</group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+ 
+ 
+<!--  valutazione esistenze due -->
+    <record id="view_stock_history_report_tree_due" model="ir.ui.view">
+        <field name="name">Stock Value At Date</field>
+        <field name="model">stock.history.tre</field>
+        <field name="arch" type="xml">
+            <tree string="Stock Value At Date" create="0" delete="0">
+                <field name="location_id" invisible="1"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="product_categ_id"/>
+                <field name="product_id" />
+                <field name="anno"/>
+                <field name="mese"/>
+                <field name="quantity" sum="# of Products "/>
+                <field name="inventory_value" sum="Total Value"/>
+           </tree>
+        </field>
+    </record>
+    <record id="view_stock_history_report_graph_due" model="ir.ui.view">
+        <field name="name">stock.history.value.graph</field>
+        <field name="model">stock.history.tre</field>
+        <field name="arch" type="xml">
+            <graph string="Stock Value At Date" type="pivot" stacked="True">
+                 <field name="product_categ_id" type="row"/>
+                <field name="inventory_value" type="measure"/>
+                <field name="quantity" type="measure"/>
+            </graph>
+        </field>
+    </record>
+    <!-- Custom reports (aka filters) -->
+    <record id="filter_stock_history_tre_prodotti" model="ir.filters">
+        <field name="name">By Prodotti</field>
+        <field name="model_id">stock.history.tre</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['product_categ_id', 'product_id','anno','mese']}</field>
+    </record>
+
+    <record id="filter_stock_history_tre_lastyear" model="ir.filters">
+        <field name="name">Ultimo anno</field>
+        <field name="model_id">stock.history.tre</field>
+        <field name="domain">[['anno','=', datetime.datetime.now().year]]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['product_categ_id','anno','mese']}</field>
+    </record>
+    <record id="filter_stock_history_tre_lastmonth" model="ir.filters">
+        <field name="name">Ultimo mese</field>
+        <field name="model_id">stock.history.tre</field>
+        <field name="domain">[['anno','=', datetime.datetime.now().year], ['mese','=',datetime.datetime.now().month]]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['product_categ_id','anno','mese']}</field>
+    </record>
+
+
+    <record id="view_stock_history_report_search_due" model="ir.ui.view">
+        <field name="name">stock.history.report.search</field>
+        <field name="model">stock.history.tre</field>
+        <field name="arch" type="xml">
+            <search string="Stock Value At Date">
+                <field name="product_categ_id" filter_domain="[('product_categ_id', 'child_of', self)]"/>
+                <field name="product_id"/>
+                <field name="anno"/>
+                <field name="mese" widget="selection"/>
+                <field name="location_id" filter_domain="[('location_id', 'child_of', self)]"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <group expand="1" string="Group By">
+                    <filter string="Product Category" icon="terp-accessories-archiver" context="{'group_by':'product_categ_id'}" name='group_by_product_categ'/>
+                    <filter string="Product" icon="terp-accessories-archiver" context="{'group_by':'product_id'}" name='group_by_product'/>
+                    <filter string="anno" icon="terp-accessories-archiver" context="{'group_by':'anno'}" name='group_by_anno'/>
+                    <filter string="mese" icon="terp-accessories-archiver" context="{'group_by':'mese'}" name='group_by_mese'/>
+                    <filter string="Location" icon="terp-accessories-archiver" context="{'group_by':'location_id'}" name='group_by_location'/>
+                    <filter string="Move" icon="terp-accessories-archiver" context="{'group_by':'move_id'}"/>
+                    <filter string="Company" icon="terp-go-home" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                 </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_history_tree_due" model="ir.actions.act_window">
+            <field name="name">Pivot Magazzino corrente</field>
+            <field name="res_model">stock.history.tre</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">graph,tree</field>
+            <field name="context">{'search_default_group_by_product_categ': True, 'search_default_group_by_anno': True, 'search_default_group_by_mese': True}</field>
+    </record>
+
+
+
+
+ <menuitem        
+        action="action_history_tree_due"
+        id="menu_action_history_tree_due"
+        parent="prof_webtex.menu_view_sub_prof_webtex" groups="prof_webtex.prof_webtex_manager"  sequence="179"/>
+ 
+        
+</data>
+</openerp>

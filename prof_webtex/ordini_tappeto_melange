@@ -1,0 +1,1 @@
+﻿(select so.name,so.origin,sm.* from sale_order_line sm inner join sale_order so on sm.order_id=so.id inner join product_product pp on sm.product_id=pp.id where pp.product_tmpl_id=2496)

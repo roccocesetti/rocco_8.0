@@ -1,0 +1,1 @@
+﻿select rp.name,so.* from sale_order so inner join  res_partner rp on so.partner_id=rp.id where rp.country_id=76 and date_order>='2017-11-11 00:00:01'

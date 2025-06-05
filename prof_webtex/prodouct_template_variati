@@ -1,0 +1,1 @@
+﻿select ppt.presta_product_id,pt.id as odoo_id,pt.name from product_template pt left join prestashop_product_template ppt on pt.id=ppt.erp_template_id where pt.write_date>='2017-02-15 00:00:01' or pt.create_date>='2017-03-01 00:00:01' 

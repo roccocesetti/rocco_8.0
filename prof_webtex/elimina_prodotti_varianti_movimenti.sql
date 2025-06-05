@@ -1,0 +1,1 @@
+﻿select *  from stock_move  where id in (select sm.id from stock_move sm inner join product_product pp on sm.product_id=pp.id where pp.product_tmpl_id=1810 and name like('%INV:INV%'))

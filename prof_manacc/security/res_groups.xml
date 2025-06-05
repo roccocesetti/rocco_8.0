@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="manacc_manager" model="res.groups">
+			<field name="name">manacc / Manager</field>
+		</record>		
+		<record id="manacc_user" model="res.groups">
+			<field name="name">manacc / User</field>
+		</record>		
+		</data>	
+</openerp>

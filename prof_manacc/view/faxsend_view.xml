@@ -1,0 +1,224 @@
+<openerp>
+    <data>
+        <!-- faxsend.account -->
+        <record model="ir.ui.view" id="view_mail_mass_mailing_contact_tree_sendfax">
+            <field name="name">Contatti</field>
+            <field name="model">mail.mass_mailing.contact</field>
+            <field name="inherit_id" ref="mass_mailing.view_mail_mass_mailing_contact_tree"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='email']" position="before">
+                    		<field name="fax"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="faxsend_account_form">
+            <field name="name">faxsend.account.form</field>
+            <field name="model">faxsend.account</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Send fax account" version="7.0">
+                	<sheet>
+                		<group>                    
+                    		<field name="name"/>
+                    		<field name="username"/>
+                    		<field name="password" password="True"/>
+		                    <field name="apikey"/>                                                          
+		                     <field name="apisecret"/>
+		                    <field name="host"/>                                                          
+		                     <field name="mailing_list_id"/>
+		                     <field name="filename"/>
+		                     			</group>
+                    </sheet>                    
+                </form>
+            </field>
+        </record>
+        
+    	<record model="ir.ui.view" id="faxsend_account_list">
+            <field name="name">faxsend.account.list</field>
+            <field name="model">faxsend.account</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Send fax account">
+                    <field name="name"/>
+                    <field name="username"/>                                       
+                    <field name="apikey"/>                                                          
+                     <field name="apisecret"/>
+                    <field name="host"/>                                                          
+                     <field name="mailing_list_id"/>
+		              <field name="filename"/>
+                     </tree>
+            </field>
+        </record>
+        
+    	<record id="view_faxsend_account_search" model="ir.ui.view">
+            <field name="name">faxsend.account.search</field>
+            <field name="model">faxsend.account</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Send fax account">
+                    <field name="name"/>
+                   <field name="username"/>                                                          
+                     </search>
+            </field>
+        </record>
+        
+        <!-- faxsend.queue -->
+        <record model="ir.ui.view" id="faxsend_queue_form">
+            <field name="name">faxsend.queue.form</field>
+            <field name="model">faxsend.queue</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Send fax queue" version="7.0">
+                	<header>                	
+                        <button name="action_send_fax" string="Send fax" states="draft" type="object" />                        
+                        <button name="action_send_fax_again" states="ok,cancel,error" string="Send again" type="object" />                        
+                        <button name="action_cancel_send_fax" string="Cancel send fax" states="draft,wait" type="object" />
+                        <field name="state" widget="statusbar" nolabel="1" />                                                                                                                                     
+                	</header>
+                	<sheet>
+                		<group>                    
+                    		<field name="account_id"/>
+                    		<field name="subject"/>
+                    		<field name="report"/><newline/>
+                    		<field name="object_type"/>
+                    		<field name="obj_id"/>
+                    		<field name="faxno"/>                    		                   
+                    		<field name="job_no"/><newline/>
+                    		<field name="pages"/>
+                    		<field name="duration"/><newline/>
+                    		<separator string="Trigger settings on Fax 'error' or 'success'" colspan="4"/>
+                    		<field name="trigger_model"/>
+                    		<field name="trigger_method"/>
+                    		<field name="trigger_method_args"/>                    		
+                    	</group>
+                    </sheet>                                        
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="faxsend_queue_list">
+            <field name="name">faxsend.queue.list</field>
+            <field name="model">faxsend.queue</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Send fax queue">
+                    <field name="queue_date"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="faxno"/>
+                    <field name="job_no"/>
+                    <field name="duration"/>
+                    <field name="pages"/>                    
+                </tree>
+            </field>
+        </record>
+        
+    	<record id="view_faxsend_queue_search" model="ir.ui.view">
+            <field name="name">faxsend.queue.search</field>
+            <field name="model">faxsend.queue</field>
+            <field name="type">search</field>
+            <field name="arch" type="xml">
+                <search string="Send fax queue">
+                    <field name="state"/>
+                    <field name="report"/>
+                    <field name="subject"/>
+                    <field name="faxno"/>                                       
+                </search>
+            </field>
+        </record>
+        
+        <record id="view_mail_mass_mailing_contact_x_url_mail" model="ir.ui.view">
+            <field name="name">Ricerca Mail </field>
+            <field name="model">mail.mass_mailing.contact.x_url_mail</field>
+            <field name="arch" type="xml">
+                <form string="Ricezione Inventario " version="7.0">
+                    <group>
+                        <field name="name" />
+                        <field name="url" />
+                        <field name="cartella" />
+                        <field name="livello" />
+                        <field name="max_link" />
+                        <field name="no_link" readonly="1"/>
+                        <field name="mass_mail_id" />
+                        </group>
+                    <group>
+                        <field name="x_mail_ids" />
+                   </group>
+                    <footer>
+                        <button name="process_url" string="_Cerca email/fax" type="object" class="oe_highlight"/>
+                        or
+                        <button name="process_mass_mail" string="Crea Contatti" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />                        
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="view_mail_mass_mailing_contact_x_url_mail_tree" model="ir.ui.view">
+            <field name="name">Lista ricerche Email </field>
+            <field name="model">mail.mass_mailing.contact.x_url_mail</field>
+            <field name="arch" type="xml">
+                <tree string="Lista della ricerca" version="8.0">
+                        <field name="name" />
+                        <field name="url" />
+                        <field name="cartella" invisible="1"/>
+                        <field name="livello" />
+                        <field name="max_link" />
+                        <field name="no_link" readonly="1"/>
+                        <field name="mass_mail_id" />
+                        <field name="x_mail_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_mail_mass_mailing_contact_x_mail_tree" model="ir.ui.view">
+            <field name="name">mail.mass_mailing.contact.x_mail.tree</field>
+            <field name="model">mail.mass_mailing.contact.x_mail</field>
+            <field eval="7" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Mail Trovata">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="fax"/>
+                    <field name="tel"/>
+                    <field name="x_search_mail_id"/>
+                </tree>
+            </field>
+        </record>
+    	
+        <record model="ir.actions.act_window" id="action_faxsend_account_list">
+            <field name="name">Send fax account</field>
+            <field name="res_model">faxsend.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="faxsend_account_list" />
+            <field name="search_view_id" ref="view_faxsend_account_search"/>
+        </record>
+        
+    	<record model="ir.actions.act_window" id="action_faxsend_queue_list">
+            <field name="name">Send fax queue</field>
+            <field name="res_model">faxsend.queue</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="faxsend_queue_list" />
+            <field name="search_view_id" ref="view_faxsend_queue_search"/>
+        </record>
+        <record model="ir.actions.act_window" id="action_search_x_search_mail">
+            <field name="name">Search Mail </field>
+            <field name="res_model">mail.mass_mailing.contact.x_url_mail</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    	
+    	<menuitem id="menu_fax" name="Fax" parent="base.menu_config" />
+    	<menuitem id="menu_fax_sendaccount" parent="menu_fax" action="action_faxsend_account_list" sequence="10"/>
+    	<menuitem id="menu_fax_sendqueue" parent="menu_fax" action="action_faxsend_queue_list" sequence="15"/>
+    	<menuitem id="menu_fax_mrk" name="Fax" parent="base.marketing_menu" />
+    	<menuitem id="menu_fax_sendaccount_mrk" parent="menu_fax_mrk" action="action_faxsend_account_list" sequence="10"/>
+    	<menuitem id="menu_fax_sendqueue_mrk" parent="menu_fax_mrk" action="action_faxsend_queue_list" sequence="15"/>
+    	<menuitem id="menu_fax_send_search_mail" parent="menu_fax_mrk" action="action_search_x_search_mail" sequence="20"/>
+    		</data>
+
+</openerp>

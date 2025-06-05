@@ -27,6 +27,8 @@ import time
 import openerp.addons.decimal_precision as dp
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from dateutil import parser
+
 from openerp.tools.translate import _
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT
 import openerp.addons.decimal_precision as dp
@@ -441,7 +443,7 @@ class account_x_service(osv.osv):
             ('progress', 'Fatturato'),
             ('expired', 'Scaduto'),
             ('cancel', 'Cancellato'),
-            ], 'Status', readonly=True, help="Stati del servizio draft in bozza,sent ", select=True),
+            ], 'Status', readonly=False, help="Stati del servizio draft in bozza,sent ", select=True),
         'trial_start': fields.date('Inizio prova', required=True, readonly=True, select=True, states={'draft': [('readonly', False)], 'send': [('readonly', False)], 'trial': [('readonly', False)]}),
         'trial_end': fields.date('Fine prova', required=True, readonly=True, select=True, states={'draft': [('readonly', False)], 'send': [('readonly', False)], 'trial': [('readonly', False)]}),
         'trail_gg_alert': fields.integer('Giorni di alert fine prova', required=True, digits_compute=0, ),
@@ -500,7 +502,7 @@ class account_x_service(osv.osv):
         'note': fields.text('Terms and conditions'),
         'user_customer_id': fields.many2one('res.users', 'Utente collegato ai servizi', select=True, track_visibility='onchange'),
         'x_service_policy': fields.selection([
-                ('prepaid', 'pregato'),
+                ('prepaid', 'prepagato'),
                 ('manual', 'pagato a su richiesta'),
                 ('invoiced', 'pagato a emissione fattura'),
             ], 'Pagamento del servizio', required=True, readonly=True, states={'draft': [('readonly', False)], 'send': [('readonly', False)], 'trial': [('readonly', False)]},
@@ -654,7 +656,7 @@ class account_x_service(osv.osv):
         
         # create invoices through the sales orders' workflow
         inv_ids0 = set(inv.id for x_service in self.browse(cr, uid, ids, context) for inv in x_service.invoice_ids)
-        self.signal_manual_invoice(cr, uid, ids)
+        self.signal_workflow(cr, uid, ids,'manual_invoice')
         inv_ids1 = set(inv.id for x_service in self.browse(cr, uid, ids, context) for inv in x_service.invoice_ids)
         # determine newly created invoices
         new_inv_ids = list(inv_ids1 - inv_ids0)
@@ -1177,14 +1179,15 @@ class account_x_service(osv.osv):
         for partner_id in partner_ids:
                F_notify=False
                if not ids:
-                   x_service_ids=x_service_obj.search(cr, uid, [('state','in', ['done','send']),('date_next_invoice','<', data_odierna), ('partner_id','=', partner_id)])
+                   x_service_ids=x_service_obj.search(cr, uid, [('state','in', ['done','send','progress']),('date_next_invoice','<', data_odierna), ('partner_id','=', partner_id)])
                    
                user_id=0
                x_service_policy=''
                for x_service in self.browse(cr, uid, x_service_ids, context=context):
                                   date_expired = datetime.strptime(x_service.date_next_invoice or current_date, "%Y-%m-%d")
-                                  date_magg = data_odierna+relativedelta(days=+1)
-                                  if date_expired>=date_magg:
+                                  date_magg_2 =  parser.parse(data_odierna)+relativedelta(days=+1)
+                                  date_magg =  str(date_magg_2.strftime('%Y-%m-%d'))
+                                  if date_expired>=date_magg_2:
                                       amount_untaxed=(x_service.amount_untaxed*120)/100
                                       if amount_untaxed<10:
                                           amount_untaxed=10
@@ -1273,11 +1276,13 @@ class account_x_service(osv.osv):
         for partner_id in partner_ids:
                F_notify=False
                if not ids:
-                   x_service_ids=x_service_obj.search(cr, uid, [('state','in', ['done','progress']),('date_next_invoice','>=', data_odierna), ('partner_id','=', partner_id)])
+                   x_service_ids=x_service_obj.search(cr, uid, [('state','in', ['done','progress','paid']),('date_next_invoice','>=', data_odierna), ('partner_id','=', partner_id)])
                    
                user_id=0
                x_service_policy=''
                for x_service in self.browse(cr, uid, x_service_ids, context=context):
+                        if x_service.F_invoice_repeat==False and x_service.state=='paid':
+                            continue
                         date_expire = datetime.strptime(x_service.date_next_invoice or current_date, "%Y-%m-%d")
                         interval = x_service.gg_alert
 

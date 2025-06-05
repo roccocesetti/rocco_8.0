@@ -11,8 +11,11 @@ import werkzeug
 from openerp import http, SUPERUSER_ID
 from openerp.http import request
 _logger = logging.getLogger(__name__)
-
-
+from openerp.modules import get_module_resource
+from openerp import modules, tools
+from docutils.core import publish_string
+import lxml.html
+from openerp.tools import html_sanitize
 class PaypalController(http.Controller):
     _notify_url = '/cloud/payment/paypal/ipn/'
     _return_url = '/cloud/payment/paypal/dpn/'
@@ -240,5 +243,33 @@ class DomainController(http.Controller):
                     res='&%s&%s' % ('SI',name)
         else:
                 res='NO'
+        return res
+class cloud_controller(http.Controller):
+    @http.route('/cloud/cookie', type='http', auth='none',  methods=['GET'])
+    def cookie_get(self, **get):
+        mod_obj = request.registry['ir.module.module']
+        cr, uid, context = request.cr, SUPERUSER_ID, request.context
+        ids=mod_obj.search(cr, uid,[('name','=','rc_Cloudonthecloud')],context=context)
+        res = None
+        for module in mod_obj.browse(cr, uid, ids, context=context):
+            path = get_module_resource(module.name, 'static/description/'+ get['js'])
+            if path:
+                with tools.file_open(path, 'rb') as desc_file:
+                    doc = desc_file.read()
+                    html = lxml.html.document_fromstring(doc)
+                    for element, attribute, link, pos in html.iterlinks():
+                        if element.get('src') and not '//' in element.get('src') and not 'static/' in element.get('src'):
+                            element.set('src', "/%s/static/description/%s" % (module.name, element.get('src')))
+                    res = html_sanitize(lxml.html.tostring(html))
+            else:
+                overrides = {
+                    'embed_stylesheet': False,
+                    'doctitle_xform': False,
+                    'output_encoding': 'unicode',
+                    'xml_declaration': False,
+                }
+                output = publish_string(source=module.description or '', settings_overrides=overrides, writer=MyWriter())
+                res = html_sanitize(output)
+                _logger.info('get %s', pprint.pformat(get))  # debug
         return res
     

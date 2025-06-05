@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+       <record id="view_fatturapa_in_attachment_form_prof" model="ir.ui.view">
+            <field name="name">view_fatturapa_in_attachment_form</field>
+            <field name="model">fatturapa.attachment.in</field>
+            <field name="inherit_id" ref="l10n_it_fatturapa_in.view_fatturapa_in_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form//div[@name='creation_div']" position="after">
+                    <separator string="Trasmissione Fattura PA"/>
+                    <group name="fatturapa_tx_rx">
+                                <field name="url_id" />
+                       </group>
+                    <group name="risposte">
+                                <field name="stato_rx" readonly="1"/>
+                                <field name="log" readonly="1"/>
+                                <field name="id_soap" readonly="0"/>
+                       			<field name="id_sdi" readonly="1"/>
+                       			<field name="json_fatForSDIId" readonly="1"/>
+                       			<field name="json_chiusa" readonly="1"/>
+ 
+                    </group>
+
+                        <group col="3">
+                            <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"></button>
+                            <button colspan="1" icon="gtk-ok" name="chiudi_fatturapa" string="chiudi Fattura" type="object"></button>
+                            <button colspan="1" icon="gtk-ok" name="apri_fatturapa" string="riapri Fattura" type="object"></button>
+                        </group>
+                 </xpath>
+            </field>
+        </record>
+
+
+
+        <record id="view_fatturapa_in_attachment_tree_prof" model="ir.ui.view">
+            <field name="name">fatturapa.attachment.in.tree.prof</field>
+            <field name="model">fatturapa.attachment.in</field>
+            <field name="arch" type="xml">
+                <tree string="Lista fatture elettroniche" colors="orange:json_chiusa==False;green:json_chiusa==True;" 
+                >
+
+                        <field name="num_fat"/>
+                        <field name="data_fat"/>
+                        <field name="fornitore"/>
+                        <field name="datas_fname"/>
+                        <field name="in_invoice_ids"></field>
+                        <field name="id_soap" readonly="1"/>
+                       <field name="id_sdi" readonly="1"/>
+                        <field name="log" />
+                        <field name="stato_rx" />
+                        <field name="url_id" />
+                       <field name="json_fatForSDIId" readonly="1"/>
+                       <field name="json_chiusa" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_fatturapa_attachment_in_prof" model="ir.actions.act_window">
+            <field name="name">Fattura elettroniche importate</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fatturapa.attachment.in</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_fatturapa_in_attachment_tree_prof"/>
+        </record>
+        
+        <menuitem action="action_fatturapa_attachment_in_prof"
+            parent="l10n_it_fatturapa.menu_fattura_pa_payables"
+            name="Fatture importate"
+            id="fatturapa_attachment_in_menu_prof"/>
+
+
+        <record id="view_fatturapa_out_attachment_tree_prof" model="ir.ui.view">
+            <field name="name">fatturapa.attachment.out.tree.prof</field>
+            <field name="model">fatturapa.attachment.out</field>
+            <field name="arch" type="xml">
+                <tree string="Lista fatture elettroniche"
+                colors="red:trasmessa==True and firmata==False;green:trasmessa==True and firmata==True;blue:trasmessa==False and firmata==False;" 
+                >
+
+                       <field name="num_fat"/>
+                        <field name="data_fat"/>
+                       <field name="cliente"/>
+                        <field name="datas_fname"/>
+                        <field name="out_invoice_ids" ></field>
+                        <field name="fun_tramessa" invisible="1"/>
+                        <field name="fun_firmata" invisible="1"/>
+                        <field name="firmata" />
+                        <field name="trasmessa" />
+                        <field name="stato_tx" />
+                        <field name="id_soap" readonly="1"/>
+                       <field name="id_sdi" readonly="1"/>
+                        <field name="log" />
+                        <field name="stato_rx" />
+                        <field name="ir_attachment_signed_id" invisible="1"/>
+                        <field name="url_id" invisible="1"/>
+                       <field name="processid" invisible="1"/>
+                      	<field name="json_fatclisdiid" readonly="1"/>
+                      <field name="json_fatCliSDIStato" readonly="1"/>
+                      <field name="json_chiusa" readonly="1"/>
+                      <field name="json_fatCliSDISezionale" readonly="1"/>
+                       
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_fatturapa_out_attachment_form_prof" model="ir.ui.view">
+            <field name="name">view_fatturapa_out_attachment_form</field>
+            <field name="model">fatturapa.attachment.out</field>
+            <field name="inherit_id" ref="l10n_it_fatturapa_out.view_fatturapa_out_attachment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form//div[@name='creation_div']" position="after">
+                    <separator string="Trasmissione Fattura PA"/>
+                    <group name="fatturapa_tx_rx">
+                                <field name="ir_attachment_signed_id" />
+                                <field name="fun_tramessa" invisible="1"/>
+                                <field name="fun_firmata" invisible="1"/>
+                                <field name="firmata" readonly="1"/>
+                                <field name="trasmessa" readonly="1"/>
+                                <field name="url_id" />
+                       			<field name="processid" />
+                       </group>
+                    <group name="risposte">
+                                <field name="stato_tx" readonly="1"/>
+                                <field name="stato_rx" readonly="1"/>
+                                <field name="log" readonly="1"/>
+                                <field name="id_soap" readonly="0"/>
+                       			<field name="id_sdi" readonly="1"/>
+                      			<field name="json_fatclisdiid" readonly="1"/>
+                      			<field name="json_fatCliSDIStato" readonly="1"/>
+                      			<field name="json_chiusa" readonly="1"/>
+                                <field name="json_fatCliSDISezionale" readonly="1"/>
+                    </group>
+
+                        <group col="3">
+                            <button colspan="1" icon="gtk-cancel" special="cancel" string="Cancel"></button>
+                            <button colspan="1" icon="gtk-ok" name="send_fatturapa" string="Trasmetti" type="object"></button>
+                            <button colspan="1" icon="gtk-ok" name="ric_fatturapa" string="Stato Fattura" type="object"></button>
+                            <button colspan="1" icon="gtk-ok" name="chiudi_fatturapa" string="chiudi Fattura" type="object"></button>
+                            <button colspan="1" icon="gtk-ok" name="apri_fatturapa" string="riapri Fattura" type="object"></button>
+                            
+                        </group>
+                 </xpath>
+            </field>
+        </record>
+
+        <record id="action_fatturapa_attachment_prof" model="ir.actions.act_window">
+            <field name="name">FatturaPA Export Files</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fatturapa.attachment.out</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_fatturapa_out_attachment_tree_prof"/>
+        </record>
+        
+        <menuitem action="action_fatturapa_attachment_prof"
+            parent="l10n_it_fatturapa.menu_fattura_pa_receivables"
+            name="Monitor Fatture PA"
+            id="fatturapa_attachment_menu_prof"/>
+
+
+        <record id="view_fatturapa_url_tree" model="ir.ui.view">
+            <field name="name">fatturapa.url.tree</field>
+            <field name="model">fatturapa.url</field>
+            <field name="arch" type="xml">
+                <tree string="Connessione">
+                        <field name="name"/>
+                        <field name="sequence"/>
+                        <field name="type" />
+                        <field name="soap_wsdl" attrs="{'invisible': [('type','=', 'json')]}"/>
+                        <field name="soap_endpoint" attrs="{'invisible': [('type','=', 'json')]}"/>
+                        <field name="soap_username" attrs="{'invisible': [('type','=', 'json')]}"/>
+                        <field name="soap_password" attrs="{'invisible': [('type','=', 'json')]}"/>
+                       <field name="soap_customerName" attrs="{'invisible': [('type','=', 'json')]}"/>
+                        <field name="json_sito" attrs="{'invisible': [('type','=', 'soap')]}"/>
+                        <field name="json_url" attrs="{'invisible': [('type','=', 'soap')]}"/>
+                        <field name="json_url_import" attrs="{'invisible': [('type','=', 'soap')]}"/>
+                        <field name="json_username" attrs="{'invisible': [('type','=', 'soap')]}"/>
+                       <field name="json_password" attrs="{'invisible': [('type','=', 'soap')]}"/>
+                       <field name="processid" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_fatturapa_url_form" model="ir.ui.view">
+            <field name="name">fatturapa.url.form</field>
+            <field name="model">fatturapa.url</field>
+            <field name="arch" type="xml">
+                 <form string="Connessione">
+                    <group name="Tipo">
+                        <field name="name"/>
+                        <field name="sequence"/>
+                        <field name="type" />
+                    </group>
+                    <newline/>
+                    <group name="Soap">
+                        <field name="soap_wsdl" />
+                        <field name="soap_endpoint" />
+                        <field name="soap_username" />
+                        <field name="soap_password" />
+                       <field name="soap_customerName" />
+                       </group>
+                    <newline/>
+                    <group name="json">
+                        <field name="json_sito" />
+                        <field name="json_url" />
+                       <field name="json_url_import" />
+                       <field name="json_url_update" />
+                        <field name="json_username" />
+                        <field name="json_password" />
+                         </group>
+                   <newline/>
+                     <group name="workflow">
+                     
+                     <field name="processid" />
+                     </group>
+
+                 </form>
+            </field>
+        </record>
+
+        <record id="action_fatturapa_url" model="ir.actions.act_window">
+            <field name="name">Connessioni</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">fatturapa.url</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_fatturapa_url_tree"/>
+        </record>
+        
+        <menuitem action="action_fatturapa_url"
+            parent="l10n_it_fatturapa.menu_fattura_pa_receivables"
+            name="Connessioni Fatture PA"
+            id="fatturapa_attachment_menu" />
+
+
+    </data>
+    <data noupdate="1">
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_trasmetti fatture semplice~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_trasmx_fatture" model="ir.actions.server">
+            <field name="name">Trasmissione semplice</field>
+            <field name="model_id" ref="l10n_it_fatturapa_out.model_fatturapa_attachment_out"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.out').send_fatturapa(cr, uid,ids=context['active_ids'],processid='1', context=context)</field>
+        </record>
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_trasmetti Stati Fattura ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        
+        <record id="action_trasmx_fatture" model="ir.actions.server">
+            <field name="name">Aggiorna stati Fattura</field>
+            <field name="model_id" ref="l10n_it_fatturapa_out.model_fatturapa_attachment_out"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.out').ric_fatturapa(cr, uid,ids=context['active_ids'], context=context)</field>
+        </record>
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_chiudi  Fattura ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        
+        <record id="action_trasmx_fatture_close" model="ir.actions.server">
+            <field name="name">Aggiorna stati Fattura</field>
+            <field name="model_id" ref="l10n_it_fatturapa_out.model_fatturapa_attachment_out"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.out').chiudi_fatturapa(cr, uid,ids=context['active_ids'], context=context)</field>
+        </record>
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_apri  Fattura ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        
+        <record id="action_trasmx_fatture_open" model="ir.actions.server">
+            <field name="name">Aggiorna stati Fattura</field>
+            <field name="model_id" ref="l10n_it_fatturapa_out.model_fatturapa_attachment_out"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.out').apri_fatturapa(cr, uid,ids=context['active_ids'], context=context)</field>
+        </record>
+
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_chiudi  Fattura in~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        
+        <record id="action_trasmx_fatture_close_in" model="ir.actions.server">
+            <field name="name">Chiudi Fattura E</field>
+            <field name="model_id" ref="l10n_it_fatturapa_in.model_fatturapa_attachment_in"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.in').chiudi_fatturapa(cr, uid,ids=context['active_ids'], context=context)</field>
+        </record>
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_apri  Fattura in~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        
+        <record id="action_trasmx_fatture_open_in" model="ir.actions.server">
+            <field name="name">Apri Fattura E</field>
+            <field name="model_id" ref="l10n_it_fatturapa_in.model_fatturapa_attachment_in"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.in').apri_fatturapa(cr, uid,ids=context['active_ids'], context=context)</field>
+        </record>
+
+
+
+<!--
+        <record id="action_trasmx_fatture" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'fatturapa.attachment.out'" name="model"/>
+            <field name="name">Trasmissione semplice </field>
+            <field eval="'ir.actions.server,%d'%action_trasmx_fatture" name="value"/>
+            <field eval="True" name="object"/>
+            <field eval="'action'" name="key"/>
+        </record>
+-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_trasmetti fatture complessa~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_trasmx_fatture_complessa" model="ir.actions.server">
+            <field name="name">Trasmissione e firma</field>
+            <field name="model_id" ref="l10n_it_fatturapa_out.model_fatturapa_attachment_out"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.out').send_fatturapa(cr, uid,ids=context['active_ids'],processid='sap02', context=context)</field>
+        </record>
+
+<!--
+        <record id="action_trasmx_fatture_complessa" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'fatturapa.attachment.out'" name="model"/>
+            <field name="name">Trasmissione e firma </field>
+            <field eval="'ir.actions.server,%d'%action_trasmx_fatture_complessa" name="value"/>
+            <field eval="True" name="object"/>
+            <field eval="'action'" name="key"/>
+        </record>
+-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_trasmetti fatture semplice modello invoice~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_trasmx_fatture_modinv" model="ir.actions.server">
+            <field name="name">Trasmissione semplice</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.out').send_fatturapa(cr, uid,ids=context['active_ids'],processid='1', context=context)</field>
+        </record>
+<!--
+        <record id="action_trasmx_fatture_modinv" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'account.invoice'" name="model"/>
+            <field name="name">Trasmissione semplice </field>
+            <field eval="'ir.actions.server,%d'%action_trasmx_fatture" name="value"/>
+            <field eval="True" name="object"/>
+            <field eval="'action'" name="key"/>
+        </record>
+-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_trasmetti fatture complessa~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_trasmx_fatture_complessa_modinv" model="ir.actions.server">
+            <field name="name">Trasmissione e firma</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.out').send_fatturapa(cr, uid,ids=context['active_ids'],processid='sap02', context=context)</field>
+        </record>
+        <record id="action_trasmx_fatture_complessa_modinv" model="ir.actions.server">
+            <field name="name">Aggiorna stati fattura</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.out').ric_fatturapa(cr, uid,ids=context['active_ids'],context=context)</field>
+        </record>
+<!--
+        <record id="action_trasmx_fatture_complessa_modinv" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'account.invoice'" name="model"/>
+            <field name="name">Trasmissione e firma </field>
+            <field eval="'ir.actions.server,%d'%action_trasmx_fatture_complessa" name="value"/>
+            <field eval="True" name="object"/>
+            <field eval="'action'" name="key"/>
+        </record>
+-->
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_visualizza stile ordinario  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_show_fatture_ord" model="ir.actions.server">
+            <field name="name">Visualizza fattura stile ordinario</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.out').show_fatturapa(cr, uid,ids=context['active_ids'],stile='ORD', context=context)</field>
+        </record>
+<!--
+        <record id="action_show_fatture_ord" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'action'" name="key"/>
+            <field eval="'account.invoice'" name="model"/>
+            <field name="name">Visualizza fattura stile ordinario</field>
+            <field eval="'ir.actions.server,%d'action_show_fatture_ord" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+-->
+
+        <!--~~~~~~~~~~~~~~~~~~~~~~action_visualizza stile PA  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_show_fatture_pa" model="ir.actions.server">
+            <field name="name">Visualizza fattura stile PA</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = pool.get('fatturapa.attachment.out').show_fatturapa(cr, uid,ids=context['active_ids'],stile='PA', context=context)</field>
+        </record>
+
+<!--
+        <record id="action_show_fatture_pa" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'action'" name="key"/>
+            <field eval="'account.invoice'" name="model"/>
+            <field name="name">Visualizza fattura stile PA</field>
+            <field eval="'ir.actions.server,%d'action_show_fatture_pa" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+-->
+      <!-- FatturaPA Formats -->
+        <record id="fatturapa_format_FPR12" model="fatturapa.format">
+            <field name="name">Formato Versione 1.2: fattura TRA PRIVATI</field>
+            <field name="code">FPR12</field>
+        </record>
+
+    </data>
+
+</openerp>

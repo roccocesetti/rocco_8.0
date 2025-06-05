@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <!--   mrp.bom.dup -->
+        <record id="mrp_bom_form_view_genesi3srl" model="ir.ui.view">
+            <field name="name">mrp.bom.genesi3srl</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page/field/tree/field[@name='product_uom']" position="after">
+                             <field name="cu_stampo"  on_change="on_change_product_id(product_id, product_uom, product_qty,cu_stampo,Num_stp,Num_pz_stp,standard_price,context)"/>
+                             <field name="Num_stp"   on_change="on_change_product_id(product_id, product_uom, product_qty,cu_stampo,Num_stp,Num_pz_stp,standard_price,context)"/>
+                             <field name="Num_pz_stp"   on_change="on_change_product_id(product_id, product_uom, product_qty,cu_stampo,Num_stp,Num_pz_stp,standard_price,context)"/>
+                             <field name="standard_price"   on_change="on_change_product_id(product_id, product_uom, product_qty,cu_stampo,Num_stp,Num_pz_stp,standard_price,context)"/>
+                             <field name="cus_ns_npps" sum="Totale distinta"/>
+                </xpath>
+                <field name="bom_line_ids" position="after">
+                    <footer>
+                        <button name="write_product" string="Aggiorna Costo prodotto"  type="object" class="oe_highlight"  />
+                    </footer>
+                </field>
+            </field>
+
+        </record>
+
+        <record id="view_mrp_bom_dup_genesi3srl" model="ir.ui.view">
+              <field name="name">Dublica distinta</field>
+              <field name="model">mrp.bom.dup</field>
+              <field name="arch" type="xml">
+                <form string="Dinstinte Basi">
+                    <group string="Parametri di Esplosione distinta">
+                        <field name="bom_id"/>
+                         </group>
+                    <footer>
+                        <button name="create_bom" string="Esplodi D.base su varianti"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+        <act_window id="action_view_mrp_bom_dup_genesi3srl"
+            key2="client_action_multi"
+            multi="True"
+            name="Esplosione distinte varianti"
+            res_model="mrp.bom.dup"
+            src_model="mrp.bom"
+            groups="prof_genesi3srl.genesi3srl_manager"
+            view_mode="form" target="new" view_type="form" />
+        
+        <record id="action_view_mrp_bom_dup_genesi3srl_2" model="ir.actions.act_window">
+            <field name="name">Esplosione Distinte Varianti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.bom.dup</field>
+            <field name="src_model">mrp.bom</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            </record>
+        <menuitem
+        action="action_view_mrp_bom_dup_genesi3srl_2"
+        id="menu_action_view_mrp_bom_dup_genesi3srl_2"
+        parent="prof_genesi3srl.menu_view_sub_prof_genesi3srl" groups="prof_genesi3srl.genesi3srl_manager"  sequence="100"/>
+
+        <record id="action_mrp_bom_genesi3srl" model="ir.actions.act_window">
+            <field name="name">Distinte Basi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.bom</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            </record>
+        <menuitem
+        action="action_mrp_bom_genesi3srl"
+        id="menu_action_mrp_bom_genesi3srl"
+        parent="prof_genesi3srl.menu_view_sub_prof_genesi3srl" groups="prof_genesi3srl.genesi3srl_manager"  sequence="110"/>
+        
+</data>
+</openerp>

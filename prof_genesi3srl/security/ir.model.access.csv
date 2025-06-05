@@ -1,0 +1,7 @@
+id,group_id:id,name,model_id,perm_create,perm_unlink,perm_write,perm_read
+res_users_genesi3srl_manager,genesi3srl_manager,Utenti,res.users,1,1,1,1
+res_users_genesi3srl_user,genesi3srl_user,utenti,res.users,0,0,0,1
+res_users_genesi3srl_manager,genesi3srl_manager,product.template,product.template,1,1,1,1
+res_users_genesi3srl_user,genesi3srl_user,product.template,product.template,1,1,1,1
+res_users_genesi3srl_manager,genesi3srl_manager,product.product,product.product,1,1,1,1
+res_users_genesi3srl_user,genesi3srl_user,product.product,product.product,1,1,1,1

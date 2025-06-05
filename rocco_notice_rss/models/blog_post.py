@@ -40,9 +40,17 @@ from openerp.osv import orm, osv, fields
 
 class BlogPost(models.Model):
     _inherit = 'blog.blog'
-    _columns = {'x_rss_channel':fields.char('x_rss_channel', size=256, required=False, readonly=False),
+    _columns = {
+                
+               'x_rss_channel':fields.char('x_rss_channel', size=256, required=False, readonly=False),
                'x_rss_number': fields.integer('Numero Articoli'),
                'x_elimina_art':fields.boolean('Elimina articoli', required=False),              
+               'x_site_channel_image':fields.char('x_site_channel_image', size=256, required=False, readonly=False),           
+               'x_image_tag':fields.char('x_image_tag', size=256, required=False, readonly=False),
+               'company_id':fields.many2one('res.company', 'Azienda', required=False),
+               'x_tag_ids': fields.many2many('blog.tag', string='Tags' ),
+               'website_noindex':fields.boolean('Blocca indicizzazione', required=False), 
+            
                     }
     _defaults = {  
         'x_rss_number':10,

@@ -1,0 +1,13 @@
+id,group_id:id,name,model_id,perm_create,perm_unlink,perm_write,perm_read
+res_users_prof_webtex_manager,prof_webtex_manager,Utenti,res.users,1,1,1,1
+res_users_prof_webtex_user,prof_webtex_user,utenti,res.users,0,0,0,1
+res_users_prof_webtex_manager,prof_webtex_manager,product.template,product.template,1,1,1,1
+res_users_prof_webtex_user,prof_webtex_user,product.template,product.template,1,1,1,1
+res_users_prof_webtex_manager,prof_webtex_manager,product.product,product.product,1,1,1,1
+res_users_prof_webtex_user,prof_webtex_user,product.product,product.product,1,1,1,1
+res_users_prof_webtex_user,prof_webtex_user,prestashop.order.log,prestashop.order.log,1,1,1,1
+res_users_prof_webtex_user,prof_webtex_user,product.product.purchase.webtex,product.product.purchase.webtex,1,1,1,1
+res_users_prof_webtex_user,prof_webtex_user,stock.import.ddt.webtex,stock.import.ddt.webtex,1,1,1,1
+res_users_prof_webtex_user,prof_webtex_user,stock.import.inve.webtex,stock.import.inve.webtex,1,1,1,1
+res_users_prof_webtex_manager_understock,prof_webtex_manager,product.product.understock,product.product.understock,1,1,1,1
+

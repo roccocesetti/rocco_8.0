@@ -3,13 +3,13 @@
 # * base_location
 # 
 # Translators:
-# Rudolf Schnapka <rs@techno-flex.de>, 2015
+# Rudolf Schnapka <rs@techno-flex.de>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: partner-contact (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-25 01:50+0000\n"
-"PO-Revision-Date: 2015-11-25 10:01+0000\n"
+"POT-Creation-Date: 2017-02-21 16:57+0000\n"
+"PO-Revision-Date: 2017-02-24 23:21+0000\n"
 "Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
 "Language-Team: German (http://www.transifex.com/oca/OCA-partner-contact-8-0/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -95,6 +95,11 @@ msgstr "Gruppieren"
 #: field:res.better.zip,id:0
 msgid "ID"
 msgstr "ID"
+
+#. module: base_location
+#: field:res.better.zip,__last_update:0
+msgid "Last Modified on"
+msgstr "Zuletzt verändert am"
 
 #. module: base_location
 #: field:res.better.zip,write_uid:0

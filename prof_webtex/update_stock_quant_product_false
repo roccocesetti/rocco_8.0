@@ -1,0 +1,10 @@
+﻿update stock_quant sm_u set product_id= sm_f.product_id
+
+from 
+(
+select pp_2.id as product_id,sm.id as id
+from stock_quant sm 
+inner join product_product pp on sm.product_id=pp.id
+inner join product_product pp_2 on pp.default_code=pp_2.default_code and pp_2.active=True
+where pp.active=False and sm.id not in (13812,13813) 
+) sm_f where  sm_u.id=sm_f.id

@@ -172,7 +172,43 @@ class res_users(osv.osv):
         'x_location_id':fields.many2one('stock.location', 'Punto di Stoccaggio', required=False), 
         'x_picking_type_ids':fields.many2many('stock.picking.type', 'stock_picking_type_user_rel', 'user_id', 'pick_type_id', 'Operazioni ammesse'), 
      }
+    def create(self, cr, uid, vals, context=None):
+        if vals is None:
+            vals={}
+        fgroup = True
+        group_id = None
+        portal_id = None
+        if vals.get('groups_id',None):
+                fgroup=False
+                group_obj = self.pool.get('res.groups')
+                group_ids=group_obj.search(cr,SUPERUSER_ID,[('share','=',True)],context=context)
+                if group_ids:
+                    group_id=group_ids[0]
+                portal_ids=group_obj.search(cr,SUPERUSER_ID,[('is_portal','=',True)],context=context)
+                if portal_ids:
+                    portal_id=portal_ids[0]
+                vals['groups_id']=[(6,0,[group_id or None,portal_id or None])],
+        print 'create_users',vals.get('groups_id',None)
+        res=super(res_users, self).create(cr, SUPERUSER_ID, vals, context=context)
+        if fgroup is False:
+            self.write(cr,SUPERUSER_ID,res,{'groups_id':[(6,0,[group_id or None,portal_id or None])]},context=context)
+                
+            
+        return res
 res_users()
+class share_wizard(osv.TransientModel):
+    _inherit = 'share.wizard' 
+        #Do not touch _name it must be same as _inherit
+        #_name = 'share.wizard' = 'share.wizard'
+    def _create_new_share_users(self, cr, uid, wizard_data, group_id, context=None):
+        group_obj = self.pool.get('res.groups')
+        if group_id is None:
+            group_ids=group_obj.search(cr,SUPERUSER_ID,[('share','=',True)],context=context)
+            if group_ids:
+                group_id=group_ids[0]
+        print '_create_new_share_users',group_id
+        res=super(share_wizard, self)._create_new_share_users(cr, SUPERUSER_ID, wizard_data=wizard_data, group_id=group_id, context=context)
+        return res
 class rc_stock_key(osv.osv):
     """ api key  magazzino"""
 

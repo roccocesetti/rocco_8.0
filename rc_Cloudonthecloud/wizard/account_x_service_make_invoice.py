@@ -17,7 +17,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
+from openerp import models, fields as new_fields
 from openerp.osv import fields, osv
 from openerp.tools.translate import _
 import os
@@ -38,6 +38,14 @@ from openerp.loglevels import ustr
 from urllib import urlencode
 from urlparse import urljoin
 import curses.ascii
+class account_invoice(models.Model):
+    _inherit = 'account.invoice' 
+    internal_number = new_fields.Char(string='Invoice Number', readonly=False,
+        default=False, copy=False,
+        help="Unique number of the invoice, computed automatically when the invoice is created.")
+    
+    #Do not touch _name it must be same as _inherit
+    #_name = 'account.invoice'
 class account_x_service_make_invoice(osv.osv_memory):
     _name = "account.x.service.make.invoice"
     _description = "account_x_service Make Invoice"
@@ -77,7 +85,7 @@ class account_x_service_make_invoice(osv.osv_memory):
             for i in o.invoice_ids:
                 newinv.append(i.id)
         # Dummy call to workflow, will not create another invoice but bind the new invoice to the subflow
-        account_x_service_obj.signal_manual_invoice(cr, uid, [o.id for o in account_x_service_ids_obj])
+        account_x_service_obj.signal_workflow(cr, uid, [o.id for o in account_x_service_ids_obj],'manual_invoice')
         result = mod_obj.get_object_reference(cr, uid, 'account', 'action_invoice_tree1')
         id = result and result[1] or False
         result = act_obj.read(cr, uid, [id], context=context)[0]

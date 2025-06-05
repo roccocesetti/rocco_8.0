@@ -31,7 +31,7 @@ Functionalities:
     'author': 'rocco cesetti',
     'website': 'http://www.ideawork.it',
     'license': 'AGPL-3',
-    "depends" : ['base','account', 'stock','sale','delivery','l10n_it_sale'],
+    "depends" : ['base','account'],
     "data" : [         
         'account/res_bank_view.xml',
         'wizard/stock_picking_2binvoiced_view.xml',

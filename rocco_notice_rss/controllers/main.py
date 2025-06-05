@@ -23,6 +23,7 @@ from openerp.osv.orm import browse_record
 from openerp.addons.website.models.website import slug
 from openerp import tools
 import httplib2
+import requests
 MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT = IMAGE_LIMITS = (1024, 768)
 LOC_PER_BLOG_RSS = 45000
 BLOG_RSS_CACHE_TIME = datetime.timedelta(minutes=1)
@@ -108,7 +109,7 @@ class WebsiteBlogNotice(http.Controller):
             if blog.id in blog_sport_ids:
                 blog_post_ids = blog_post_obj.search(cr, uid, domain, order="create_date desc", context=context)
                 if blog.x_elimina_art:
-                    blog_post_obj.unlink(cr,uid,blog_post_ids,context=context)
+                    blog_post_obj.unlink(cr,uid,blog.id,context=context)
                 root=feedparser.parse(blog.x_rss_channel)
                 line=0
                 if root:
@@ -118,8 +119,54 @@ class WebsiteBlogNotice(http.Controller):
                           blog_post_ids = blog_post_obj.search(cr, uid, [('blog_id', '=', blog.id),('name','=',item.title)], order="create_date desc", context=context)
                           if blog_post_ids:
                               continue
+                          ok_tag=False
+                          for tag_ctrl_id in blog.x_tag_ids:
+                              if item.title.find(tag_ctrl_id.name):
+                                   ok_tag=True
+                                   break
+                              if item.description.find(tag_ctrl_id.name):
+                                   ok_tag=True
+                                   break
+                          if ok_tag==False:
+                             if blog.x_tag_ids:
+                                ok_tag=False
+                             else: 
+                                 ok_tag=True
+                               
                       content='<section class="mt16 mb16 readable">'               
                       content+='<ul><li><a href='+item.link+'>'+item.title+'</a></li></ul>'
+                      f = requests.get(item.link)
+                      il_fatto=False
+                      if blog.x_image_tag:
+                          if  (f.text).find(blog.x_image_tag):
+                              img_ini=(f.text).find(blog.x_image_tag)-len(blog.x_image_tag)*2
+                          else:
+                              img_ini=0
+                      else:
+                          img_ini=0
+                      print 'img_ini->',img_ini
+                      while (f.text)[img_ini:len(f.text)].find('<img'):
+                          img_ini=f.text.find('<img')
+                          img_fin=f.text[img_ini:len(f.text)].find('>')
+                          myimg= f.text[img_ini:img_ini+img_fin+1]
+                          mysrc_ini=myimg.find('src="')
+                          mysrc_fin=myimg[mysrc_ini+5:len(myimg)].find('"')
+                          mysrc= myimg[mysrc_ini+5:mysrc_ini+5+mysrc_fin]
+                          if img_ini>0:
+                            if blog.x_image_tag:
+                                  if mysrc.find(blog.x_image_tag):
+                                      content+='<ul><li><img src="%s%s"></li></ul>' % (blog.x_image_tag or '',mysrc)
+                                      break
+                                  else:
+                                      content+='<ul><li><img src="%s%s"></li></ul>' % (blog.x_site_channel_image or '',mysrc)
+                                      break                                   
+                            else:
+                                      content+='<ul><li><img src="%s%s"></li></ul>' % (blog.x_site_channel_image or '',mysrc)
+                                      break                                   
+                                
+                          else:
+                             img_ini+=img_fin
+                             continue     
                       content+='<ul><li>'+item.description+'</li></ul>'
                       line+=1
                       if line>blog.x_rss_number:
@@ -130,7 +177,7 @@ class WebsiteBlogNotice(http.Controller):
                           f = urllib.urlopen(item.link)
                           myfile = f.read()                          
                           #myfile=''
-                          print 'myfile',myfile
+                          #print 'myfile',myfile
                           ini=myfile.find('<div itemprop="articleBody" class="news-txt">')
                           if ini>0:
                               myfile_2=myfile[ini+len('<div itemprop="articleBody" class="news-txt">')+1:len(myfile)]
@@ -145,7 +192,12 @@ class WebsiteBlogNotice(http.Controller):
                                  'subtitle':item.description,
                                  'content':content,
                                  'blog_id':blog.id,
-                                 'website_published':True
+                                 'website_published':ok_tag,
+                                 'website_meta_title':item.title,
+                                 'website_meta_description':item.description,
+                                 'website_noindex':blog.website_noindex or True
+                                 #'website_meta_keywords':item.title.replace(',',' ').replace('.',' '),
+                                 #'tag_ids': [(6, 0 ,[ id for id in blog.x_tag_ids] ) ],
                                 #'tag_ids': [(6, 0, [view_id])]
                                  }
                       blog_post_obj.create(cr,uid,vals)

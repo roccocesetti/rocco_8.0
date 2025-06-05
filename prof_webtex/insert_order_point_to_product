@@ -1,0 +1,38 @@
+﻿insert into stock_warehouse_orderpoint 
+(
+id,
+product_max_qty , -- Maximum Quantity
+  create_uid , -- Created by
+  qty_multiple , -- Qty Multiple
+  create_date , -- Created on
+  name , -- Name
+  location_id , -- Location
+  company_id , -- Company
+  write_uid , -- Last Updated by
+  write_date , -- Last Updated on
+  logic , -- Reordering Mode
+  active , -- Active
+  warehouse_id, -- Warehouse
+  product_min_qty , -- Minimum Quantity
+  group_id , -- Procurement Group
+  product_id  -- Product
+  )
+
+(select
+nextval('stock_warehouse_orderpoint_id_seq'::regclass) as mio_id, 
+0 as qta_max,
+pt.create_uid,
+1 as qta_mult,
+pt.create_date,
+'OP/' || nextval('stock_warehouse_orderpoint_id_seq'::regclass),
+12 as location,
+1 as company,
+pp.write_uid,
+pp.write_date,
+'max' as logistic,
+True as active,
+1 as warehouse_id,
+1 as product_min_qty,
+Null as group_id,
+pp.id as product_id
+ from product_product pp inner join product_template pt on pp.product_tmpl_id=pt.id where pt.type='product' and pp.active=True)

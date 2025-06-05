@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<template id="sdacustomer" >
+    <t t-call="website.layout">
+        <div id="wrap">
+            <t t-raw="0"/>
+            <div class="oe_structure oe_empty">
+                <div class="container">
+                    <h1 class="mt32">Sda Monitor</h1>
+                    <p>
+                        Benvenuto questa è la pagina di monitoraggio Sda 
+                    </p>
+                    <ul>
+                        <li><a href="/">Homepage</a></li>
+                        <li><a href="/page/website.contactus/">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <t t-if="request.debug">
+                <t t-call="website.http_error_debug"/>
+            </t>
+        </div>
+    </t>
+</template>
+
+        <record id="view_delivery_carrier_tnt_form" model="ir.ui.view">
+              <field name="name">Parametri Tnt </field>
+              <field name="model">delivery.carrier.tnt</field>
+              <field name="arch" type="xml">
+                <form string="Parametri collegamento">
+                        <field name="name"/>
+                        <field name="active"/>
+                        <field name="seq"/>
+                        <group string="Parametri di collegamento ">
+	                        <field name="url"/>
+	                        <field name="customer"/>
+	                        <field name="user"/>
+	                        <field name="password"/>
+	                        <field name="langid"/>
+                     	</group>
+                </form>
+              </field>
+        </record>
+        <record id="view_delivery_carrier_tnt_tree" model="ir.ui.view">
+              <field name="name">Parametri Tnt </field>
+              <field name="model">delivery.carrier.tnt</field>
+              <field name="arch" type="xml">
+                <tree string="Parametri collegamento">
+                        <field name="name"/>
+                        <field name="active"/>
+                        <field name="seq"/>
+                        <field name="url"/>
+                        <field name="customer"/>
+                       <field name="user"/>
+                       <field name="password"/>
+                       <field name="langid"/>
+               </tree>
+              </field>
+        </record>
+        <record id="action_view_delivery_carrier_tnt_form" model="ir.actions.act_window">
+            <field name="name">Collegamento a Tnt</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.carrier.tnt</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_view_delivery_carrier_tnt_normal" model="ir.actions.act_window">
+            <field name="name">Corrieri</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.carrier</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem
+        id="menu_view_prof_tnt_sda"
+        sequence="02" name="profile_tnt_sda"/>
+        <menuitem
+        id="menu_view_sub_profile_tnt_sda"
+        parent="prof_tnt_sda_delivery.menu_view_prof_tnt_sda" sequence="10"  groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_manager,prof_tnt_sda_delivery.prof_tnt_sda_delivery_user" name="Configurazione"/>
+        <menuitem  sequence="20"
+        action="action_view_delivery_carrier_tnt_form"
+        id="menu_view_delivery_carrier_tnt_form"
+        parent="prof_tnt_sda_delivery.menu_view_sub_profile_tnt_sda" />
+        <menuitem  sequence="30"
+        action="action_view_delivery_carrier_tnt_normal"
+        id="menu_view_delivery_carrier_tnt_normal"
+        parent="prof_tnt_sda_delivery.menu_view_sub_profile_tnt_sda" />
+        
+        <record id="view_delivery_carrier_form_tnt" model="ir.ui.view">
+            <field name="name">delivery.carrier.form.tnt</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="delivery.view_delivery_carrier_form" />
+            <field name="arch" type="xml">
+                 <data>
+                    <field name="product_id" position="after">
+                        <field name="carrier_tnt_id"/>
+                        <field name="carrier_sda_id"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+        <record id="view_delivery_carrier_tree_tnt" model="ir.ui.view">
+            <field name="name">delivery.carrier.tree.tnt</field>
+            <field name="model">delivery.carrier</field>
+            <field name="inherit_id" ref="delivery.view_delivery_carrier_tree" />
+            <field name="arch" type="xml">
+                 <data>
+                    <field name="name" position="after">
+                        <field name="carrier_tnt_id"/>
+                        <field name="carrier_sda_id"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_delivery_carrier_tnt_tx_rx" model="ir.ui.view">
+              <field name="name">Lettere di Vettura Tnt</field>
+              <field name="model">delivery.carrier.tnt.tx.rx</field>
+              <field name="arch" type="xml">
+                <form string="Ricezioni lettere di vettura">
+                    <group string="Ricezione lettere di vettura">
+                        <field name="carrier_tnt_id"/>
+                     </group>
+                    <footer>
+                        <button name="delivery_tx" string="Ricevi lettera di vettura"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+        <act_window id="action_view_delivery_carrier_tnt_tx_rx"
+            key2="client_action_multi"
+            multi="True"
+            name="Tnt Ricezione lettere di vettura"
+            res_model="delivery.carrier.tnt.tx.rx"
+            src_model="sale.order"
+            groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_user"
+            view_mode="form" target="new" view_type="form" />
+        </data>
+    <data noupdate="1">
+       
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_delivery_carrier_tnt_tx_rx~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_multiple_delivery_carrier_tnt_tx_rx" model="ir.actions.server">
+            <field name="name">Tnt Ricezione immediata lettere vettura</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">action = env['delivery.carrier.tnt.tx.rx'].delivery_tx()</field>
+        </record>
+
+        <record id="action_multiple_delivery_carrier_tnt_tx_rx" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'sale.order'" name="model"/>
+            <field name="name">Tnt Ricezione immediata lettere di vettura</field>
+            <field eval="'ir.actions.server,%d'%action_multiple_delivery_carrier_tnt_tx_rx" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+        </data>
+    <data>
+
+<!-- sda -->        
+        <record id="view_delivery_carrier_sda_form" model="ir.ui.view">
+              <field name="name">Parametri Sda </field>
+              <field name="model">delivery.carrier.sda</field>
+              <field name="arch" type="xml">
+                <form string="Parametri collegamento">
+                        <field name="name"/>
+                        <field name="active"/>
+                        <field name="seq"/>
+                        <group string="Parametri di collegamento ">
+	                        <field name="url"/>
+	                        <field name="user"/>
+	                        <field name="password"/>
+	                        <field name="langid"/>
+	                        <field name="langid2"/>
+	                        <field name="customer"/>
+	                        <field name="servizio"/>	                        
+	                        <field name="Fasce_ass"/>	                        	                        
+	                        <field name="fasce_orarie"/>
+	                        <field name="giorno_consegna"/>
+	                        <field name="consegna_stabilita"/>
+	                        <field name="time"/>
+	                        <field name="formato_stampa"/>
+	                        <field name="certificato"/>
+	                        <field name="usa_cert"/>
+	                        <field name="idv"/>
+	                        <field name="url_trk" groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_manager" />
+	                        <field name="codTipoPagamento"/>
+	                        	                        	                        	                     
+	                     </group>
+                </form>
+              </field>
+        </record>
+        <record id="view_delivery_carrier_sda_tree" model="ir.ui.view">
+              <field name="name">Parametri sda </field>
+              <field name="model">delivery.carrier.sda</field>
+              <field name="arch" type="xml">
+                <tree string="Parametri collegamento">
+                            <field name="name"/>
+	                        <field name="url"/>
+	                        <field name="user"/>
+	                        <field name="password"/>
+	                        <field name="langid"/>
+	                        <field name="langid2"/>
+	                        <field name="customer"/>
+	                        <field name="servizio" widget="selection" />	                        
+	                        <field name="Fasce_ass" widget="selection" />	                        	                        
+	                        <field name="fasce_orarie" widget="selection" />
+	                        <field name="giorno_consegna" widget="selection" />
+	                        <field name="consegna_stabilita" widget="selection" />
+	                        <field name="time" widget="selection"/>
+	                        <field name="formato_stampa"/>
+	                        <field name="certificato"/>
+	                        <field name="usa_cert"/>
+	                        <field name="idv"/>
+	                        <field name="url_trk" groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_manager" />
+	                        <field name="codTipoPagamento"/>
+                       </tree>
+              </field>
+        </record>
+        <record id="action_view_delivery_carrier_sda_form" model="ir.actions.act_window">
+            <field name="name">Collegamento a Sda</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">delivery.carrier.sda</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>        
+        <menuitem  sequence="25"
+        action="action_view_delivery_carrier_sda_form"
+        id="menu_view_delivery_carrier_sda_form"
+        parent="prof_tnt_sda_delivery.menu_view_sub_profile_tnt_sda" />        
+
+
+        <record id="view_delivery_carrier_sda_tx_rx" model="ir.ui.view">
+              <field name="name">Lettere di Vettura Sda</field>
+              <field name="model">delivery.carrier.sda.tx.rx</field>
+              <field name="arch" type="xml">
+                <form string="Ricezioni lettere di vettura">
+                    <group string="Ricezione lettere di vettura" >
+                    	<field invisible="1" name="state"/>
+                        <field name="carrier_sda_id" />
+                        <field name="dataspedizione"/>
+                        <button name="onchange_carrier_sda_id" string="Crea Colli"  type="object" class="oe_highlight"  />
+                     </group>
+                        <group colspan="4" states="choose" >
+                        	<h2>Crea i Colli e poi richiedi le lettere di vettura</h2>
+                       </group>
+                        <group colspan="4" states="get" >
+                            <field name="sda_rx_file_name" invisible="1"></field>
+                        	<h2>Fai il download delle lettere di vettura</h2>
+                        <field name="sda_rx_lettere" readonly="0" invisible="0" filename="sda_rx_file_name"/>
+                        </group>
+                    <group string="Lettere di vettura" states="get" >
+                        <field name="lettere_ids" >
+                                <form string="lettere da spedire">
+                         			<field name="sda_rx_lettera" filename="sda_rx_file_name"/>
+                        			<field name="sda_rx_file_name" invisible="1"/>
+                         			<field name="sda_rx_stato" />
+                         			<field name="sda_rx_messagge" />
+                         			<field name="sda_rx_numero" />
+                                </form>
+                                <tree string="lettere da spedire">
+                        			<field name="sda_rx_lettera" filename="sda_rx_file_name"/>
+                        			<field name="sda_rx_file_name" invisible="1"/>
+                         			<field name="sda_rx_stato" />
+                         			<field name="sda_rx_messagge" />
+                         			<field name="sda_rx_numero" />
+                                </tree>
+                           </field>
+
+                     </group>
+
+                    <group string="Colli da spedire" states="choose,get" >
+                        <field name="colli_ids" >
+                                <form string="Colli da spedire">
+                        			<field name="product_id" on_change="onchange_product_id(product_id,context)"/>
+                        			<field name="x_peso"/>
+                        			<field name="x_imb_x"/>
+                        			<field name="x_imb_y"/>
+                        			<field name="x_imb_z"/>
+                        			<field name="sale_id"/>
+                        			<field name="pick_id"/>
+                                </form>
+                                <tree string="Colli da spedire" editable="bottom">
+                        			<field name="product_id" on_change="onchange_product_id(product_id,context)"/>
+                        			<field name="x_peso"/>
+                        			<field name="x_imb_x"/>
+                        			<field name="x_imb_y"/>
+                        			<field name="x_imb_z"/>
+                        			<field name="sale_id"/>
+                        			<field name="pick_id"/>
+                                </tree>
+                           </field>
+
+                     </group>
+                    <footer>
+                        <button name="delivery_tx" string="Ricevi lettera di vettura"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+        <act_window id="action_view_delivery_carrier_sda_tx_rx"
+            key2="client_action_multi"
+            multi="True"
+            name="Sda Ricezione lettere di vettura"
+            res_model="delivery.carrier.sda.tx.rx"
+            src_model="sale.order"
+            groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_user"
+            view_mode="form" target="new" view_type="form" />
+        </data>
+    <data noupdate="1">
+        
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_delivery_carrier_sda_tx_rx~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_multiple_delivery_carrier_sda_tx_rx" model="ir.actions.server">
+            <field name="name">Sda Ricezione immediata lettere vettura</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">action = env['delivery.carrier.sda.tx.rx'].delivery_open_tx()</field>
+        </record>
+
+        <record id="action_multiple_delivery_carrier_sda_tx_rx" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'sale.order'" name="model"/>
+            <field name="name">Sda Ricezione immediata lettere di vettura</field>
+            <field eval="'ir.actions.server,%d'%action_multiple_delivery_carrier_sda_tx_rx" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+        </data>
+    <data >
+        <record id="view_sale_order_tree_sda_del" model="ir.ui.view">
+            <field name="name">sale.order.tree.sda</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_journal.sale_journal_sale_order_tree" />
+            <field name="arch" type="xml">
+                 <data>
+                   <field name="invoice_type_id" position="replace">
+	               </field>
+                </data>
+            </field>
+        </record>
+        <record id="view_sale_order_tree_sda" model="ir.ui.view">
+            <field name="name">sale.order.tree.sda</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree" />
+            <field name="arch" type="xml">
+                 <data>
+                   <field name="state" position="after">
+	                        <field name="sda_rx_numero"/>
+	                        <field name="sda_rx_dataspedizione"/>
+	                        <field name="sda_trk_desc_stato"/>
+	               </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_sale_order_form_sda" model="ir.ui.view">
+            <field name="name">sale.order.from.sda</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form" />
+            <field name="arch" type="xml">
+                 <data>
+                   <xpath expr="//form[@string='Sales Order Lines']/group/group/field[@name='th_weight']" position="after">
+	                        <field name="x_imb_x"/>
+	                        <field name="x_imb_y" />
+	                        <field name="x_imb_z"/>
+	               </xpath>
+                   <xpath expr="//page[@string='Order Lines']"  position="after">
+                        <page string="Sda">
+                    		<group string="Stato ricezione">
+	                        		<field name="sda_rx_stato"/>
+	                        		<field name="sda_rx_documentoDiStampa" filename="sda_rx_file_name"/>
+	                        		<field name="sda_rx_file_name" invisible="1"/>
+	                        		<field name="sda_rx_dataspedizione"/>
+	                        		<field name="sda_rx_messagge"/>
+                         			<field name="sda_rx_numero" />
+                         			<field name="sda_trk_stato" groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_manager" />
+                         			<field name="sda_trk_desc_stato" groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_manager" />
+                         			<field name="sda_trk_message" groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_manager" />
+                    		</group>
+                    	</page>
+	               </xpath>
+                </data>
+            </field>
+        </record>
+
+        <record id="view_picking_form_form_sda" model="ir.ui.view">
+            <field name="name">stock.picking.from.sda</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="arch" type="xml">
+                 <data>
+                  <xpath expr="//page[@string='Products']"  position="after">
+                         <page string="Sda">
+                    		<group string="Stato ricezione">
+	                        		<field name="sda_rx_stato"/>
+	                        		<field name="sda_rx_documentoDiStampa" filename="sda_rx_file_name"/>
+	                        		<field name="sda_rx_file_name" invisible="1"/>
+	                        		<field name="sda_rx_dataspedizione"/>
+	                        		<field name="sda_rx_messagge"/>
+                         			<field name="sda_rx_numero" />
+                         			<field name="sda_trk_stato" groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_manager" />
+                         			<field name="sda_trk_desc_stato" groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_manager" />
+                         			<field name="sda_trk_message" groups="prof_tnt_sda_delivery.prof_tnt_sda_delivery_manager" />
+                    		</group>
+                    	</page>
+	               </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_move_withweight_form_sda" model="ir.ui.view">
+            <field name="name">stock.move.from.sda</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="delivery.view_move_withweight_form" />
+            <field name="arch" type="xml">
+                 <data>
+                   <xpath expr="//group/div/field[@name='weight']" position="after">
+	                        <field name="x_imb_x"/>
+	                        <field name="x_imb_y" />
+	                        <field name="x_imb_z"/>
+	               </xpath>
+                </data>
+            </field>
+        </record>
+        <record id="view_picking_withcarrier_out_form_sda" model="ir.ui.view">
+            <field name="name">stock.picking.from.sda.2</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="delivery.view_picking_withweight_internal_move_form" />
+            <field name="arch" type="xml">
+                 <data>
+                   <xpath expr="//field[@name='weight']" position="after">
+	                        <field name="x_imb_x"/>
+	                        <field name="x_imb_y" />
+	                        <field name="x_imb_z"/>
+	               </xpath>
+                </data>
+            </field>
+        </record>
+        </data>
+    <data noupdate="1">
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_delivery_carrier_sda_tx_rx~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_multiple_stock_delivery_carrier_sda_tx_rx" model="ir.actions.server">
+            <field name="name">Sda Ricezione immediata lettere vettura</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">action = env['delivery.carrier.sda.tx.rx'].delivery_open_tx()</field>
+        </record>
+
+        <record id="action_multiple_stock_delivery_carrier_sda_tx_rx" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'stock.picking'" name="model"/>
+            <field name="name">Sda Ricezione immediata lettere di vettura</field>
+            <field eval="'ir.actions.server,%d'%action_multiple_stock_delivery_carrier_sda_tx_rx" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_delivery_carrier_sda_tx_rx tracking picking~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_multiple_stock_delivery_carrier_sda_tx_rx_tracking_pick_2" model="ir.actions.server">
+            <field name="name">Sda tracking lettere vettura</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">action = env['delivery.carrier.sda.tx.rx'].delivery_trk()</field>
+            <field eval="prof_tnt_sda_delivery_manager" name="groups"/> 
+        </record>
+
+        <record id="action_multiple_stock_delivery_carrier_sda_tx_rx_tracking_pick" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'stock.picking'" name="model"/>
+            <field name="name">Sda tracking lettere di vettura</field>
+            <field eval="'ir.actions.server,%d'%action_multiple_stock_delivery_carrier_sda_tx_rx_tracking_pick_2" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_delivery_carrier_sda_tx_rx tracking sale order~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_multiple_stock_delivery_carrier_sda_tx_rx_tracking_sale" model="ir.actions.server">
+            <field name="name">Sda tracking lettere vettura</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">action = env['delivery.carrier.sda.tx.rx'].delivery_trk()</field>
+            <field eval="prof_tnt_sda_delivery_manager" name="groups"/> 
+        </record>
+
+        <record id="action_multiple_stock_delivery_carrier_sda_tx_rx_tracking_sale" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'sale.order'" name="model"/>
+            <field name="name">Sda Tracking lettere di vettura</field>
+            <field eval="'ir.actions.server,%d'%action_multiple_stock_delivery_carrier_sda_tx_rx_tracking_sale" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+       </data>
+    <data >
+
+        <record id="view_country_form_sda" model="ir.ui.view">
+            <field name="name">res.country.from.sda</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_form" />
+            <field name="arch" type="xml">
+                 <data>
+                   <field name="code" position="after">
+	                        <field name="sda_code"/>
+	               </field>
+                </data>
+            </field>
+        </record>
+        <record id="view_country_tree_sda" model="ir.ui.view">
+            <field name="name">res.country.tree.sda</field>
+            <field name="model">res.country</field>
+            <field name="inherit_id" ref="base.view_country_tree" />
+            <field name="arch" type="xml">
+                 <data>
+                   <field name="code" position="after">
+	                        <field name="sda_code"/>
+	               </field>
+                </data>
+            </field>
+        </record>
+
+        <record id="product_template_form_view_x_dim" model="ir.ui.view">
+            <field name="name">product.template.from.dimension</field>
+            <field name="model">product.template</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">  
+                <field name="volume" position="before">
+                    <field name="x_imb_x" on_change="onchange_dim(x_imb_x,x_imb_y,x_imb_z,context)"/>
+                    <field name="x_imb_y" on_change="onchange_dim(x_imb_x,x_imb_y,x_imb_z,context)"/>
+                    <field name="x_imb_z" on_change="onchange_dim(x_imb_x,x_imb_y,x_imb_z,context)"/>
+                </field>
+             </field>
+        </record>
+        </data>
+    <data noupdate="1">
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_recalculate_quant r~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_multiple_stock_quant_recalculate" model="ir.actions.server">
+            <field name="name">Ricalcolo quantità in stock</field>
+            <field name="model_id" ref="stock.model_stock_quant"/>
+            <field name="state">code</field>
+            <field name="code">action = env['stock.quant'].recalculate_quant()</field>
+            <field eval="prof_tnt_sda_delivery_manager" name="groups"/> 
+        </record>
+
+        <record id="action_multiple_stock_quant_recalculate" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'stock.quant'" name="model"/>
+            <field name="name">Ricalcolo quantità in stock</field>
+            <field eval="'ir.actions.server,%d'%action_multiple_stock_quant_recalculate" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_recalculate_product~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+
+        <record id="action_multiple_stock_quant_recalculate_product_product" model="ir.actions.server">
+             <field name="name">Ricalcolo quantità in stock prodotto</field>
+             <field name="model_id" ref="product.model_product_product"/>
+             <field name="state">code</field>
+             <field name="code">action = env['stock.quant'].recalculate_quant()</field>
+             <field eval="prof_tnt_sda_delivery_manager" name="groups"/> 
+        </record>
+        <record id="action_multiple_stock_quant_recalculate_product_product" model="ir.values">
+             <field eval="'client_action_multi'" name="key2"/>
+             <field eval="'product.product'" name="model"/>
+             <field name="name">Ricalcolo quantità in stock prodotto</field>
+             <field eval="'ir.actions.server,%d'%action_multiple_stock_quant_recalculate_product_product" name="value"/>
+             <field eval="True" name="object"/>
+        </record>
+
+   <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_recalculate_product_template~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_multiple_stock_quant_recalculate_product_template" model="ir.actions.server">
+             <field name="name">Ricalcolo quantità in stock modello </field>
+             <field name="model_id" ref="product.model_product_template"/>
+             <field name="state">code</field>
+             <field name="code">action = env['stock.quant'].recalculate_quant()</field>
+             <field eval="prof_tnt_sda_delivery_manager" name="groups"/> 
+        </record>
+        <record id="action_multiple_stock_quant_recalculate_product_template" model="ir.values">
+             <field eval="'client_action_multi'" name="key2"/>
+             <field eval="'product.template'" name="model"/>
+             <field name="name">Ricalcolo quantità in stock modello</field>
+             <field eval="'ir.actions.server,%d'%action_multiple_stock_quant_recalculate_product_template" name="value"/>
+             <field eval="True" name="object"/>
+        </record>
+
+        </data>
+        
+</openerp>

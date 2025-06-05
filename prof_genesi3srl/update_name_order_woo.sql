@@ -1,0 +1,1 @@
+﻿update sale_order so set name='woo-' || wso1.woo_id, origin='woo-' || wso1.woo_id from  (select woo_id,openerp_id from woo_sale_order) wso1 where  so.id=wso1.openerp_id and so.name like('SO%')

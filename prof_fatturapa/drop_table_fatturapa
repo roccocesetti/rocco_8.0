@@ -1,0 +1,19 @@
+﻿--drop table discount_rise_price;
+--drop table fatturapa_payment_detail;
+
+--drop table fatturapa_payment_data;
+
+--drop table discount_rise_price_pav12;
+--drop table fatturapa_attachments;
+--drop table fatturapa_attachment_out;
+--drop table fatturapa_document_type;
+--drop table fatturapa_fiscal_position;
+--drop table fatturapa_format;
+--drop table fatturapa_related_document_type;
+--drop table fatturapa_summary_data;
+--drop table fatturapa_payment_term;
+--drop table fatturapa_payment_method;
+--drop table fatturapa_related_ddt;
+--drop table fatturapa_activity_progress;
+--drop table faturapa_activity_progress;
+--drop table faturapa_summary_data;

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_fatturapa_attachment_in,access_fatturapa_attachment_in,model_fatturapa_attachment_in,account.group_account_invoice,1,1,1,1
+access_fatturapa_article_code,access_fatturapa_article_code,model_fatturapa_article_code,account.group_account_invoice,1,1,1,1
+access_discount_rise_price,access_discount_rise_price,model_discount_rise_price,account.group_account_invoice,1,1,1,1
+access_discount_rise_price_pav12,access_discount_rise_price_pav12,model_discount_rise_price_pav12,account.group_account_invoice,1,1,1,1

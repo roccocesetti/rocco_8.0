@@ -1,0 +1,3 @@
+﻿select sm.product_id,pp.default_code,pp.name_template from 
+stock_move sm inner join product_product pp on sm.product_id=pp.id
+where sm.origin like('%MO%') group by sm.product_id,pp.default_code,pp.name_template

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<!-- 
+        <record id="view_account_config_settings_prof" model="ir.ui.view">
+            <field name="name">view_account_config_settings</field>
+            <field name="model">account.config.settings</field>
+            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/group[6]" position="after">
+                    <separator string="Trasmissione Fattura PA"/>
+                    <group name="fatturapa_tx_rx">
+                                <field name="send_pa" />
+                                <field name="sdi_pec" />
+                                <field name="sdi_url" />
+                                <field name="sdi_wsdl12" />
+                                <field name="sdi_wsdl20" />
+                                <field name="sdi_ftp" />
+                                <field name="sdi_ftp_dir_dep" />
+                                <field name="sdi_ftp_dir_esito" />
+                             </group>
+                    </xpath>
+            </field>
+        </record>
+	    -->
+        <record id="view_res_company_form_prof_fatturapa" model="ir.ui.view">
+            <field name="name">view_company_form_fatturapa</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Tx e Rx  Fattura Pa" position="inside">
+                    <separator string="Trasmissione Fattura PA"/>
+                    <group name="fatturapa_tx_rx">
+                                <field name="send_pa" />
+                                <field name="sdi_pec" />
+                                <field name="sdi_url" />
+                                <field name="sdi_wsdl12" />
+                                <field name="sdi_wsdl20" />
+                                <field name="sdi_ftp" />
+                                <field name="sdi_ftp_dir_dep" />
+                                <field name="sdi_ftp_dir_esito" />
+                       </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+        
+	</data>
+</openerp>

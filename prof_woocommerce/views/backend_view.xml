@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_wc_backend_form_prof" model="ir.ui.view">
+		<field name="name">wc.backend.form</field>
+			<field name="model">wc.backend</field>
+			<field name="type">form</field>
+			 <field name="inherit_id" ref="connector_woocommerce.view_wc_backend_form"/>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+                <xpath expr="//button[@name='import_orders']" position="after">
+						<group>
+							<field name="workflow_process_id" />
+							<field name="payment_method_id" />
+							<field name="carrier_id" />
+							<field name="transportation_reason_id" />
+							<field name="transportation_method_id" />
+							<field name="carriage_condition_id" />
+							<field name="tax_id" />
+							<field name="delivery_product_id" />
+						    <label string="Exporta disponibilità" class="oe_inline" />
+                            <button name="export_dispo" type="object" class="oe_highlight"
+                                string="Exporta disponibilità" />
+                        </group>
+           		</xpath>
+			</field>
+		</record>
+	    <!--categorie --> 
+	    	<record id="view_woo_product_category_tree" model="ir.ui.view">
+			<field name="name">woo.product.category.tree</field>
+			<field name="model">woo.product.category</field>
+			<field name="type">tree</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="woo category" editable="top" >
+					<field name="id" />
+					<field name="count" />
+					<field name="slug" />
+					<field name="description" />
+					<field name="backend_id" />
+					<field name="sync_date" />
+					<field name="openerp_id" />
+					<field name="woo_id" />
+					<field name="woo_parent_id" />
+			    </tree>
+			</field>
+		</record>
+	    	
+		<record model="ir.actions.act_window" id="act_open_woo_product_category_tree">
+			<field name="name">woo category</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">woo.product.category</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+				<menuitem id="menu_woo_category" parent="connector.menu_queue"
+			sequence="30" action="act_open_woo_product_category_tree" />
+		
+	    <!--prodotti --> 
+				
+		    <record id="view_woo_product_product_tree" model="ir.ui.view">
+			<field name="name">woo.product.product.tree</field>
+			<field name="model">woo.product.product</field>
+			<field name="type">tree</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="woo product" editable="top" >
+					<field name="id" />
+					<field name="slug" />
+					<field name="backend_id" />
+					<field name="sync_date" />
+					<field name="credated_at" />
+					<field name="openerp_id" />
+					<field name="woo_id" />
+			    </tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_woo_product_product_tree">
+			<field name="name">woo product</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">woo.product.product</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+				<menuitem id="menu_woo_product" parent="connector.menu_queue"
+			sequence="40" action="act_open_woo_product_product_tree" />
+	    		    	
+	    <!--partner --> 
+				
+		    <record id="view_woo_res_partner_tree" model="ir.ui.view">
+			<field name="name">woo.res.partner.tree</field>
+			<field name="model">woo.res.partner</field>
+			<field name="type">tree</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="woo clienti" editable="top" >
+					<field name="id" />
+					<field name="backend_id" />
+					<field name="sync_date" />
+					<field name="openerp_id" />
+					<field name="woo_id" />
+			    </tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_view_woo_res_partner_tree">
+			<field name="name">woo clienti</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">woo.res.partner</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+				<menuitem id="menu_woo_partner" parent="connector.menu_queue"
+			sequence="50" action="act_open_view_woo_res_partner_tree" />
+					    	
+	    <!--ordini clienti --> 
+				
+		    <record id="view_woo_sale_order_tree" model="ir.ui.view">
+			<field name="name">woo.sale.order.tree</field>
+			<field name="model">woo.sale.order</field>
+			<field name="type">tree</field>
+			<field name="priority" eval="8" />
+			<field name="arch" type="xml">
+				<tree string="woo ordini" editable="top" >
+					<field name="id" />
+					<field name="backend_id" />
+					<field name="sync_date" />
+					<field name="openerp_id" />
+					<field name="woo_id" />
+			    </tree>
+			</field>
+		</record>
+
+		<record model="ir.actions.act_window" id="act_open_view_woo_sale_order_tree">
+			<field name="name">woo ordini clienti</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">woo.sale.order</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[]</field>
+			<field name="context">{}</field>
+		</record>
+				<menuitem id="menu_woo_sale_order" parent="connector.menu_queue"
+			sequence="60" action="act_open_view_woo_sale_order_tree" />
+
+    </data>
+</openerp>

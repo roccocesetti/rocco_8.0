@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+	<template id="kanak_blog_search">
+		<h2 t-if="search" class="search-title">
+			Searching for: "<span t-esc='search'/>"
+		</h2>
+		<section class="content search">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-4 col-md-offset-4 mt16 mb16">
+						<form role="search" method="get" id="searchform" action="/blog/search">
+							<div>
+								<input type="text" name="term" class="form-control" placeholder="Search blog posts"/>
+								<input type="submit" class="hidden" id="searchsubmit" value="Search"/>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</section>
+	</template>
+
+	<template id="website_kanak_blog_post_list" inherit_id="website_blog.blog_post_short" name="Oslo Blog">
+		<xpath expr="//div[@class='col-md-12 mb32 mt16 text-center']" position="replace">
+			<div class="col-md-4 col-md-offset-2 mb32 mt32" t-if="blog_posts">
+				<form role="search" method="post" id="searchform" class="searchform" action="/blog/search">
+	                <div>
+	                    <input type="text" name="search" class="form-control" placeholder="Search blog articles"/>
+	                    <input type="submit" class="hidden" value="Search"/>
+	                </div>
+	            </form>
+			</div>
+		</xpath>
+	    <xpath expr="//div[@id='main_column']" position="replace">
+			<div t-attf-class="col-md-9 #{blog_posts and 'kanak-blog-listing' or ''}" t-ignore="True" id="main_column">
+				<div class="col-md-12" t-if="not blog_posts">
+					<p class="text-center h3">No Blog Post Yet</p>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-5 article" t-foreach="blog_posts" t-as="blog_post">
+	                <article class="news-item">
+	                    <div class="cover">
+	                        <a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }" class="image-wrapper">
+	                            <img t-attf-src="/website/image/blog.post/#{blog_post.id}/image_thumb" class="img-responsive" alt="" />
+	                            <span class="hover-wrapper">
+	                                <span class="hover" />
+	                            </span>
+	                        </a>
+	                    </div>
+	                    <div class="news-article-content" style="height: 300px;">
+	                        <h2 class="news-title">
+	                            <a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }" t-att-title="blog_post.name" t-esc="blog_post.name"></a>
+	                        </h2>
+	                        <div class="meta" name='blog_post_data'>
+	                            <p class="text-center">
+	                                <span t-field="blog_post.create_date" t-field-options='{"format": "MMMM yyyy"}'/>
+	                                <!-- <a t-if="len(blog_post.message_ids) &amp;lt=; 0" t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }#comments">No Comments</a> -->
+									<a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }" t-if="len(blog_post.message_ids) &gt; 0">
+			                            &#5760; <t t-esc="len(blog_post.message_ids)"/>
+			                            <t t-if="len(blog_post.message_ids) &lt;= 1" >comment</t>
+			                            <t t-if="len(blog_post.message_ids) > 1">comments</t>
+			                        </a>
+	                            </p>
+	                        </div>
+	                        <div class="news-body">
+	                            <p t-esc="blog_post.subtitle"/>
+	                            <a t-attf-href="/blog/#{ slug(blog_post.blog_id) }/post/#{ slug(blog_post) }" class="moretag">More…</a>
+	                        </div>
+	                    </div>
+	                </article>
+	            </div>
+			</div>
+	    </xpath>
+	</template>
+	<template id="website_blog.index_right" name="Right Column" inherit_id="website_blog.blog_post_short" active="False" customize_show="True">
+	    <xpath expr="//div[@id='main_column']" position="attributes">
+	        <attribute name="class">col-sm-9 kanak-blog-listing</attribute>
+	    </xpath>
+	    <xpath expr="//div[@id='main_column']" position="after">
+	        <div class="col-sm-3" id="blog_right_column"/>
+	    </xpath>
+	</template>
+
+	<template id="website_blog.opt_blog_rc_tags" name="Tags"
+	        inherit_id="website_blog.index_right" active="False" customize_show="True">
+	    <xpath expr="//div[@id='blog_right_column']" position="inside">
+	        <section class="mt32">
+	        <p class="text-uppercase">Tags</p>
+	        <ul class="nav nav-pills nav-stacked">
+	            <t t-foreach="tags" t-as="nav_tag">
+	            <li t-att-class="tag and tag.id == nav_tag.id and 'active' or None" style="display: inline-block;">
+	                <a t-attf-href="#{blog_url(tag=nav_tag)}" class="bg-lime"><span t-field="nav_tag.name"/></a>
+	            </li>
+	            </t>
+	        </ul>
+	        </section>
+	    </xpath>
+	</template>
+
+	<template id="kanak_blog_list">
+		<t t-call="website.layout">
+			<div id="wrap">
+				<t t-call="website_kanak.kanak_blog_search"/>
+				<section id="content blog" class="listing-horiz">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 article" t-foreach="blog_posts" t-as="post">
+								<article class="news-item">
+									<div class="row">
+										<div class="col-md-3">
+											<a href="" class="image-wrapper">
+												<img t-attf-src="/website/image/blog.post/#{post.id}/image_thumb" class="img-responsive" alt="" />
+												<span class="hover-wrapper">
+													<span class="hover" />
+												</span>
+											</a>
+										</div>
+										<div class="news-article-content col-md-9">
+											<h2 class="news-title">
+												<a t-attf-href="#{blog_url('', ['blog', 'post'], blog=post.blog_id, post=post)}" rel="bookmark" t-att-title="post.name" t-esc="post.name"></a>
+											</h2>
+											<div class="meta">
+												<p class="text-center">
+													<span t-field="post.create_date" t-field-options='{"format": "MMMM yyyy"}'/>
+													<span class="cat-links">
+														<a href="#" rel="category tag"></a>
+													</span>
+													.
+													<a t-attf-href="#{blog_url('', ['blog', 'post'], blog=post.blog_id, post=post)}#comments"><t t-if="not post.message_ids">No</t><t t-if="post.message_ids"><t t-esc="len(post.message_ids)"/></t> Comments</a>
+												</p>
+											</div>
+											<div class="news-body">
+												<p t-esc="post.subtitle"/>
+												<a t-attf-href="#{blog_url('', ['blog', 'post'], blog=post.blog_id, post=post)}" class="moretag"> More…</a>
+											</div>
+										</div>
+									</div>
+								</article>
+							</div>
+							<t t-call="website.pager" >
+								<t t-set="classname">text-center</t>
+							</t>
+						</div>
+					</div>
+				</section>
+			</div>
+		</t>
+	</template>
+
+	<template id="website_blog.opt_blog_rc_history" name="Archives"
+	        inherit_id="website_blog.index_right" active="False" customize_show="True">
+	    <xpath expr="//div[@id='blog_right_column']" position="inside">
+	        <section class="mt32">
+	        <p class="text-uppercase">Archives</p>
+	        <ul class="nav nav-pills nav-stacked">
+	            <t t-foreach="nav_list" t-as="months">
+	            <li t-att-class="months['date_begin'] == date and 'active' or None">
+	                <a t-ignore="True" t-attf-href="#{blog_url(date_begin=months['date_begin'], date_end=months['date_end'])}" class="bg-lime"><t t-esc="months['create_date']"/><span class="pull-right badge bagde-gray" t-esc="months['create_date_count']"/></a>
+	            </li>
+	            </t>
+	        </ul>
+	        </section>
+	    </xpath>
+	</template>
+
+</data>
+</openerp>

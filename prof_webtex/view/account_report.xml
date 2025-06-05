@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+            id="account_invoice_webtex"
+            model="account.invoice"
+            string="Fattura Accompagnatoria"
+            report_type="qweb-pdf"
+            name="prof_webtex.report_invoice_acc"
+            file="prof_webtex.report_invoice_acc"
+            attachment_use="True"
+            attachment="(object.state in ('open','paid')) and ('FATT_ACC_'+(object.number or '').replace('/','_')+'.pdf')"
+        />
+        <report 
+            id="account_invoice_webtex_proforma"
+            model="account.invoice"
+            string="Fattura proforma"
+            report_type="qweb-pdf"
+            name="prof_webtex.report_invoiceproforma"
+            file="prof_webtex.report_invoiceproforma"
+        />
+            <report 
+            id="report_sale_order_proforma"
+            string="Ordine-Proforma"
+            model="sale.order" 
+            report_type="qweb-pdf"
+            file="prof_webtex.report_saleorderproforma" 
+            name="prof_webtex.report_saleorderproforma" 
+        />
+        <report 
+            id="account_invoice_eng"
+            model="account.invoice"
+            string="Fattura Inglese"
+            report_type="qweb-pdf"
+            name="prof_webtex.report_invoice_eng"
+            file="prof_webtex.report_invoice_eng"
+            attachment_use="True"
+            attachment="(object.state in ('open','paid')) and ('FATT_ENG_'+(object.number or '').replace('/','_')+'.pdf')"
+        />
+        
+    </data>
+</openerp>

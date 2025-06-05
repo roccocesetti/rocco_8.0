@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data> 
+        <template id="reset_default_options" inherit_id="website_less.default_options">
+          <xpath expr="//t[@id='default_options']" position="attributes">
+             <attribute name="t-if">False</attribute>
+          </xpath>
+        </template>
+
+        <template id="snippet_selection" inherit_id="website_less.snippets">
+
+          <xpath expr="//div[@id='snippet_structure']" position="inside">
+            <t t-snippet="theme_common.s_title_small" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_title_small.jpg"/>
+            <t t-snippet="theme_common.s_text" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_text_block.jpg"/>
+            <t t-snippet="theme_common.s_image_text_2" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_image_text_2.jpg"/>
+            <t t-snippet="theme_common.s_text_image_2" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_text_image_2.jpg"/>
+            <t t-snippet="theme_common.s_color_blocks_2" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_color_block.jpg"/>
+            <t t-snippet="theme_common.s_color_blocks_4" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_color_block.jpg"/>
+            <t t-snippet="theme_common.s_column" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_column.jpg"/>
+            <t t-snippet="theme_common.s_two_columns" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_two_columns.jpg"/>
+            <t t-snippet="theme_common.s_three_columns_circle" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_three_columns_circle.jpg"/>
+          </xpath>
+
+          <xpath expr="//div[@id='snippet_content']" position="inside">
+            <t t-snippet="theme_common.s_text_highlight" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_color_block.jpg"/>
+            <t t-snippet="theme_common.s_separator_color" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_separator.jpg"/>
+            <t t-snippet="theme_common.s_separator_shade" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_separator.jpg"/>
+            <t t-snippet="theme_common.s_big_icon_circle" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_icon_box_circle.jpg"/>
+            <t t-snippet="theme_common.s_big_icon_square" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_icon_box_square.jpg"/>
+            <t t-snippet="theme_common.s_icon_box" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_icon_box.jpg"/>
+            <t t-snippet="theme_common.s_icon_box_circle" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_icon_box_circle.jpg"/>
+            <t t-snippet="theme_common.s_icon_box_square" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_icon_box_square.jpg"/>
+            <t t-snippet="theme_common.s_progress_bar" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_progress_bar.jpg"/>
+          </xpath>
+
+          <xpath expr="//div[@id='snippet_feature']" position="inside">
+            <t t-snippet="theme_common.s_lead_bar" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_lead_bar.jpg"/>
+            <t t-snippet="theme_common.s_logo_bar" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_logo_bar.jpg"/>
+            <t t-snippet="theme_common.s_team_profiles" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_profile.jpg"/>
+            <t t-snippet="theme_common.s_profile" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_profile.jpg"/>
+            <t t-snippet="theme_common.s_process_step" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_process_step.jpg"/>
+          </xpath>
+
+          <xpath expr="//div[@id='snippet_effect']" position="inside">
+            <t t-snippet="theme_common.s_slide_banner" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_slide_banner.jpg"/>
+            <t t-snippet="theme_common.s_testimonial_slider" t-thumbnail="/website_ecommerce/static/src/img/snippets/s_slide_banner.jpg"/>
+          </xpath>
+        </template>
+
+<!-- 
+        <template id="enark_snippet_options" inherit_id="website_less.snippet_options">
+          <xpath expr="//div[@data-js='background']//ul" position="replace">
+              <ul class="dropdown-menu">
+                <li data-select_class="oe_custom_bg" data-choose_image="choose_image"><a><b>Choose an image...</b></a></li>
+                <li><a style="background: none; padding: 5px; border-top: 1px solid #ddd;"></a></li>
+
+                <li data-select_class="bg-img-01"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_01.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-02"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_02.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-03"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_03.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-04"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_04.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-05"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_05.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-06"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_06.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-07"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_07.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-08"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_08.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-09"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_09.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-10"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_10.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-11"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_11.jpg" class="bg_option_menu_img center-block"/></a></li>
+                <li data-select_class="bg-img-12"><a><img src="/website_ecommerce/static/src/img/backgrounds/bg_img_thumb_12.jpg" class="bg_option_menu_img center-block"/></a></li>
+
+                <li data-select_class=""><a>None</a></li>
+              </ul>
+          </xpath>
+
+          <xpath expr="//div[@data-js='background']" position="attributes">
+            <attribute name="data-selector">section, .carousel, .parallax, .s_color_blocks_2_block, .s_color_blocks_4_block, .s_big_image</attribute>
+          </xpath>
+
+          <xpath expr="//div[@data-js='margin-x']" position="attributes">
+            <attribute name="data-selector">.row:not(.s_process_step_steps) > [class*='col-md-']</attribute>
+          </xpath>
+
+          <xpath expr="//div[@data-js='background']" position="after">
+
+            <div data-js='margin-x'
+                data-selector=".row.simple-stepwizard-row > .simple-stepwizard-step"
+                data-drop-in='.row.simple-stepwizard-row'>
+            </div>
+
+            <div data-js="gradientpicker"
+                data-selector="section, .carousel, .parallax, .s_color_blocks_2_block, .s_color_blocks_4_block, .s_big_image, .s_big_image_parallax, .s_team_profile_box">
+                <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">Gradients</a>
+                    <ul class="dropdown-menu">
+                        <li data-select_class="bg_gradient_primary_up"><a><div class="bg_option_menu_gradient bg_gradient_primary_up center-block"/></a></li>
+                        <li data-select_class="bg_gradient_primary_down"><a><div class="bg_option_menu_gradient bg_gradient_primary_down center-block"/></a></li>
+                        <li data-select_class="bg_gradient_white_up"><a><div class="bg_option_menu_gradient bg_gradient_white_up_thumb center-block"/></a></li>
+                        <li data-select_class="bg_gradient_white_down"><a><div class="bg_option_menu_gradient bg_gradient_white_down_thumb center-block"/></a></li>
+                        <li data-select_class="bg_gradient_black_up"><a><div class="bg_option_menu_gradient bg_gradient_black_up center-block"/></a></li>
+                        <li data-select_class="bg_gradient_black_down"><a><div class="bg_option_menu_gradient bg_gradient_black_down center-block"/></a></li>
+                        <li data-select_class=""><a>None</a></li>
+                    </ul>
+                </li>
+            </div>
+
+            <div data-js="animation"
+                data-selector=".s_color_blocks_2_block, .s_color_blocks_2_block img, .s_color_blocks_4_block, .s_color_blocks_4_block img, .s_discount_box, .s_pricing_box, .s_text img, .s_text_image img, .s_image_text img, .s_big_image img, .s_big_image_parallax img, .s_column img, .s_two_columns img, .s_three_columns img, .s_team_profile_box, .s_timeline_panel, .s_lead_bar div, .s_text_highlight, .s_big_icon_circle_box, .s_big_icon_square_box">
+                <li class="dropdown-submenu">
+                    <a tabindex="-1" href="#">Animate</a>
+                    <ul class="dropdown-menu">
+                        <li data-select_class="o_fade_in"><a>Fade In</a></li>
+                        <li data-select_class="o_fade_in_down"><a>Fade In Down</a></li>
+                        <li data-select_class="o_fade_in_left"><a>Fade In Left</a></li>
+                        <li data-select_class="o_fade_in_right"><a>Fade In Right</a></li>
+                        <li data-select_class="o_fade_in_up"><a>Fade In Up</a></li>
+                        <li data-select_class=""><a>None</a></li>
+                    </ul>
+                </li>
+            </div>
+
+            <div data-selector=".s_separator_color"
+                data-drop-near="section, p, h1, h2, h3, blockquote, .well, .panel, .oe_share, .progress">
+            </div>
+
+            <div data-selector=".s_separator_shade"
+                data-drop-near="section, p, h1, h2, h3, blockquote, .well, .panel, .oe_share, .progress">
+            </div>
+
+            <div data-selector=".s_text_highlight"
+                data-drop-near="section, p, h1, h2, h3, blockquote, .well, .panel, .oe_share, .progress">
+            </div>
+          </xpath>
+        </template> -->
+    </data>
+</openerp>

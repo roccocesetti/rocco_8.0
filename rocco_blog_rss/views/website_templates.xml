@@ -1,7 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 	<data>
-    	<template id="rocco_blog_rss_icon" inherit_id="website.footer_default" name="RSS Icon">
+        <record id="view_users_x_fix_top_menu" model="ir.ui.view">
+            <field name="name">res.users.tree.x_fix_top_menu</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_tree"/>
+            <field name="arch" type="xml">
+                 <field name="login_date" position="after">
+                            <field name="x_fix_top_menu"/>
+            	</field>
+            </field>
+        </record>
+        <record id="view_users_x_fix_top_menu" model="ir.ui.view">
+            <field name="name">res.users.form.x_fix_top_menu</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <notebook colspan="4" position="inside">
+                    <page string="web style">
+                        <group>
+                            <field name="x_fix_top_menu"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="view_website_form_website_rocco_blog" model="ir.ui.view">
+            <field name="name">website.form</field>
+            <field name="model">website</field>
+            <field name="inherit_id" ref="website.view_website_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='other']" position="after">
+                    <div name="menu_x_field_footer">
+                        <separator string="menu_x_field_footer"/>
+                        <group name="menu_x_field_footer">
+                    		<field name="x_field_footer"/>
+                    		<field name="x_fix_top_menu" invisible="1" />
+                        </group>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+<template id="assets_frontend_rocco" inherit_id="website.assets_frontend" name="Event track front end_rocco">
+  <xpath expr="." position="inside">
+        <link rel="stylesheet" href="/rocco_blog_rss/static/src/css/website_event_track_2.css"/>
+ </xpath>
+
+</template>
+<template id="products_item_rocco" inherit_id="website_sale.products_item" name="products_item_rocco">
+       	<xpath expr="//div[@class='ribbon btn btn-danger']" position="replace">
+            <t t-foreach="product.website_style_ids" t-as="c_style">
+
+                <t t-if="c_style.name == 'Sale Ribbon'">
+                     <div class="ribbon btn btn-danger" style="background-color:#227c2a;">Sale</div>
+                </t>
+                <t t-if="c_style.name == 'Terminate Ribbon'">
+                          <div class="ribbon btn btn-danger" style="background-color:#ff0000;">Terminate</div>
+                 </t>
+             </t>
+         </xpath>
+</template>
+
+    	<template id="rocco_blog_rss_icon" inherit_id="website.footer_default" name="RSS Icon rocco">
         	<xpath expr="//h2" position="inside">
             <!-- <a href="/blog/product/post"><i class="fa fa-rss"/></a> -->            
             <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 1)">Feed 100</a>
@@ -11,11 +73,114 @@
             <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 5)">Feed 500</a>
             <a class="btn btm-sm btn-default" t-att-href="'/blog/product/get/?lang=%s&amp;partner_id=%s&amp;page_id=%s' % ('ru_RU',res_company.partner_id.id, 6)">Feed >500</a>
          	</xpath>
+        	<xpath expr="//div[@class='col-md-5 col-lg-offset-1']" position="replace">
+                <div class="col-md-5 col-lg-offset-1">
+                    <div>
+                   		<h4>
+                            <span t-field="res_company.name"/>
+                            <small> - <a href="/page/website.aboutus">About us</a></small>
+                        </h4>
+                   		<h4>
+             				<t t-if="website.x_field_footer">
+                           		<small> <span t-field="website.x_field_footer"/></small>
+           					</t>
+                        </h4>
+                	</div>
+                    <ul class="list-inline js_language_selector mt16" t-if="(request.website_multilang and len(languages) &gt; 1) or editable">
+                        <li t-foreach="languages" t-as="lg">
+                            <a t-att-href="url_for(request.httprequest.path + '?' + keep_query(), lang=lg[0])" t-att-data-default-lang="editable and 'true' if lg[0] == website.default_lang_code else None" t-att-data-lang="lg[0]" class="js_change_lang">
+                              <t t-esc="lg[1].split('/').pop()"/>
+                            </a>
+                        </li>
+                        <li groups="base.group_website_publisher">
+                            <t t-set="url_return" t-value="url_for('', '[lang]') + '?' + keep_query()"/>
+                            <a t-attf-href="/web#action=base.action_view_base_language_install&amp;website_id=#{website.id}&amp;url_return=#{url_return}">
+                            <i class="fa fa-plus-circle"/>
+                            Add a language...
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+         	</xpath>
     	</template>
-    	<template id="rocco_blog_rss_meta_tag" inherit_id="website.layout" name="RSS_after_meta_tag">
+    	<template id="rocco_blog_rss_meta_tag" inherit_id="website.layout" name="RSS_after_meta_tag_rocco">
             <xpath expr="//head//meta[@name='generator']" position="after">
 				<meta name="google-site-verification" t-att-content="main_object and 'website_meta_google_site_verification' in main_object and main_object.website_meta_google_site_verification or website_meta_google_site_verification" />
          	</xpath>
+            		<xpath expr="//header/div[@class='navbar navbar-default navbar-static-top']" position="replace">
+             				<t t-if="request.registry['res.users'].browse(request.cr, request.uid,request.uid,context=request.context).x_fix_top_menu==True">
+                      			<div class="navbar navbar-default navbar-fixed-top">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"/>
+                                    <span class="icon-bar"/>
+                                    <span class="icon-bar"/>
+                                </button>
+                                <a class="navbar-brand" href="/" t-field="res_company.name"/>
+                            </div>
+                            <div class="collapse navbar-collapse navbar-top-collapse">
+                                <ul class="nav navbar-nav navbar-right" id="top_menu">
+                                    <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                                        <t t-call="website.submenu"/>
+                                    </t>
+                                    <li class="divider" t-ignore="true" t-if="website.user_id != user_id"/>
+                                    <li class="dropdown" t-ignore="true" t-if="website.user_id != user_id">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <b>
+                                                <span t-esc="user_id.name"/>
+                                                <span class="caret"/>
+                                            </b>
+                                        </a>
+                                        <ul class="dropdown-menu js_usermenu" role="menu">
+                                            <li><a href="/web" role="menuitem">My Account</a></li>
+                                            <li class="divider"/>
+                                            <li><a t-attf-href="/web/session/logout?redirect=/" role="menuitem">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+             				</t>
+             				<t t-if="request.registry['res.users'].browse(request.cr, request.uid,request.uid,context=request.context).x_fix_top_menu==False">
+                    <div class="navbar navbar-default navbar-static-top">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-top-collapse">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"/>
+                                    <span class="icon-bar"/>
+                                    <span class="icon-bar"/>
+                                </button>
+                                <a class="navbar-brand" href="/" t-field="res_company.name"/>
+                            </div>
+                            <div class="collapse navbar-collapse navbar-top-collapse">
+                                <ul class="nav navbar-nav navbar-right" id="top_menu">
+                                    <t t-foreach="website.menu_id.child_id" t-as="submenu">
+                                        <t t-call="website.submenu"/>
+                                    </t>
+                                    <li class="divider" t-ignore="true" t-if="website.user_id != user_id"/>
+                                    <li class="dropdown" t-ignore="true" t-if="website.user_id != user_id">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <b>
+                                                <span t-esc="user_id.name"/>
+                                                <span class="caret"/>
+                                            </b>
+                                        </a>
+                                        <ul class="dropdown-menu js_usermenu" role="menu">
+                                            <li><a href="/web" role="menuitem">My Account</a></li>
+                                            <li class="divider"/>
+                                            <li><a t-attf-href="/web/session/logout?redirect=/" role="menuitem">Logout</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+             				</t>
+         			</xpath>
     	</template>
   
 	<!-- Product Variants Template -->

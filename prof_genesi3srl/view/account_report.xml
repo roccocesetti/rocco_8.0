@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+            id="account_invoice_genesi3srl"
+            model="account.invoice"
+            string="Fattura Accompagnatoria"
+            report_type="qweb-pdf"
+            name="prof_genesi3srl.report_invoice_acc"
+            file="prof_genesi3srl.report_invoice_acc"
+            attachment_use="True"
+            attachment="(object.state in ('open','paid')) and ('FATT_ACC_'+(object.number or '').replace('/','_')+'.pdf')"
+        />
+        <report 
+            id="account_invoice_genesi3srl_proforma"
+            model="account.invoice"
+            string="Fattura proforma"
+            report_type="qweb-pdf"
+            name="prof_genesi3srl.report_invoiceproforma"
+            file="prof_genesi3srl.report_invoiceproforma"
+        />
+            <report 
+            id="report_sale_order_proforma"
+            string="Ordine-Proforma"
+            model="sale.order" 
+            report_type="qweb-pdf"
+            file="prof_genesi3srl.report_saleorderproforma" 
+            name="prof_genesi3srl.report_saleorderproforma" 
+        />
+        
+    </data>
+</openerp>

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_product_tree_view_prof_manacc_editable" model="ir.ui.view">
+			<field name="name">product.template.tree</field>
+			<field name="model">product.template</field>
+            <field name="arch" type="xml">
+                   <tree string='Products' editable="top" >
+                              <field name="id" readonly="1"/>
+                              <field name="default_code"/>
+                              <field name="categ_id"/>
+                              <field name="name"/>
+ 							  <field name="route_ids" widget="many2many_tags"/>
+                              <field name="type"/>
+ 							  <field name="lst_price"/> 							  
+                    		  <field name="x_price_subtax"/>
+                    		  <field name="standard_price"/>
+                               </tree>
+           </field>
+        </record>
+        
+        <record id="action_product_product_tree_view_prof_manacc_editable" model="ir.actions.act_window">
+            <field name="name">Edit prodotti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="product_product_tree_view_prof_manacc_editable" />
+        </record>
+        
+        <menuitem
+        id="menu_view_prof_manacc"
+        sequence="03" name="profile_manacc"/>
+        
+        <menuitem
+        id="menu_view_sub_prof_manacc"
+        parent="prof_manacc.menu_view_prof_manacc" sequence="15" groups="prof_manacc.manacc_manager,prof_manacc.manacc_user" name="-prof_manacc-"
+        />
+        
+        <menuitem  sequence="20"
+        action="action_product_product_tree_view_prof_manacc_editable"
+        id="menu_product_product_tree_view_prof_manacc_editable"
+        parent="prof_manacc.menu_view_sub_prof_manacc" />
+
+        <record id="product_product_tree_view_prof_manacc_editable_2" model="ir.ui.view">
+			<field name="name">product.product.tree</field>
+			<field name="model">product.product</field>
+            <field name="arch" type="xml">
+                   <tree string='Products' editable="top" >
+                              <field name="id" readonly="1"/>
+                              <field name="default_code"/>
+                              <field name="categ_id"/>
+                              <field name="name"/>
+                              <field name="attribute_value_ids" widget="many2many_tags"/>
+ 							  <field name="lst_price"/> 							  
+ 							  <field name="x_price_subtax"/> 							  
+                    		  <field name="standard_price"/>
+                              </tree>
+           </field>
+        </record>
+        
+        <record id="action_product_product_tree_view_prof_manacc_editable_2" model="ir.actions.act_window">
+            <field name="name">Edit varianti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="product_product_tree_view_prof_manacc_editable_2" />
+        </record>
+        
+        <menuitem  sequence="22"
+        action="action_product_product_tree_view_prof_manacc_editable_2"
+        id="menu_product_product_tree_view_prof_manacc_editable_2"
+        parent="prof_manacc.menu_view_sub_prof_manacc" />
+        
+        <record id="view_res_partner_import" model="ir.ui.view">
+            <field name="name">importazione clienti/fornitori/banche </field>
+            <field name="model">res.partner.import.manacc</field>
+            <field name="type">form</field>           
+            <field name="arch" type="xml">
+                <form string="Importazione clienti/fornitori/banche" version="7.0">
+                    <group>
+                        <field name="name" />
+                        <field name="data"/>
+                        <field name="f_clienti"/>
+                         <field name="f_fornitori"/>
+                         <field name="overwrite"/>
+                   </group>
+                    <footer>
+                        <button name="import_res_partner" string="_Import" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_account_account" string="_Banche" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_account_account_2" string="Abi Cab" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_account_pag" string="Pagamenti" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_articoli" string="prodotti" type="object" class="oe_highlight"/>
+                        or
+                        <button name="import_listini" string="listini" type="object" class="oe_highlight"/>
+                        or
+                       <button name="import_costi" string="costi" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />                       
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_res_partner_import" model="ir.actions.act_window">
+            <field name="name">Importazione Clienti/Fornitori/banche</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner.import.manacc</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+   
+        
+        <menuitem  sequence="20"
+        action="action_view_res_partner_import"
+        id="menu_view_res_partner_import"
+        parent="prof_manacc.menu_view_sub_prof_manacc" />
+
+        
+        <record id="manacc_product_send_customer_logistic_info_form_view" model="ir.ui.view">
+            <field name="name">manacc.product.supplierinfo.form.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <form string="Supplier Information">
+                    <group col="4">
+                        <field name="name" context="{'default_supplier': 0, 'search_default_supplier': 1, 'default_supplier': 1}"/>
+                        <field name="product_tmpl_id"  on_change="on_change_product_id(product_id)"/>
+                        <field name="sequence" invisible="1"/>
+                        <field name="product_name"/>
+                        <field name="product_code"/>
+                        <field name="qty"/>
+                        <field name="min_qty"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection" invisible="1" />
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="manacc_product_supplierinfo_tree_view" model="ir.ui.view">
+            <field name="name">manacc.product.supplierinfo.tree.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <tree string="Supplier" editable="top" >
+                        <field name="name"/>
+                    	<field name="sequence" widget="handle" />
+                        <field name="product_tmpl_id" on_change="on_change_product_id(product_tmpl_id,context)"/>
+                        <field name="sequence" invisible="1"/>
+                        <field name="product_code"/>
+                        <field name="product_name"/>
+                        <field name="qty"/>
+                        <field name="min_qty"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+        <record id="prof_manacc_product_supplierinfo_search_view" model="ir.ui.view">
+            <field name="name">manacc.product.supplierinfo.search.form</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="arch" type="xml">
+                <search string="Product">
+                   <field name="name" />
+                   <field name="product_tmpl_id" string="Prodotto interno" />
+                   <field name="product_code" string="Codice esterno" />
+                   <field name="product_name" string="Descriziopne esterna" />
+                   <separator/>
+                    <group  expand='0' string='Group by...'>
+                       <filter string='Supplier' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'name'}"/>
+                       <filter string='Prodotto interno' icon="terp-mrp" domain="[]" context="{'group_by' : 'product_tmpl_id'}"/>
+                   </group>
+                </search>
+            </field>
+        </record>
+       <record id="action_manacc_product_supplierinfo_tree_view" model="ir.actions.act_window">
+            <field name="name">Edit articoli a fornitore</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.supplierinfo</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="manacc_product_supplierinfo_tree_view" />
+        </record>
+        <menuitem
+        action="action_manacc_product_supplierinfo_tree_view" sequence="30"
+        id="menu_manacc_product_supplierinfo_tree_view"
+        parent="prof_manacc.menu_view_sub_prof_manacc" />
+
+        <record id="product_product_attribute_value_tree_prof_manacc_editable_2" model="ir.ui.view">
+			<field name="name">product.attribute.value.tree</field>
+			<field name="model">product.attribute.value</field>
+            <field name="inherit_id" ref="product.variants_tree_view"/>
+			<field name="arch" type="xml">
+                   <tree string='Variant Values' editable="top" >
+ 				     <field name="x_fatt_molt" />
+                   </tree>
+           </field>
+        </record>
+
+           
+         
+
+        <record id="product_product_attribute_value_tree_prof_webtex_editable_2" model="ir.ui.view">
+			<field name="name">product.attribute.value.tree</field>
+			<field name="model">product.attribute.value</field>
+            <field name="inherit_id" ref="product.variants_tree_view"/>
+			<field name="arch" type="xml">
+                   <tree string='Variant Values' editable="top" >
+ 				     <field name="x_fatt_molt" />
+				     <field name="price_extra" />
+ 				     				     
+                   </tree>
+           </field>
+        </record>
+        
+        <record id="action_product_attribute_value_tree_prof_webtex_editable_2" model="ir.actions.act_window">
+            <field name="name">Valore Finiture</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.attribute.value</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="product_product_attribute_value_tree_prof_webtex_editable_2" />
+        </record>
+        
+        <menuitem  sequence="23"
+        action="action_product_attribute_value_tree_prof_webtex_editable_2"
+        id="menu_product_attribute_value_tree_prof_webtex_editable_2"
+        parent="prof_manacc.menu_view_sub_prof_manacc" />
+ 
+    <record id="ddt_picking_package_preparation_showprice_form" model="ir.ui.view">
+        <field name="name">ddt.picking.package.preparation.showprice.form</field>
+        <field name="model">stock.picking.package.preparation</field>
+        <field name="inherit_id" ref="stock_picking_package_preparation.stock_picking_package_preparation_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <label for="show_price" />
+                <field name="show_price" nolabel="1" string="visualizza prezzi in bolla"/>
+            </field>
+        </field>
+    </record>
+
+    
+
+        <record id="product_pricelist_item_form_view_2" model="ir.ui.view">
+            <field name="name">product.pricelist.item.form</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="arch" type="xml">
+                <form string="Products Listprices Items">
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field colspan="4" name="name"/></h1>
+                   <h1><field colspan="4" name="price_version_id"/></h1>
+
+                    <group col="4">
+                        <field name="product_id" on_change="product_id_change(product_id)"/>
+                        <field name="product_tmpl_id"/>
+                        <field name="categ_id"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                        <field name="min_quantity"/>
+                        <field name="sequence"/>
+                    </group>
+                    <separator string="Price Computation"/>
+                    <div class="oe_grey" groups="product.group_uom">
+                        <p>The computed price is expressed in the default Unit of Measure of the product.</p>
+                    </div>
+                    <group col="4">
+                        <field name="base"/>
+                        <field name="base_pricelist_id" attrs="{'invisible':[('base', '!=', -1)],'required': [('base','=', -1)], 'readonly': [('base','!=', -1)]}"/>
+                    </group>
+                    <group col="6" colspan="5">
+                        <label string="New Price ="/>
+                        <label string="Base Price"/>
+                        <label string="* ( 1 + "/>
+                        <field name="price_discount" nolabel="1"/>
+                        <label string=" ) + "/>
+                        <field name="price_surcharge" nolabel="1"/>
+                        <newline/>
+                        <field name="price_round" string="Rounding Method"/>
+                        <field name="price_min_margin" string="Min. Margin"/>
+                        <field name="price_max_margin" string="Max. Margin"/>
+                    </group>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="view_order_tree_prof_manacc_state_inv" model="ir.ui.view">
+			<field name="name">sale.order.tree</field>
+			<field name="model">sale.order</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before" >
+                              <field name="state"/>
+                              <field name="x_invoice_state" invisible="1"/>
+                              <field name="x_y_invoice_state" /> 
+                 </field>
+           </field>
+        </record>
+
+    
+    
+        </data>
+
+           
+</openerp>

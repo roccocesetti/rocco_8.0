@@ -1,0 +1,15 @@
+woocommerce
+from woocommerce import API
+
+wcapi = API(
+    url="https://www.piccologiocondo.com",
+    consumer_key="ck_1b4348a66ef060c99d3e52d3acb10cf304f60257",
+    consumer_secret="cs_24f80e683b9fa2020862d6352c0c671c3b7421ae",
+    wp_api=True,
+    version="wc/v2",
+    query_string_auth=True,
+    verify_ssl=False
+)
+data = {"status": "completed"}
+
+print(wcapi.put("orders/8872", data).json())

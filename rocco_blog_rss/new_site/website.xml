@@ -55,6 +55,10 @@
             <field name="parent_id" ref="website_ip_top_menu" />
         	<field name="url">/blog/1</field>
         </record>
+        <record id="website_sale.image_promo" model="product.style">
+            <field name="name">Terminate Ribbon</field>
+            <field name="html_class">oe_ribbon_promo</field>
+        </record>
        
 
 

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <!--   account.invoice.conversion -->
+
+        <record id="view_account_invoice_acq_picking_webtex" model="ir.ui.view">
+              <field name="name">Aggancia la Fattura</field>
+              <field name="model">account.invoice.acq.picking</field>
+              <field name="arch" type="xml">
+                <form string="Fattura">
+                    <group string="Parametri aggancio Fattura">
+                         <field name="partner_id" />
+                         <field name="invoice_id" domain="[('partner_id','=',partner_id)]" 
+                         context="{
+                         'search_default_supplier':1,
+                        'search_default_partner_id': partner_id,
+                        'default_partner_id':partner_id, 
+                        'form_view_ref':'account.invoice_supplier_form', 
+                        'tree_view_ref':'prof_webtex.invoice_tree_sel_purchase',
+                        'search_view_ref':'account.view_account_invoice_filter', 
+                        'default_type': 'in_invoice'                         
+                         }"
+                         />
+                         </group>
+                    <footer>
+                        <button name="close_invoice_picking" string="aggancio in Fattura"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+    <!--   account.invoice.conversion -->
+
+        <record id="view_account_invoice_conversion_webtex" model="ir.ui.view">
+              <field name="name">Converti in Fattura</field>
+              <field name="model">account.invoice.conversion</field>
+              <field name="arch" type="xml">
+                <form string="Dinstinte Basi">
+                    <group string="Parametri di Conversione Corrispettivo">
+                        <field name="journal_id"/>
+                        <field name="yes_invoice_date"/>
+                        <field name="invoice_date"/>
+                        <field name="fiscal_position_id"/>
+                         </group>
+                    <footer>
+                        <button name="chg_invoice" string="Converti in Fattura"  type="object" class="oe_highlight"  />
+                        or
+                        <button name="close_invoice" string="Paga le Fatture"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+        <record id="view_account_invoice_close_webtex" model="ir.ui.view">
+              <field name="name">chiusura Fattura</field>
+              <field name="model">account.invoice.close</field>
+              <field name="arch" type="xml">
+                <form string="Dinstinte Basi">
+                    <group string="Parametri di Chiusura corrispettivo">
+                        <field name="journal_id"/>
+                        <field name="invoice_pag"/>
+                        <field name="fiscal_position_id"/>
+                         </group>
+                    <footer>
+                        <button name="close_invoice" string="Paga le Fatture"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+        <record id="view_account_invoice_refund_webtex" model="ir.ui.view">
+              <field name="name">Creazione Nota Credito</field>
+              <field name="model">account.invoice.refund</field>
+              <field name="arch" type="xml">
+                <form string="Dinstinte Basi">
+                    <group string="Parametri Creazione Nota credito">
+                        <field name="journal_id"/>
+                        <field name="invoice_refund"/>
+                         </group>
+                    <footer>
+                        <button name="create_refund" string="Crea Note credito"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+        <record id="view_account_invoice_close_voucher_webtex" model="ir.ui.view">
+              <field name="name">Ripristino pagamenti</field>
+              <field name="model">account.invoice.close</field>
+              <field name="arch" type="xml">
+                <form string="Ripristino pagamenti">
+                    <group string="Parametri di ripritino pagamenti">
+                        <field name="journal_id"/>
+                        <field name="invoice_pag"/>
+                        <field name="fiscal_position_id"/>
+                         </group>
+                    <footer>
+                        <button name="close_invoice_voucher" string="ripristina i pagamenti"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+
+		</data>
+        <data noupdate="1">
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_chg_invoice_webtex account.invoice~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_server_invoice_acq_picking_webtex" model="ir.actions.server">
+            <field name="name">Aggancio fattura</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">action = env['account.invoice.acq.picking'].form_close_pick_invoice()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_chg_invoice_webtex account.invoice~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_server_account_invoice_conversion_webtex_prd" model="ir.actions.server">
+            <field name="name">Converti in fattura</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = env['account.invoice.conversion'].open_chg_invoice()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_server_account_invoice_conversion_webtex_prd" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'account.invoice'" name="model"/>
+            <field name="name">Converti in fattura</field>
+            <field eval="'ir.actions.server,%d'%action_server_account_invoice_conversion_webtex_prd" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+        
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_close_invoice_webtex account.invoice~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_server_account_invoice_close_webtex_prd" model="ir.actions.server">
+            <field name="name">Chiudi fattura</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = env['account.invoice.close'].open_close_invoice()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_server_account_invoice_close_webtex_prd" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'account.invoice'" name="model"/>
+            <field name="name">Chiudi fattura</field>
+            <field eval="'ir.actions.server,%d'%action_server_account_invoice_close_webtex_prd" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_refund_webtex account.invoice~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_server_account_invoice_refund_webtex_prd" model="ir.actions.server">
+            <field name="name">Crea Nota Credito</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = env['account.invoice.refund'].open_refund()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+        
+
+        <record id="action_server_account_invoice_refund_webtex_prd" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'account.invoice'" name="model"/>
+            <field name="name">crea Nota credito</field>
+            <field eval="'ir.actions.server,%d'%action_server_account_invoice_refund_webtex_prd" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+        <record id="action_server_sale_account_invoice_refund_webtex_prd" model="ir.actions.server">
+            <field name="name">Crea Nota Credito</field>
+            <field name="model_id" ref="sale.model_sale_order"/>
+            <field name="state">code</field>
+            <field name="code">action = env['account.invoice.refund'].open_refund()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_server_sale_account_invoice_refund_webtex_prd" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'sale.order'" name="model"/>
+            <field name="name">crea Nota credito</field>
+            <field eval="'ir.actions.server,%d'%action_server_account_invoice_refund_webtex_prd" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+
+    <!--~~~~~~~~~~~~~~~~~~~~~~action_multiple_close_invoice_vouchetwebtex account.invoice~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+        <record id="action_server_account_invoice_close_voucher_webtex_prd" model="ir.actions.server">
+            <field name="name">Ripristino pagamenti</field>
+            <field name="model_id" ref="account.model_account_invoice"/>
+            <field name="state">code</field>
+            <field name="code">action = env['account.invoice.close'].open_close_invoice_voucher()</field>
+            <field eval="prof_webtex_manager" name="groups"/> 
+        </record>
+
+        <record id="action_server_account_invoice_close_voucher_webtex_prd" model="ir.values">
+            <field eval="'client_action_multi'" name="key2"/>
+            <field eval="'account.invoice'" name="model"/>
+            <field name="name">Ripristino pagamenti</field>
+            <field eval="'ir.actions.server,%d'%action_server_account_invoice_close_voucher_webtex_prd" name="value"/>
+            <field eval="True" name="object"/>
+        </record>
+
+
+		</data>
+</openerp>

@@ -1,0 +1,1 @@
+﻿update product_template pt set active=FALSE,loc_rack='RIORGANIZZATO' where (select count(*) from product_product where pt.id=product_tmpl_id and active=True)<=0 and active=True

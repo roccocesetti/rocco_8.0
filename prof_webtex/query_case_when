@@ -1,0 +1,14 @@
+﻿select CASE
+    WHEN (pp_min.active=False) THEN  ppvp.id_min ELSE -1 END as id_min,
+CASE
+    WHEN (pp_max.active=False) THEN  ppvp.id_max ELSE -1 END as id_max,
+CASE
+    WHEN (pp_min.active=False) THEN ppvp.erp_product_id_min ELSE -1 END as erp_product_id_min,
+CASE
+    WHEN (pp_max.active=False) THEN ppvp.erp_product_id_max ELSE -1  END as erp_product_id_max,
+ppvp.erp_template_id,
+ppvp.presta_product_id,
+ppvp.presta_product_attr_id
+from  prestashop_product_var_dup_id_2 ppvp 
+left join product_product  pp_min  on pp_min.id=ppvp.erp_product_id_min 
+left join product_product  pp_max  on pp_max.id=ppvp.erp_product_id_max where pp_min.active=False  or pp_max.active=False order by ppvp.id_min,ppvp.id_max

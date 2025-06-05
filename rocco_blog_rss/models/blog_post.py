@@ -26,7 +26,7 @@ import time
 import datetime
 from email import utils
 import openerp
-from openerp import models,  api ,fields as opn_fields
+from openerp import models, api, fields as opn_fields
 from openerp.http import request as req_2
 import xml.etree.ElementTree as ET
 import base64
@@ -37,6 +37,8 @@ except ImportError:
 import logging
 import openerp.addons.decimal_precision as dp
 from openerp.osv import orm, osv, fields
+
+
 class res_company(models.Model):
     _inherit = 'res.company'
     @api.multi
@@ -50,9 +52,14 @@ class res_company(models.Model):
             return ids[0]
         return None
 
-class BlogPost(models.Model):
-    _inherit = 'blog.post'
 
+class BlogPost(models.Model):
+    
+    
+    _inherit = 'blog.post'
+    _columns = {
+         'website_noindex':fields.boolean('Blocca indicizzazione', required=False), 
+    }
     @api.multi
     def _get_date(self):
         posts = self
@@ -77,13 +84,13 @@ class BlogPost(models.Model):
     def rss_product(self, new_get={'lang':None,'partner_id':None}):
         cr, uid, context = req_2.cr, req_2.uid, req_2.context
         uid=openerp.SUPERUSER_ID
-        #new_get = dict(get)
+        # new_get = dict(get)
         lang=new_get.get('lang','it_IT').decode('utf-8').encode('utf-8')
         partner_id=int(new_get.get('partner_id',1).decode('utf-8').encode('utf-8'))
         print 'entrata_mia_logistica',uid,openerp.SUPERUSER_ID,lang,partner_id,context
         rml_parser = report_sxw.rml_parse(cr, uid, 'reconciliation_widget_aml', context=context)
 
-        if context==None:
+        if context is None:
             context={}
         context['lang']=lang
         print 'context',context
@@ -174,23 +181,48 @@ class BlogPost(models.Model):
         mimetype = 'application/xml'
         #return req_2.make_response(request, [('Content-Type', mimetype)])
         return request
+    
+    
 class website_seo_metadata(osv.Model):
     _inherit = 'website.seo.metadata'
     _columns = {
         'website_meta_google_site_verification': fields.char("Website meta google verification", translate=True),
+        'website_noindex':fields.boolean('Blocca indicizzazione', required=False), 
     }
-website_seo_metadata()    
+website_seo_metadata()
+
+    
 class view(osv.osv):
     _inherit = "ir.ui.view"
     _columns = {
         'website_meta_google_site_verification': fields.char("Website meta google verification", translate=True),
+        'website_noindex':fields.boolean('Blocca indicizzazione', required=False), 
     }
 view()
+
+
+class res_users(osv.osv):
+    _inherit = 'res.users' 
+    _columns = {
+        'x_fix_top_menu':fields.boolean('Fixed top menu,user public', required=False), 
+     }
+    _defaults = {  
+            'x_fix_top_menu': True,  
+            }
+res_users()
+
+
 class website(orm.Model):
     _inherit = "website"
+    _columns = {
+                'x_field_footer':fields.text(string='Footer description', translate=True,),
+                'x_fix_top_menu':fields.boolean('Fixed top menu,user public', required=False), 
+
+                        }
     @openerp.tools.ormcache(skiparg=4)
     def _get_current_website_id(self, cr, uid, domain_name, context=None):
         ids = self.search(cr, uid, [('name', 'ilike', domain_name)], context=context)
         if ids==[]:
             ids=super(website, self)._get_current_website_id(cr, uid, domain_name, context=context)
         return ids and ids[0] or None
+website()

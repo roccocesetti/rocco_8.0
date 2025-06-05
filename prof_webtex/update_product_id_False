@@ -1,0 +1,13 @@
+﻿update stock_move sm_u set product_id=
+(select pp_2.id from 
+(select pp.default_code as default_code,sm.product_id,sm.id from stock_move sm inner join product_product pp on sm.product_id=pp.id 
+
+inner join product_product pp_2 on pp.default_code=pp_2.default_code and pp_2.active=True
+
+where pp.active=False 
+and pp.default_code<>'' and sm_u.id=sm.id
+) sm_f 
+
+  
+)  
+

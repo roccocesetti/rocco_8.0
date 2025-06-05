@@ -1,0 +1,77 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:             odoo-server
+# Required-Start:       $remote_fs $syslog
+# Required-Stop:        $remote_fs $syslog
+# Should-Start:         $network
+# Should-Stop:          $network
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    check odoo service
+# Description:          check odoo active 
+### END INIT INFO
+
+PATH=/bin:/sbin:/usr/bin
+DAEMON=/etc/init.d/check_odo_demon
+NAME=check_odo
+DESC=check_odo
+USER=root
+# pidfile
+PIDFILE=/var/run/$NAME.pid
+
+
+[ -x $DAEMON ] || exit 0
+
+checkpid() {
+    [ -f $PIDFILE ] || return 1
+    pid=`cat $PIDFILE`
+    [ -d /proc/$pid ] && return 0
+    return 1
+}
+
+case "${1}" in
+        start)
+                echo -n "Starting ${DESC}: "
+
+                start-stop-daemon --start --quiet --pidfile ${PIDFILE} \
+                        --chuid ${USER} --background --make-pidfile \
+                        --exec ${DAEMON}
+
+                echo "${NAME}."
+                ;;
+
+        stop)
+                echo -n "Stopping ${DESC}: "
+
+                start-stop-daemon --stop --quiet --pidfile ${PIDFILE} \
+                        --oknodo
+
+                echo "${NAME}."
+                ;;
+
+        restart|force-reload)
+                echo -n "Restarting ${DESC}: "
+
+                start-stop-daemon --stop --quiet --pidfile ${PIDFILE} \
+                        --oknodo
+      
+                sleep 1
+
+                start-stop-daemon --start --quiet --pidfile ${PIDFILE} \
+                        --chuid ${USER} --background --make-pidfile \
+                        --exec ${DAEMON}
+
+                echo "${NAME}."
+                ;;
+
+        *)
+                N=/etc/init.d/${NAME}
+                echo "Usage: ${NAME} {start|stop|restart|force-reload}" >&2
+                exit 1
+                ;;
+esac
+
+exit 0
+
+

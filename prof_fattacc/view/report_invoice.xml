@@ -1,0 +1,755 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="1" >
+<template id="external_layout_fattacc">
+    <!-- Multicompany -->
+    <t t-if="o and 'company_id' in o">
+        <t t-set="company" t-value="o.company_id"></t>
+    </t>
+    <t t-if="not o or not 'company_id' in o">
+        <t t-set="company" t-value="res_company"></t>
+    </t>
+
+    <t t-call="prof_fattacc.external_layout_header_fattacc" />
+    <t t-raw="0" />
+    <t t-call="prof_fattacc.external_layout_footer_fattacc" />
+</template>
+
+<template id="external_layout_header_fattacc">
+    <div class="header">
+        <div class="row">
+            <div class="col-xs-4">
+             <img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height: 90px;"/>
+            </div>
+            <div class="col-xs-4">
+<div t-field="company.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true}" style="border-bottom: 1px solid black;font-size: 14px;"/>         
+
+           <div >
+<span t-if="company.partner_id.street" t-field="company.partner_id.street" style="font-size: 12px;" /><span> </span>
+            <!-- <span t-if="company.partner_id.street2" t-field="company.partner_id.street2" style="font-size: 12px;" /> --> <br/>
+            <span t-if="company.partner_id.zip" t-field="company.partner_id.zip" style="font-size: 12px;" /><span> </span>
+            <span t-if="company.partner_id.city" t-field="company.partner_id.city" style="font-size: 12px;" /><span> </span>
+            <span t-if="company.partner_id.state_id.code" t-field="company.partner_id.state_id.code" style="font-size: 12px;" /><span> </span>
+            <span t-if="company.partner_id.country_id.name" t-field="company.partner_id.country_id.name" style="font-size: 12px;" /><span> </span>
+<br/>
+             <span t-if="company.partner_id.vat" style="font-size: 10px;" >P.iva:</span><span t-if="company.partner_id.vat" t-field="company.partner_id.vat" style="font-size: 8px;" /><br/>
+             <span t-if="company.partner_id.fiscalcode" style="font-size: 10px;" >C.fisc:</span><span t-if="company.partner_id.fiscalcode" t-field="company.partner_id.fiscalcode"  style="font-size: 8px;" />
+            <span t-if="company.company_registry" style="font-size: 10px;" >R.imprese:</span><span t-if="company.company_registry" t-field="company.company_registry"  style="font-size: 8px;" /> 
+            </div>
+
+
+
+</div>
+<div class="col-xs-4 text-right" style="margin-top:20px;font-size: 12px;" t-field="company.rml_header1"/>
+        </div>
+<!--
+     <div class="row zero_min_height">
+            <div class="col-xs-12">
+                <div style="border-bottom: 1px solid black;"/>
+            </div>
+     </div>
+-->
+    </div>
+</template>
+<template id="external_layout_footer_fattacc">
+ <div class="footer" style="font-size: 10px;" >
+        <div class="text-center" style="border-top: 1px solid black;">
+            <ul t-if="not company.custom_footer" class="list-inline">
+                <li t-if="company.phone">Phone: <span t-field="company.phone"/></li>
+
+                <li t-if="company.fax and company.phone">&amp;bull;</li>
+                <li t-if="company.fax">Fax: <span t-field="company.fax"/></li>
+
+                <li t-if="company.email">&amp;bull;</li>
+                <li t-if="company.email">Email: <span t-field="company.email"/></li>
+                
+                  <li t-if="company.partner_id.pec_mail">&amp;bull;</li>  
+                <li t-if="company.partner_id.pec_mail">Pec mail: <span t-field="company.partner_id.pec_mail"/></li>
+
+                <li t-if="company.website">&amp;bull;</li>
+                <li t-if="company.website">Website: <span t-field="company.website"/></li>
+            </ul>
+
+            <t t-if="company.custom_footer">
+                <span t-raw="company.rml_footer"/>
+            </t>
+
+            <ul class="list-inline">
+                <li>Page:</li>
+                <li><span class="page"/></li>
+                <li>/</li>
+                <li><span class="topage"/></li>
+            </ul>
+        </div>
+    </div>       
+</template>
+
+<template id="report_invoice_document_fattacc">
+     <t t-call="prof_fattacc.external_layout_fattacc">
+        <div class="page">
+           <div class="row">
+          	<div class="col-xs-12" style="margin-top:10px">
+                <div style="border-bottom: 1px solid white;"/>
+            </div>
+        	</div>
+            <div class="row">
+                <div class="col-xs-6" style="font-size: 12px;border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;;border-right: 1px solid black;">
+                    Destinatario:<span t-if="o.partner_id.wk_company"><span t-field="o.partner_id.wk_company"/></span>
+<!--                    
+<address t-field="o.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+-->
+<span t-if="o.x_pack_ids[0].partner_id.name"><span t-field="o.x_pack_ids[0].partner_id.name"/></span><br />
+<span t-if="o.x_pack_ids[0].partner_id.street"><span t-field="o.x_pack_ids[0].partner_id.street"/></span><br />
+<span>                    
+<span t-if="o.x_pack_ids[0].partner_id.zip"><span t-field="o.x_pack_ids[0].partner_id.zip"/></span>
+<span t-if="o.x_pack_ids[0].partner_id.city"><span t-field="o.x_pack_ids[0].partner_id.city"/></span>
+<span t-if="o.x_pack_ids[0].partner_id.state_id"><span t-field="o.x_pack_ids[0].partner_id.state_id.code"/></span><br />
+<span t-if="o.x_pack_ids[0].partner_id.country_id"><span t-field="o.x_pack_ids[0].partner_id.country_id.code"/></span><br />
+</span>
+                    <span t-if="o.partner_id.vat">P.iva: <span t-field="o.partner_id.vat"/></span>
+                    <span t-if="o.partner_id.fiscalcode">C.fisc: <span t-field="o.partner_id.fiscalcode"/></span>
+                    <span t-if="o.partner_id.parent_id.fiscalcode">C.fisc: <span t-field="o.partner_id.parent_id.fiscalcode"/></span>
+ 
+                </div>
+                  <div class="col-xs-1" />              
+<div class="col-xs-6" style="font-size: 12px;border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;">
+                    Destinazione:<span t-if="o.x_pack_ids[0].partner_shipping_id.wk_company"><span t-field="o.x_pack_ids[0].partner_shipping_id.wk_company"/></span>
+<!--                    
+<address t-field="o.x_pack_ids[0].partner_shipping_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+-->
+<span t-if="o.x_pack_ids[0].partner_shipping_id.name"><span t-field="o.x_pack_ids[0].partner_shipping_id.name"/></span><br />
+<span t-if="o.x_pack_ids[0].partner_shipping_id.street"><span t-field="o.x_pack_ids[0].partner_shipping_id.street"/></span><br />
+<span>                    
+<span t-if="o.x_pack_ids[0].partner_shipping_id.zip"><span t-field="o.x_pack_ids[0].partner_shipping_id.zip"/></span>
+<span t-if="o.x_pack_ids[0].partner_shipping_id.city"><span t-field="o.x_pack_ids[0].partner_shipping_id.city"/></span>
+<span t-if="o.x_pack_ids[0].partner_shipping_id.state_id"><span t-field="o.x_pack_ids[0].partner_shipping_id.state_id.code"/></span><br />
+<span t-if="o.x_pack_ids[0].partner_shipping_id.country_id"><span t-field="o.x_pack_ids[0].partner_shipping_id.country_id.code"/></span><br />
+</span>
+                    <span t-if="o.x_pack_ids[0].partner_shipping_id.vat">P.iva: <span t-field="o.x_pack_ids[0].partner_shipping_id.vat"/></span><br />
+                    <span t-if="o.x_pack_ids[0].partner_shipping_id.fiscalcode">C.fisc: <span t-field="o.x_pack_ids[0].partner_shipping_id.fiscalcode"/></span>
+                    <span t-if="o.x_pack_ids[0].partner_shipping_id.parent_id.fiscalcode">C.fisc: <span t-field="o.x_pack_ids[0].partner_shipping_id.parent_id.fiscalcode"/></span>
+<!--                    
+                    <span t-if="o.x_pack_ids[0].partner_shipping_id.vat">P.iva: <span t-field="o.x_pack_ids[0].partner_shipping_id.vat"/></span>
+<span t-if="o.x_pack_ids[0].partner_shipping_id.fiscalcode">C.fisc: <span t-field="o.x_pack_ids[0].partner_shipping_id.fiscalcode"/></span>
+-->                
+</div>
+            </div>
+
+            <h2   style="font-size: 12px; bold=True" >
+            <div  class="row mt32 mb32"  >
+                <div class="col-xs-4"  > <strong>
+               <span t-if="o.type == 'out_invoice' and (o.state == 'open' or o.state == 'paid')" style="font-size: 12px; bold=True" >Fattura accomp.:</span>
+                <span t-if="o.type == 'out_invoice' and o.state == 'proforma2'">PRO-FORMA</span>
+                <span t-if="o.type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
+                <span t-if="o.type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
+                <span t-if="o.type == 'out_refund'">Refund</span>
+                <span t-if="o.type == 'in_refund'">Supplier Refund</span>
+                <span t-if="o.type == 'in_invoice'">Supplier Invoice</span></strong>
+                <span t-field="o.number" />
+                 </div>
+                 <div class="col-xs-2" t-if="o.name">
+                    <strong>Description:</strong>
+                    <p t-field="o.name"/>
+                </div>
+                <div class="col-xs-2" t-if="o.date_invoice"   style="font-size: 12px; bold=True" >
+                    <strong>Data Fattura:</strong>
+                    <p t-field="o.date_invoice"/>
+                </div>
+                <div class="col-xs-2" t-if="o.origin"  style="font-size: 12px; bold=True" >
+                    <strong>origine:</strong>
+                    <p t-field="o.origin"/>
+                </div>
+                <div class="col-xs-2" t-if="o.partner_id.ref"  style="font-size: 12px; bold=True" >
+                    <strong>Codice Cliente:</strong>
+                    <p t-field="o.partner_id.ref"/>
+                </div>
+                <div class="col-xs-2" t-if="o.reference"  style="font-size: 12px; bold=True" >
+                    <strong>Referente:</strong>
+                    <p t-field="o.reference"/>
+                </div>
+            </div>
+           </h2>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th  style="font-size: 10px; bold=True" >Descrizione</th>
+                        <th  style="font-size: 10px; bold=True" >Qtà</th>
+                        <th class="text-right"  style="font-size: 10px; bold=True" >Prezzo</th>
+                        <th class="text-right" groups="sale.group_discount_per_so_line"  style="font-size: 10px; bold=True" >Discount (%)</th>
+                        <th class="text-right"  style="font-size: 10px; bold=True" >iva</th>
+                        <th class="text-right"  style="font-size: 10px; bold=True" >Importo</th>
+                    </tr>
+                </thead>
+            <style type="text/css">
+               .footer_xxx {page-break-after: always;}            
+               .footer_yyy {page-break-before: always;}            
+        </style>
+
+                <tbody class="invoice_tbody">
+  
+                  <tr t-foreach="o.invoice_line" t-as="l">
+                        <td>
+<span t-field="l.name"  style="font-size: 10px;" />
+<!-- <span t-esc="l.id+7"  style="font-size: 10px;" />/
+<span t-esc="o.invoice_line[0].id+len(o.invoice_line)"  style="font-size: 10px;" />  -->
+                        </td>
+                        <td>
+                            <span t-field="l.quantity"  style="font-size: 10px;" />
+                            <!-- <span t-field="l.uos_id"  groups="product.group_uom"/> -->
+                        </td>
+                        <td class="text-right"  style="font-size: 10px;" >
+                            <span t-field="l.price_unit"  style="font-size: 10px;" />
+                        </td>
+                        <td class="text-right" groups="sale.group_discount_per_so_line"  style="font-size: 10px;" ><span t-field="l.discount"/></td>
+                        <td class="text-right"  style="font-size: 10px;" >
+                            <span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_id))"/>
+                        </td>
+                        <td class="text-right"  style="font-size: 10px;" >
+                            <span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+                  <t t-foreach="o.invoice_line" t-as="l">
+                    <t t-if="(l.id+7)  &lt;  (o.invoice_line[0].id+len(o.invoice_line))"><div class="footer_xxx" />
+                   
+                   </t>
+                    
+                 </t>
+            <div class="row"   style="font-size: 10px; bold=True" >
+            <!-- <div class="row" t-if="o.tax_line"   style="font-size: 10px; bold=True" > -->
+                <div class="col-xs-6"  t-if="o.tax_line"   style="font-size: 10px; bold=True" >
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Cod.iva</th>
+                                <th class="text-right">Imponibile</th>
+                                <th class="text-right">Iva</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.tax_line" t-as="t">
+                                <td><span t-field="t.name"/></td>
+                                <td class="text-right">
+                                <span t-esc="convert_2float(t.base,2,o.currency_id)"/>
+                                </td>
+                                <td class="text-right">
+                                	<span t-esc="convert_2float(t.amount,2,o.currency_id)"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            <!-- </div> -->
+
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Totale Imponibile</strong></td>
+                            <td class="text-right">
+                                 <span t-esc="convert_2float(o.amount_untaxed,2,o.currency_id)"/>
+                                </td>
+                        </tr>
+                        <tr>
+                            <td>Totale iva</td>
+                            <td class="text-right">
+                                 <span t-esc="convert_2float(o.amount_tax,2,o.currency_id)"/>
+                                </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Totale</strong></td>
+                            <td class="text-right">
+                                  <span t-esc="convert_2float(o.amount_total,2,o.currency_id)"/>
+                                 
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row"   style="font-size: 10px; bold=True" >
+
+            <style type="text/css">
+                table.delivery_data td h6 { margin: 0; }
+                .signature { min-height: 2em; }
+            </style>
+
+            <table class="table table-condensed table-bordered delivery_data" style="font-size: 10px; bold=True" >
+                <tr    >
+                    <td>
+                        <h6>Causale di Vendita</h6>
+                        <div class="signature" t-field="o.x_pack_ids[0].transportation_reason_id"/>
+                    </td>
+                    <td>
+                        <h6>Condizioni di trasporto di trasporto</h6>
+                        <div class="signature" t-field="o.x_pack_ids[0].carriage_condition_id"/>
+                    </td>
+                    <td>
+                        <h6>Aspetto esteriore dei beni</h6>
+                        <div class="signature" t-field="o.x_pack_ids[0].goods_description_id"/>
+                    </td>
+                    <td>
+                        <h6>Peso lordo</h6>
+                        <div class="signature" t-field="o.x_pack_ids[0].weight"/>
+                    </td>
+                    <td>
+                        <h6>Peso netto</h6>
+                        <div class="signature" t-field="o.x_pack_ids[0].net_weight"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h6>Metodo di trasporto</h6>
+                        <div class="signature">
+                            <span t-field="o.x_pack_ids[0].transportation_method_id"/>
+                            <span t-field="o.x_pack_ids[0].carrier_id.name"/>
+                      </div>
+                    </td>
+                    <td>
+                        <h6>Data e oro ritiro</h6>
+                        <div class="signature"> <span t-field="o.x_pack_ids[0].date_done"/></div>
+                    </td>
+                    <td>
+                        <h6>Colli</h6>
+                        <div class="signature" t-field="o.x_pack_ids[0].parcels"/>
+                    </td>
+                    <td>
+                        <h6>Volume</h6>
+                        <div class="signature" t-field="o.x_pack_ids[0].volume"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h6>Firma destinatario</h6>
+                        <div class="signature"/>
+                    </td>
+                    <td colspan="2">
+                        <h6>Firma Corriere</h6>
+                        <div class="signature"/>
+                    </td>
+                     <td colspan="2">
+                        <h6>Firma Conducente</h6>
+                        <div class="signature"/>
+                    </td>
+                </tr>
+            </table>
+            
+            </div>
+            <p t-if="o.comment">
+                <strong>Note:</strong>
+                <span t-field="o.comment" style="font-size: 10px; bold=True" />
+            </p>
+			<p t-if="o.payment_ids">
+                <strong>Pagamento:</strong>
+                <span t-field="o.payment_ids[0].journal_id.name" style="font-size: 10px; bold=True"/>
+            </p>
+		    <p t-if="o.move_id">
+					     <t t-foreach="o.move_id.line_id" t-as="acc_move" >
+							<t t-if="(acc_move.debit and o.type=='out_invoice')" >
+						 	  <tr>
+						 		<td  style="border-top:2px solid">
+									 					<t t-if="acc_move.debit>0.00">
+									 						<span  t-field="acc_move.debit" />
+														</t>
+						 		</td>
+						 		<td  style="border-top:2px solid">
+						 				<t t-if="acc_move.date_maturity">
+						 					
+						 					<span  t-field="acc_move.date_maturity" />
+										</t>
+						 		</td>
+						 	  </tr>
+							</t>
+
+							<t t-if="(acc_move.debit and o.type=='in_invoice')">
+						 	  <tr>
+						 		<td  style="border-top:2px solid">
+									 					<t t-if="acc_move.credit>0.00">
+									 						<span  t-field="acc_move.credit" />
+														</t>
+						 		</td>
+						 		<td  style="border-top:2px solid">
+						 				<t t-if="acc_move.date_maturity">
+						 					
+						 					<span  t-field="acc_move.date_maturity" />
+										</t>
+						 		</td>
+						 	  </tr>
+							</t>
+						</t>
+				</p>
+            <p t-if="o.fiscal_position.note">
+                <strong>Fiscal Position Remark:</strong>
+                <span t-field="o.fiscal_position.note" style="font-size: 10px; bold=True" />
+            </p>
+        </div>
+    </t>
+</template>
+
+<template id="report_invoice_acc">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'prof_fattacc.report_invoice_document_fattacc')"/>
+        </t>
+    </t>
+</template>
+
+<!-- proforma -->
+
+<template id="prof_fattacc.report_invoice_document_fattacc_proforma">
+     <t t-call="prof_fattacc.external_layout_fattacc">
+        <div class="page">
+           <div class="row">
+          	    <div class="col-xs-12" style="margin-top:10px">
+                      <div style="border-bottom: 1px solid white;"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8" style="font-size: 12px;border-bottom: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;;border-right: 1px solid black;">
+                    Cliente:<span t-if="o.partner_id.wk_company"><span t-field="o.partner_id.wk_company"/></span>
+<!--                    
+<address t-field="o.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+-->
+<span t-if="o.partner_id.name"><span t-field="o.partner_id.name"/></span><br />
+<span t-if="o.partner_id.street"><span t-field="o.partner_id.street"/></span><br />
+<span>                    
+<span t-if="o.partner_id.zip"><span t-field="o.partner_id.zip"/></span>
+<span t-if="o.partner_id.city"><span t-field="o.partner_id.city"/></span>
+<span t-if="o.partner_id.state_id"><span t-field="o.partner_id.state_id.code"/></span><br />
+</span>                    
+<span t-if="o.partner_id.vat">P.iva: <span t-field="o.partner_id.vat"/></span>
+                    <span t-if="o.partner_id.fiscalcode">C.fisc: <span t-field="o.partner_id.fiscalcode"/></span>
+                    <span t-if="o.partner_id.parent_id.fiscalcode">C.fisc: <span t-field="o.partner_id.parent_id.fiscalcode"/></span>
+                    
+                </div>
+                <div class="col-xs-4" />              
+
+            </div>
+
+            <h2   style="font-size: 12px; bold=True" >
+            <div  class="row mt32 mb32"  >
+                <div class="col-xs-4"  > 
+                   <strong>
+                   <span t-if="o.type == 'out_invoice' " style="font-size: 12px; bold=True" >Fattura proforma</span>
+                   </strong>
+                   <!-- <span t-field="o.number" /> -->
+                 </div>
+                 <div class="col-xs-2" t-if="o.name">
+                    <strong>Description:</strong>
+                    <p t-field="o.name"/>
+                </div>
+                <div class="col-xs-2" t-if="o.date_invoice"   style="font-size: 12px; bold=True" >
+                    <strong>Data Fattura:</strong>
+                    <p t-field="o.date_invoice"/>
+                </div>
+                <div class="col-xs-2" t-if="o.origin"  style="font-size: 12px; bold=True" >
+                    <strong>origine:</strong>
+                    <p t-field="o.origin"/>
+                </div>
+                <div class="col-xs-2" t-if="o.partner_id.ref"  style="font-size: 12px; bold=True" >
+                    <strong>Codice Cliente:</strong>
+                    <p t-field="o.partner_id.ref"/>
+                </div>
+                <div class="col-xs-2" t-if="o.reference"  style="font-size: 12px; bold=True" >
+                    <strong>Referente:</strong>
+                    <p t-field="o.reference"/>
+                </div>
+            </div>
+           </h2>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th  style="font-size: 10px; bold=True" >Descrizione</th>
+                        <th  style="font-size: 10px; bold=True" >Qtà</th>
+                        <th class="text-right"  style="font-size: 10px; bold=True" >Prezzo</th>
+                        <th class="text-right" groups="sale.group_discount_per_so_line"  style="font-size: 10px; bold=True" >Discount (%)</th>
+                        <th class="text-right"  style="font-size: 10px; bold=True" >iva</th>
+                        <th class="text-right"  style="font-size: 10px; bold=True" >Importo</th>
+                    </tr>
+                </thead>
+            <style type="text/css">
+               .footer_xxx {page-break-after: always;}            
+               .footer_yyy {page-break-before: always;}            
+        </style>
+
+                <tbody class="invoice_tbody">
+  
+                  <tr t-foreach="o.invoice_line" t-as="l">
+                        <td>
+<span t-field="l.name"  style="font-size: 10px;" />
+<!-- <span t-esc="l.id+7"  style="font-size: 10px;" />/
+<span t-esc="o.invoice_line[0].id+len(o.invoice_line)"  style="font-size: 10px;" />  -->
+                        </td>
+                        <td>
+                            <span t-field="l.quantity"  style="font-size: 10px;" />
+                            <!-- <span t-field="l.uos_id"  groups="product.group_uom"/> -->
+                        </td>
+                        <td class="text-right"  style="font-size: 10px;" >
+                            <span t-field="l.price_unit"  style="font-size: 10px;" />
+                        </td>
+                        <td class="text-right" groups="sale.group_discount_per_so_line"  style="font-size: 10px;" ><span t-field="l.discount"/></td>
+                        <td class="text-right"  style="font-size: 10px;" >
+                            <span t-esc="', '.join(map(lambda x: x.name, l.invoice_line_tax_id))"/>
+                        </td>
+                        <td class="text-right"  style="font-size: 10px;" >
+                            <span t-field="l.price_subtotal" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+                  <t t-foreach="o.invoice_line" t-as="l">
+                    <t t-if="(l.id+7)  &lt;  (o.invoice_line[0].id+len(o.invoice_line))"><div class="footer_xxx" />
+                   
+                   </t>
+                    
+                 </t>
+            <div class="row"   style="font-size: 10px; bold=True" >
+                 <div class="col-xs-6"  t-if="o.tax_line"   style="font-size: 10px; bold=True" >
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Cod.iva</th>
+                                <th class="text-right">Imponibile</th>
+                                <th class="text-right">Iva</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="o.tax_line" t-as="t">
+                                <td><span t-field="t.name"/></td>
+                                <td class="text-right">
+                                   <span t-esc="convert_2float(t.base,2,o.currency_id)"/> 
+                                </td>
+                                <td class="text-right">
+                                	<span t-esc="convert_2float(t.amount,2,o.currency_id)"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Totale Imponibile</strong></td>
+                            <td class="text-right">
+                                 <span t-esc="convert_2float(o.amount_untaxed,2,o.currency_id)"/>
+                                </td>
+                        </tr>
+                        <tr>
+                            <td>Totale iva</td>
+                            <td class="text-right">
+                                 <span t-esc="convert_2float(o.amount_tax,2,o.currency_id)"/> 
+                                </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Totale</strong></td>
+                            <td class="text-right">
+                                   <span t-esc="convert_2float(o.amount_total,2,o.currency_id)"/>
+                                 
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row"   style="font-size: 10px; bold=True" >
+
+            <style type="text/css">
+                table.delivery_data td h6 { margin: 0; }
+                .signature { min-height: 2em; }
+            </style>
+           
+            </div>
+            <p t-if="o.comment">
+                <strong>Note:</strong>
+                <span t-field="o.comment" style="font-size: 10px; bold=True" />
+            </p>
+            <p t-if="o.payment_term.note">
+                <strong>Payment Term:</strong>
+                <span t-field="o.payment_term.note" style="font-size: 10px; bold=True" />
+            </p>
+            <p t-if="o.fiscal_position.note">
+                <strong>Fiscal Position Remark:</strong>
+                <span t-field="o.fiscal_position.note" style="font-size: 10px; bold=True" />
+            </p>
+        </div>
+    </t>
+</template>
+
+<template id="prof_fattacc.report_invoiceproforma">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'prof_fattacc.report_invoice_document_fattacc_proforma')"/>
+        </t>
+    </t>
+</template>
+
+
+<template id="report_saleorder_document_proforma">
+    <t t-call="report.external_layout">
+        <div class="page">
+            <div class="oe_structure"/>
+            <div class="row">
+                <div class="col-xs-6">
+                   <strong t-if="o.partner_shipping_id == o.partner_invoice_id">Indirizzo di Spedizione e Fatturazione:<br /></strong>
+                    <strong t-if="o.partner_shipping_id != o.partner_invoice_id">Indirizzo di fatturazione:<br /></strong>
+<!--                    
+<div t-field="o.partner_invoice_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;fax&quot;], &quot;no_marker&quot;: true}"/>
+-->
+<span t-if="o.partner_id.name"><span t-field="o.partner_id.name"/></span><br />
+<span t-if="o.partner_id.street"><span t-field="o.partner_id.street"/></span><br />
+<span>                    
+<span t-if="o.partner_id.zip"><span t-field="o.partner_id.zip"/></span>
+<span t-if="o.partner_id.city"><span t-field="o.partner_id.city"/></span>
+<span t-if="o.partner_id.state_id"><span t-field="o.partner_id.state_id.code"/></span><br />
+<span t-if="o.partner_id.country_id"><span t-field="o.partner_id.country_id.name"/></span><br />
+<span t-if="o.partner_id.vat">P.iva: <span t-field="o.partner_id.vat"/></span>
+<span t-if="o.partner_id.parent_id.fiscalcode">C.fisc: <span t-field="o.partner_id.parent_id.fiscalcode"/></span>
+</span>
+
+                    </div>                        
+                </div>
+                <div class="col-xs-5 col-xs-offset-1">
+<!--                    
+<div t-field="o.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;], &quot;no_marker&quot;: true}"/>
+-->
+ <div t-if="o.partner_shipping_id != o.partner_invoice_id" class="mt8">
+                        <strong>Shipping address:</strong>
+<!--                        
+<div t-field="o.partner_shipping_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;, &quot;fax&quot;], &quot;no_marker&quot;: true}"/>
+-->
+ <div t-if="o.partner_shipping_id != o.partner_invoice_id">
+ 
+<span t-if="o.partner_shipping_id.name"><span t-field="o.partner_shipping_id.name"/></span><br />
+<span t-if="o.partner_shipping_id.street"><span t-field="o.partner_shipping_id.street"/></span><br />
+<span>                    
+<span t-if="o.partner_shipping_id.zip"><span t-field="o.partner_shipping_id.zip"/></span>
+<span t-if="o.partner_shipping_id.city"><span t-field="o.partner_shipping_id.city"/></span>
+<span t-if="o.partner_shipping_id.state_id"><span t-field="o.partner_shipping_id.state_id.code"/></span><br />
+<span t-if="o.partner_shipping_id.country_id"><span t-field="o.partner_shipping_id.country_id.name"/></span><br />
+</span>
+ 
+                       <p t-if="o.partner_shipping_id.vat">P.iva: <span t-field="o.partner_shipping_id.vat"/></p>
+</div>                </div>
+            </div>
+            <h2>
+                <span>Fattura Proforma</span>
+                <span t-field="o.name"/>
+            </h2>
+
+            <div class="row mt32 mb32" id="informations">
+                <div t-if="o.client_order_ref" class="col-xs-3">
+                    <strong>Riferimento:</strong>
+                    <p t-field="o.client_order_ref"/>
+                </div>
+                <div t-if="o.date_order" class="col-xs-3">
+                    <strong t-if="o.state not in ['draft','sent']">Data Fattura:</strong>
+                    <strong t-if="o.state in ['draft','sent']">Data Fattura:</strong>
+                    <p t-field="o.date_order"/>
+                </div>
+                <div t-if="o.user_id.name" class="col-xs-3">
+                    <strong>Commerciale:</strong>
+                    <p t-field="o.user_id.name"/>
+                </div>
+                <div t-if="o.payment_term" class="col-xs-3">
+                    <strong>Termine di pagamento:</strong>
+                    <p t-field="o.payment_term"/>
+                </div>
+            </div>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Descrizione</th>
+                        <th>C.iva</th>
+                        <th class="text-right">Qtà</th>
+                        <th class="text-right">Prezzo Unitario</th>
+                        <th groups="sale.group_discount_per_so_line">Sc.(%)</th>
+                        <th class="text-right">Importo</th>
+                    </tr>
+               </thead>
+               <tbody class="sale_tbody">
+                    <tr t-foreach="o.order_line" t-as="l">
+                        <td>
+                           <span t-field="l.name"/>
+                        </td>
+                        <td>
+                            <span t-esc="', '.join(map(lambda x: x.name, l.tax_id))"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="l.product_uom_qty"/>
+                            <span groups="product.group_uom" t-field="l.product_uom"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="l.price_unit"/>
+                        </td>
+                        <td groups="sale.group_discount_per_so_line">
+                            <span t-field="l.discount"/>
+                        </td>
+                        <td class="text-right">
+                            <span t-field="l.price_subtotal"
+                                t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="row">
+                <div class="col-xs-4 pull-right">
+                    <table class="table table-condensed">
+                        <tr class="border-black">
+                            <td><strong>Imponibile</strong></td>
+                            <td class="text-right">
+                                <!--
+                                <span t-field="o.amount_untaxed"
+                                    t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                --> 
+                                 <span t-esc="convert_2float(o.amount_untaxed,2,o.pricelist_id.currency_id)"/> 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Iva</td>
+                            <td class="text-right">
+                                <!--
+                                <span t-field="o.amount_tax"
+                                    t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                 -->
+                                 <span t-esc="convert_2float(o.amount_tax,2,o.pricelist_id.currency_id)"/> 
+                             </td>
+                        </tr>
+                        <tr class="border-black">
+                            <td><strong>Totale</strong></td>
+                            <td class="text-right">
+                                    <!-- 
+                                <span t-field="o.amount_total"
+                                    t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                    -->
+                                    <span t-esc="convert_2float(o.amount_total,2,o.pricelist_id.currency_id)"/> 
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <p t-field="o.note" />
+            <p t-if="o.payment_term.note">
+                <strong>Pagemento:</strong>
+                <span t-field="o.payment_term.note"/>
+            </p>
+            <div class="oe_structure"/>
+        </div>
+    </t>
+</template>
+<template id="prof_fattacc.report_saleorderproforma">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'prof_fattacc.report_saleorder_document_proforma')"/>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

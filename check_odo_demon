@@ -1,0 +1,97 @@
+#!/bin/bash
+
+DELAY="15";
+PERC_MAX=9000;
+PERC_MAX_APP=6000;
+ZERO=0
+while true
+do
+           mia_var=$(free -m | grep "Mem:");
+           totale=${mia_var:5:14};
+           usata=${mia_var:19:12};
+           libera=${mia_var:32:12};
+           perc=$(echo "scale=0; ($usata * 100 / $totale) *100 " | bc);
+           echo 'totale',$totale,'usata',$usata,'libera',$libera,'%usata',$perc ;
+           nome_pid=`netstat -lpnt | grep :8069 | awk '{print $7}' | sed -n 1p | sed 's/\/python//g'`;
+           #nome_pid=`ps aux | grep "odoo_80.conf" | awk '{print $2}' | sed -n 1p | sed 's/\/python//g'`;
+           if [ "${#nome_pid}" -gt "0" ]
+           then
+                if [ "$perc" -gt "$PERC_MAX" ]
+                then
+                         mem_pid=`ps aux | grep "odoo_70-tamanti.conf" | awk '{print $4}' | sed -n 1p | sed 's/\/python//g'`;
+                         perc_pid_1=$(echo "scale=2;  ($mem_pid * 100 / $totale) * 100" | bc);
+                         perc_pid=$(echo "scale=0;  ($perc_pid_1)" | bc);
+                         posiz=`expr index "$perc_pid" .`;
+			 echo 'posiz',$posiz
+                         if [ "$posiz" -gt "$ZERO" ]
+			 then
+			    perc_pid=${perc_pid:0:$posiz-1};
+			 fi
+			 echo 'percentuale app %',$perc_pid,'max_app%',$PERC_MAX_APP,'memoria pid',$mem_pid
+                         if [ "$perc_pid"  -gt "$PERC_MAX_APP" ]
+                         then
+                                /etc/init.d/tamanti_70 restart ;
+                         else
+                                echo 'no restart  ideawork %',$perc_pid;
+                         fi
+                else
+                         echo 'exit' ;
+                fi
+           else
+                /etc/init.d/tamanti_70 start ;
+           fi
+           nome_pid=`netstat -lpnt | grep :8073 | awk '{print $7}' | sed -n 1p | sed 's/\/python//g'`;
+           #nome_pid=`ps aux | grep "odoo_80-heartwood.conf" | awk '{print $2}' | sed -n 1p | sed 's/\/python//g'`;
+           if [ "${#nome_pid}" -gt "0" ]
+           then
+                if [ "$perc" -gt "$PERC_MAX" ]
+                then
+                         mem_pid=`ps aux | grep "odoo_80-heartwood.conf" | awk '{print $4}' | sed -n 1p | sed 's/\/python//g'`;
+                         perc_pid_1=$(echo "scale=2;  ($mem_pid * 100 / $totale) * 100" | bc);
+                         perc_pid=$(echo "scale=0;  ($perc_pid_1)" | bc);
+                         posiz=`expr index "$perc_pid" .`;
+                         if [ "$posiz" -gt "$ZERO" ]
+			 then
+                          perc_pid=${perc_pid:0:$posiz-1};
+                         fi
+			 if [ "$perc_pid" -gt  "$PERC_MAX_APP" ]
+                         then
+                                /etc/init.d/heartwood_80 restart ;
+                         else
+                                echo 'no restart asd %',$perc_pid;
+                         fi
+                else
+                        echo 'exit' ;
+                fi
+           else
+                /etc/init.d/heartwood_80 start ;
+           fi
+           nome_pid=`netstat -lpnt | grep :8076 | awk '{print $7}' | sed -n 1p | sed 's/\/python//g'`;
+           #nome_pid=`ps aux | grep "odoo_80-manacc.conf" | awk '{print $2}' | sed -n 1p | sed 's/\/python//g'`;
+           if [ "${#nome_pid}" -gt "0" ]
+           then
+                if [ "$perc" -gt "$PERC_MAX" ]
+                then
+                         mem_pid=`ps aux | grep "odoo_80-manacc.conf" | awk '{print $4}' | sed -n 1p | sed 's/\/python//g'`;
+                         perc_pid_1=$(echo "scale=2;  ($mem_pid * 100 / $totale) * 100" | bc);
+                         perc_pid=$(echo "scale=0;  ($perc_pid_1)" | bc);
+                         posiz=`expr index "$perc_pid" .`;
+                         if [ "$posiz" -gt "$ZERO" ]
+			 then
+                          	perc_pid=${perc_pid:0:$posiz-1};
+			 fi
+                         if [ "$perc_pid" -gt  "$PERC_MAX_APP" ]
+                         then
+                                /etc/init.d/manacc_80 restart ;
+                         else
+                                echo 'no restart blg %',$perc_pid;
+                         fi
+                else
+                        echo 'exit' ;
+                fi
+           else
+                /etc/init.d/manacc_80 start ;
+           fi
+           sleep $DELAY;
+done
+

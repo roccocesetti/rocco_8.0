@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data>
+		<record id="prof_webtex_manager" model="res.groups">
+			<field name="name">webtex / Manager</field>
+		</record>		
+		<record id="prof_webtex_user" model="res.groups">
+			<field name="name">webtex / User</field>
+		</record>		
+		</data>	
+</openerp>

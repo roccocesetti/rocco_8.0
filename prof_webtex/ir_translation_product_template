@@ -1,0 +1,3 @@
+﻿select irt.* from ir_translation irt inner  join product_template pt on irt.res_id=pt.id where 
+irt.name ='product.template,description'  
+and lang='it_IT'

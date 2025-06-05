@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <!--   product.template.dup -->
+
+        <record id="view_product__standard_price_manacc" model="ir.ui.view">
+              <field name="name">Aggiorna costi</field>
+              <field name="model">product.product.standard_price</field>
+              <field name="arch" type="xml">
+                <form string="Dinstinte Basi">
+                    <group string="Parametri di aggiornamento costi">
+                        <field name="product_tmpl_id"/>
+                        <field name="attribute_value_id"/>
+                        <field name="standard_price"/>
+                         </group>
+                    <footer>
+                        <button name="update_standard_price" string="aggiorna costi su varianti"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                        or
+                        <button name="update_standard_price_all" string="aggiorna tutti i costi delle varianti"  type="object" class="oe_highlight"  />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+        <act_window id="action_product__standard_price_manacc"
+            key2="client_action_multi"
+            multi="True"
+            name="Aggiorna Costi su varianti"
+            res_model="product.product.standard_price"
+            src_model="product.product"
+            groups="prof_manacc.manacc_manager"
+            view_mode="form" target="new" view_type="form" />
+        
+        <record id="action_product__standard_price_manacc_2" model="ir.actions.act_window">
+            <field name="name">Aggiorna costi variante</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.product.standard_price</field>
+            <field name="src_model">product.product</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            </record>
+        <menuitem
+        action="action_product__standard_price_manacc_2"
+        id="menu_action_product__standard_price_manacc_2"
+        parent="prof_manacc.menu_view_sub_prof_manacc" groups="prof_manacc.manacc_manager"  sequence="130"/>
+
+
+   <!--   product.pricelist.wizard -->
+
+        <record id="view_product_pricelist_wizard_manacc" model="ir.ui.view">
+              <field name="name">Ricarica listino</field>
+              <field name="model">product.pricelist.wizard</field>
+              <field name="arch" type="xml">
+                <form string="Ricarica">
+                    <group string="Parametri di Ricarica">
+                        <field name="perc_ric"/>
+                         </group>
+                    <footer>
+                        <button name="pricelist_ricarica" string="Ricarica voci listino"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+        <act_window id="action_product_pricelist_wizard_manacc"
+            key2="client_action_multi"
+            multi="True"
+            name="Ricarica voci listino"
+            res_model="product.pricelist.wizard"
+            src_model="product.pricelist"
+            groups="prof_manacc.manacc_manager"
+            view_mode="form" target="new" view_type="form" />
+
+        
+</data>
+</openerp>

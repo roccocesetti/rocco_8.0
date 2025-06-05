@@ -1,0 +1,9 @@
+id,group_id:id,name,model_id,perm_create,perm_unlink,perm_write,perm_read
+res_users_prof_tnt_sda_delivery_manager,prof_tnt_sda_delivery_manager,Utenti,res.users,1,1,1,1
+res_users_prof_tnt_sda_delivery_user,prof_tnt_sda_delivery_user,utenti,res.users,0,0,0,1
+res_users_prof_tnt_sda_delivery_manager,prof_tnt_sda_delivery_manager,delivery.carrier.tnt,delivery.carrier.tnt,1,1,1,1
+res_users_prof_tnt_sda_delivery_user,prof_tnt_sda_delivery_user,delivery.carrier.tnt,delivery.carrier.tnt,1,1,1,1
+res_users_prof_tnt_sda_delivery_manager,prof_tnt_sda_delivery_manager,delivery.carrier.sda,delivery.carrier.sda,1,1,1,1
+res_users_prof_tnt_sda_delivery_user,prof_tnt_sda_delivery_user,delivery.carrier.sda,delivery.carrier.sda,1,1,1,1
+res_users_prof_tnt_sda_delivery_manager_check,prof_tnt_sda_delivery_manager,delivery.carrier.sda.check,delivery.carrier.sda.check,1,1,1,1
+res_users_prof_tnt_sda_delivery_user_check,prof_tnt_sda_delivery_user,delivery.carrier.sda.check,delivery.carrier.sda.check,0,0,0,0

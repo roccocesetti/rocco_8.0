@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="ecommerce_shop" inherit_id="website_sale.products" name="ecommerce shop products">
+          <xpath expr="//div[@id='wrap']" position="replace">
+                <div id="wrap" class="js_sale">
+                    <div class="oe_structure"/>
+                    <div class="container oe_website_sale">
+                      <div class="products_pager" style="display:none;">
+                        <div class="row" style="width: 100%;">
+                          <t t-call="website_sale.search"><t t-set="search_class">pagination form-inline col-md-3</t></t>
+                          <t t-call="website.pager"/>
+                        </div>
+                      </div>
+                      <div class='row'>
+                        <div class="col-sm-3">
+                          <div class="left-sidebar">
+                            <h2>Category</h2>
+                           <t t-call="website_ecommerce.Ecommerce_category_products"/>             
+                           
+                          </div>
+                        </div>
+                        <div class="col-sm-9 padding-right">
+                        <div class="hidden" id="products_grid_before"></div>
+                        <div class="col-md-12" id="products_grid">
+                          <table width="100%">
+                            <tbody>
+                              <tr t-ignore="true">
+                                <td t-foreach="range(0,rows)" t-as="row" t-attf-width="#{100/rows}%"></td>
+                              </tr>
+                              <tr t-foreach="bins" t-as="tr_product">
+                                <t t-foreach="tr_product" t-as="td_product">
+                                  <t t-if="td_product">
+                                  <t t-set="product" t-value="td_product['product']"/>
+                                  <td t-att-colspan="td_product['x'] != 1 and td_product['x']"
+                                      t-att-rowspan="td_product['y'] != 1 and td_product['y']"
+                                      t-attf-class="oe_product oe_grid oe-height-#{td_product['y']*2} #{ td_product['class'] }" style="border-color: #F7F7F5;height:400px;">
+
+                                      <div class="oe_product_cart" t-att-data-publish="product.website_published and 'on' or 'off'">
+
+                                            <div class="css_options" t-ignore="true" groups="base.group_website_publisher">
+                                              <div t-attf-class="dropdown js_options" t-att-data-id="product.id">
+                                                <button class="btn btn-default" t-att-id="'dopprod-%s' % product.id" role="button" data-toggle="dropdown">Options <span class="caret"></span></button>
+                                                <ul class="dropdown-menu" role="menu" t-att-aria-labelledby="'dopprod-%s' % product.id">
+                                                  <li class='dropdown-submenu'>
+                                                    <a tabindex="-1" href="#">Size</a>
+                                                    <ul class="dropdown-menu" name="size">
+                                                      <li><a href="#">
+                                                        <table>
+                                                          <tr>
+                                                            <td class="selected"></td>
+                                                            <td t-att-class="product.website_size_x > 1 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_x > 2 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_x > 3 and 'selected'"></td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td t-att-class="product.website_size_y > 1 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_y > 1 and product.website_size_x > 1 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_y > 1 and product.website_size_x > 2 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_y > 1 and product.website_size_x > 3 and 'selected'"></td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td t-att-class="product.website_size_y > 2 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_y > 2 and product.website_size_x > 1 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_y > 2 and product.website_size_x > 2 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_y > 2 and product.website_size_x > 3 and 'selected'"></td>
+                                                          </tr>
+                                                          <tr>
+                                                            <td t-att-class="product.website_size_y > 3 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_y > 3 and product.website_size_x > 1 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_y > 3 and product.website_size_x > 2 and 'selected'"></td>
+                                                            <td t-att-class="product.website_size_y > 3 and product.website_size_x > 3 and 'selected'"></td>
+                                                          </tr>
+                                                        </table>
+                                                      </a></li>
+                                                    </ul>
+                                                  </li>
+                                                  <li class='dropdown-submenu'>
+                                                    <a tabindex="-1" href="#">Styles</a>
+                                                    <ul class="dropdown-menu" name="style">
+                                                      <t t-foreach="styles" t-as="style">
+                                                        <li t-att-class="style_in_product(style, product) and 'active' or ''"><a href="#" t-att-data-id="style.id" t-att-data-class="style.html_class"><t t-esc="style.name"/></a></li>
+                                                      </t>
+                                                    </ul>
+                                                  </li>
+                                                  <li class='dropdown-submenu'>
+                                                      <a tabindex="-1" href="#">Promote</a>
+                                                      <ul class="dropdown-menu" name="sequence">
+                                                          <li><a href="#" class="js_go_to_top">Push to top</a></li>
+                                                          <li><a href="#" class="js_go_up">Push up</a>
+                                                          </li>
+                                                          <li><a href="#" class="js_go_down">Push down</a></li>
+                                                          <li><a href="#" class="js_go_to_bottom">Push to bottom</a></li>
+                                                      </ul>
+                                                  </li>
+                                                </ul>
+                                              </div>
+                                            </div>
+                                            <t t-set="product_image_big" t-value="td_product['x']+td_product['y'] > 2"/>
+                                            <t t-call="website_sale.products_item"/>
+                                      </div>
+                                      <div class="product-overlay">
+                                          <div class="overlay-content" style="display:none">
+                                            <h2>
+                                              <span t-field="product.price" style="white-space: nowrap; color:white;"  t-field-options='{
+                                               "widget": "monetary",
+                                               "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+                                               }'>
+                                             </span>
+                                            </h2>
+                                            <p><t t-esc="product.name" /></p>
+                                            <form action="/shop/cart/update" method="post">
+                                             <input name="product_id" t-att-value="product.product_variant_ids[0].id" type="hidden"/>
+                                             <div class="col-md-12" style="padding-left: 0px;">
+                                                <div class="col-md-6">
+                                                  <a class="btn btn-default add-to-cart a-submit "><i class="fa fa-shopping-cart "></i>Add to cart</a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                  <a class="btn btn-default add-to-cart a-submit" t-attf-href="/shop/product/#{slug(product)}"> 
+                                                    <i class="fa fa-folder-open-o"></i>View Detail
+                                                  </a>
+                                                </div>
+                                             </div>
+                                         </form>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </t>
+                                  <td t-if="not td_product" class="oe-height-2"/>
+                                </t>
+                              </tr>
+                            </tbody>
+                          </table>
+                          <t t-if="not bins">
+                            <div class="text-center text-muted">
+                              <h3 class="css_editable_display">No product defined.</h3>
+                              <t groups="base.group_website_publisher">
+                                <p groups="base.group_sale_manager">Use the <i>'Content'</i> top menu to create a new product.</p>
+                              </t>
+                            </div>
+                          </t>
+                        </div>
+                      </div>
+                    </div>
+                      <div class="products_pager">
+                          <t t-call="website.pager"/>
+                      </div>
+                    </div>
+                    <div class="oe_structure mb32"/>
+                </div>
+          </xpath>
+        </template>
+
+        <template id="ecommerce_products_item" inherit_id="website_sale.products_item" name="ecommerce product items">
+            <xpath expr="//section" position="replace">
+              <section>
+                  <h5 style="text-align: center;"><strong><a itemprop="name" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))" t-field="product.name" style="color:#696763;font-size: 15px;font-weight: 400;color: #696763;"/></strong></h5>
+                  <div class="row" style="margin-right: 0; margin-left: 0;">
+                    <div itemprop="offers" itemscope="itemscope" itemtype="http://schema.org/Offer" class="product_price" t-if="product.product_variant_ids" style="width: 100%;padding-right: 19px;">
+                        <div class="row" style="margin-bottom: -17px;text-align: center;">
+                          <b style="font-size: 18px;">
+                              <t t-if="(compute_currency(product.lst_price) - product.price) &gt; 0.1">
+                                <del class="text-danger" style="white-space: nowrap;" t-field="product.lst_price" t-field-options='{
+                                  "widget": "monetary",
+                                  "from_currency": "product.company_id.currency_id",
+                                  "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+                                }'/>&amp;nbsp;
+                              </t>
+                              <span t-field="product.price" style="white-space: nowrap; color:#FE980F;"  t-field-options='{
+                                   "widget": "monetary",
+                                   "display_currency": "user_id.partner_id.property_product_pricelist.currency_id"
+                               }'>
+                              </span>
+                              <span itemprop="price" style="display:none;" t-esc="product.price"/>
+                              <span itemprop="priceCurrency" style="display:none;" t-esc="user_id.partner_id.property_product_pricelist.currency_id.name"/>
+                          </b>
+                        </div>
+                        <div class="row" style="margin-bottom: -10px;text-align: center;margin-right: 0;    margin-left: 0;">
+                          <input name="product_id" t-att-value="product.product_variant_ids[0].id" type="hidden"/>
+                            <t t-if="len(product.product_variant_ids) == 1">
+                              <a class="btn btn-default add-to-cart" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))" style="margin-bottom: 0px;"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                            </t>
+                            <t t-if="len(product.product_variant_ids) &gt; 1">
+                              <a class="btn btn-default add-to-cart" t-att-href="keep('/shop/product/%s' % slug(product), page=(pager['page']['num'] if pager['page']['num']>1 else None))" style="margin-bottom: 0px;"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                            </t>
+                        </div>
+                    </div>
+                  </div>
+              </section>
+            </xpath>
+        </template>
+    </data>
+</openerp>

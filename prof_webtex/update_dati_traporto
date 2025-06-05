@@ -1,0 +1,4 @@
+﻿update res_partner set goods_description_id=5 where goods_description_id is Null;
+update res_partner set carriage_condition_id=1 where carriage_condition_id is Null;
+update res_partner set transportation_method_id=4 where transportation_method_id is Null;
+update res_partner set transportation_reason_id=1 where transportation_reason_id is Null;

@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>       
+        <record id="tangy_product_category_2" model="product.public.category"> 
+            <field name="name">Clothes</field>
+        </record>
+            <record id="tangy_product_category_2_1" model="product.public.category"> 
+                <field name="parent_id" ref="website_ecommerce.tangy_product_category_2"/>
+                <field name="name">Man</field>
+            </record>
+            <record id="tangy_product_category_2_2" model="product.public.category"> 
+                <field name="parent_id" ref="website_ecommerce.tangy_product_category_2"/>
+                <field name="name">Woman</field>
+            </record>
+            <record id="tangy_product_category_2_3" model="product.public.category"> 
+                <field name="parent_id" ref="website_ecommerce.tangy_product_category_2"/>
+                <field name="name">Kids</field>
+            </record>
+
+        <record id="tangy_product_category_3" model="product.public.category"> 
+            <field name="name">Shoes</field>
+        </record>
+
+        <record id="tangy_product_category_4" model="product.public.category"> 
+            <field name="name">Watches</field>
+        </record>
+
+        <record id="tangy_product_category_5" model="product.public.category"> 
+            <field name="name">Gogals</field>
+        </record>
+
+        <record id="tangy_product_category_6" model="product.public.category">
+            <field name="name">Interiors</field>
+        </record>
+
+        <record id="tangy_product_category_7" model="product.public.category">  
+            <field name="name">Jewellery</field>
+        </record>
+
+        <record id="tangy_product_category_8" model="product.public.category"> 
+            <field name="name">Other</field>
+        </record>
+
+
+        <record id="product.product_product_1" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/man/man_1.jpg"/>
+            <field name="name">man_1</field>
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_feture_product" eval="True"></field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field> 
+        </record>
+
+        <record id="product.product_product_2" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/man/man_2.jpg"/>
+            <field name="name">man_2</field>  
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+
+        <record id="product.product_product_3" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/man/man_3.jpg"/>
+            <field name="name">man_3</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+
+        <record id="product.product_product_4" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/man/man_4.jpg"/>
+            <field name="name">man_4</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>   
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+
+        <record id="product.product_product_5" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/man/man_5.jpg"/>
+            <field name="name">man_5</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_6" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/man/man_6.jpg"/>
+            <field name="name">man_6</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>
+            <field name="website_published" eval="True"/>    
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_7" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/man/man_7.jpg"/>
+            <field name="name">man_7</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/>  
+            <field name="is_shop_product" eval="True"></field> 
+        </record>
+        <record id="product.product_product_8" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/man/man_8.jpg"/>
+            <field name="name">man_8</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>
+            <field name="website_published" eval="True"/>   
+            <field name="is_shop_product" eval="True"></field> 
+        </record>
+
+
+        <record id="product.product_product_9" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_1.jpg"/>
+            <field name="name">dress_1</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/>   
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_10" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_3.jpg"/>
+            <field name="name">dress_3</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_11" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_4.jpg"/>
+            <field name="name">dress_4</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_12" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_6.jpg"/>
+            <field name="name">dress_6</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_13" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_7.jpg"/>
+            <field name="name">dress_7</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/> 
+            <field name="is_shop_product" eval="True"></field>  
+        </record>
+        <record id="product.product_product_14" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_8.jpg"/>
+            <field name="name">dress_8</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_feture_product" eval="True"></field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_15" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_9.jpg"/>
+            <field name="name">dress_9</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/>   
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_16" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_10.jpg"/>
+            <field name="name">dress_10</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>  
+            <field name="website_published" eval="True"/>  
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_17" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_11.jpg"/>
+            <field name="name">dress_11</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/>   
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_18" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_12.jpg"/>
+            <field name="name">dress_12</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_19" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_13.jpg"/>
+            <field name="name">dress_13</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_20" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_14.jpg"/>
+            <field name="name">dress_14</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>   
+        </record>
+        <record id="product.product_product_21" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_15.jpg"/>
+            <field name="name">dress_15</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>  
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>  
+        </record>
+        <record id="product.product_product_22" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_16.jpg"/>
+            <field name="name">dress_16</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>  
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>  
+        </record>
+        <record id="product.product_product_23" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_17.jpg"/>
+            <field name="name">dress_17</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/>  
+            <field name="is_shop_product" eval="True"></field> 
+        </record>
+        <record id="product.product_product_24" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/dress_1/dress_18.jpg"/>
+            <field name="name">dress_18</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/> 
+            <field name="is_shop_product" eval="True"></field>  
+        </record>
+
+
+
+        <record id="product.product_product_25" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_1.jpg"/>
+            <field name="name">saree_1</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_26" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_2.jpg"/>
+            <field name="name">saree_2</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/> 
+            <field name="is_shop_product" eval="True"></field>  
+        </record>
+        <record id="product.product_product_27" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_3.jpg"/>
+            <field name="name">saree_3</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_feture_product" eval="True"></field>
+            <field name="is_recommended_product" eval="True"></field>  
+            <field name="website_published" eval="True"/>  
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_28" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_4.jpg"/>
+            <field name="name">saree_4</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/> 
+            <field name="is_shop_product" eval="True"></field>  
+        </record>
+        <record id="product.product_product_29" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_5.jpg"/>
+            <field name="name">saree_5</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_30" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_6.jpg"/>
+            <field name="name">saree_6</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_31" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_7.jpg"/>
+            <field name="name">saree_7</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_32" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_8.jpg"/>
+            <field name="name">saree_8</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>  
+            <field name="website_published" eval="True"/> 
+            <field name="is_shop_product" eval="True"></field> 
+        </record>
+        <record id="product.product_product_33" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_9.jpg"/>
+            <field name="name">saree_9</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>
+            <field name="website_published" eval="True"/>  
+            <field name="is_shop_product" eval="True"></field>  
+        </record>
+        <record id="product.product_product_34" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_10.jpg"/>
+            <field name="name">saree_10</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>  
+            <field name="website_published" eval="True"/>  
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_35" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_11.jpg"/>
+            <field name="name">saree_11</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>   
+            <field name="website_published" eval="True"/> 
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_36" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_12.jpg"/>
+            <field name="name">saree_12</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_37" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_13.jpg"/>
+            <field name="name">saree_13</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+        <record id="product.product_product_38" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_14.jpg"/>
+            <field name="name">saree_14</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field> 
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>   
+        </record>
+        <record id="product.product_product_39" model="product.product">
+            <field name="image" type="base64" file="website_ecommerce/static/src/img/product/woman/saree_1/saree_15.jpg"/>
+            <field name="name">saree_15</field>
+            
+            <field name="standard_price">200</field>
+            <field name="list_price">250</field>
+            <field name="description">This type of service include basic of products.</field>
+            <field name="description_sale">This type of service include basic of products.</field>
+            <field name="is_recommended_product" eval="True"></field>    
+            <field name="website_published" eval="True"/>
+            <field name="is_shop_product" eval="True"></field>
+        </record>
+
+        
+
+        <record id="product.product_product_1_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_1')])]"/>
+        </record>
+        <record id="product.product_product_2_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_1')])]"/>
+        </record>
+        <record id="product.product_product_3_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_1')])]"/>
+        </record>
+        <record id="product.product_product_4_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_1')])]"/>
+        </record>
+        <record id="product.product_product_5_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_1')])]"/>
+        </record>
+        <record id="product.product_product_6_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_1')])]"/>
+        </record>
+        <record id="product.product_product_7_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_1')])]"/>
+        </record>
+        <record id="product.product_product_8_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_1')])]"/>
+        </record>
+        <record id="product.product_product_9_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_10_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_11_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_12_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_13_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_14_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_15_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_16_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_17_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_18_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_19_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_20_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_21_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_22_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_23_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_24_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_25_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_26_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_27_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_28_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_29_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_30_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_31_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_32_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_33_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_34_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_35_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_36_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_37_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_38_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        <record id="product.product_product_39_product_template" model="product.template">
+            <field name="public_categ_ids" eval="[(6,0,[ref('tangy_product_category_2_2')])]"/>
+        </record>
+        
+
+
+    </data>
+</openerp>

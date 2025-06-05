@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <!--   mrp.bom.dup -->
+
+        <record id="view_mrp_bom_dup_webtex" model="ir.ui.view">
+              <field name="name">Dublica distinta</field>
+              <field name="model">mrp.bom.dup</field>
+              <field name="arch" type="xml">
+                <form string="Dinstinte Basi">
+                    <group string="Parametri di Esplosione distinta">
+                        <field name="bom_id"/>
+                         </group>
+                    <footer>
+                        <button name="create_bom" string="Esplodi D.base su varianti"  type="object" class="oe_highlight"  />
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+              </field>
+        </record>
+
+        <act_window id="action_view_mrp_bom_dup_webtex"
+            key2="client_action_multi"
+            multi="True"
+            name="Esplosione distinte varianti"
+            res_model="mrp.bom.dup"
+            src_model="mrp.bom"
+            groups="prof_webtex.prof_webtex_manager"
+            view_mode="form" target="new" view_type="form" />
+        
+        <record id="action_view_mrp_bom_dup_webtex_2" model="ir.actions.act_window">
+            <field name="name">Esplosione Distinte Varianti</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.bom.dup</field>
+            <field name="src_model">mrp.bom</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            </record>
+        <menuitem
+        action="action_view_mrp_bom_dup_webtex_2"
+        id="menu_action_view_mrp_bom_dup_webtex_2"
+        parent="prof_webtex.menu_view_sub_prof_webtex" groups="prof_webtex.prof_webtex_manager"  sequence="100"/>
+
+        <record id="action_mrp_bom_webtex" model="ir.actions.act_window">
+            <field name="name">Distinte Basi</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.bom</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            </record>
+        <menuitem
+        action="action_mrp_bom_webtex"
+        id="menu_action_mrp_bom_webtex"
+        parent="prof_webtex.menu_view_sub_prof_webtex" groups="prof_webtex.prof_webtex_manager"  sequence="110"/>
+        
+</data>
+</openerp>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+ <record id="view_invoice_tree_inherit_fatturapa_prof" model="ir.ui.view">
+             <field name="name">account.invoice.fatturapa.tree</field>
+             <field name="model">account.invoice</field>
+            <field name="priority" eval="1"/>
+            <field name="type">tree</field>
+             <field name="arch" type="xml">
+                <tree string="Lista fatture"
+                colors="blue:state in ('draft');black:state in ('proforma','proforma2','open') and ( trasmessa==False and firmata==False );gray:state in ('cancel') and (trasmessa==False and firmata==False) ;red:trasmessa==True and firmata==False;green:trasmessa==True and firmata==True ;" 
+                >                   
+                    <field name="fun_tramessa" invisible="1"/>
+                    <field name="fun_firmata" invisible="1"/>
+                    <field name="firmata" />
+                    <field name="trasmessa" />
+                    <field name="date_invoice" string="Date"/>
+                    <field name="number"/>
+                    <field name="partner_id" groups="base.group_erp_manager"/>
+                    <field name="name"/>
+                    <field name="journal_id" invisible="1"/>
+                    <field name="period_id" invisible="1" groups="account.group_account_user"/>
+                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                    <field name="user_id"/>
+                    <field name="date_due" groups="base.group_erp_manager"/>
+                    <field name="origin" groups="base.group_erp_manager"/>
+                        		<!--attivare  webtex 
+                        		<field name="x_pay" string="Pagamento" invisible="1"/>
+	                        		<field name="payment_ids" string="Tutti i Pag.">
+	                        				<tree>
+	                        				 	<field name="journal_id"/>
+	                        				</tree>
+                    				</field>
+								-->
+                    <field name="currency_id"/>
+                    <field name="residual" sum="Residual Amount"/>
+                    <field name="amount_untaxed" sum="Untaxed Amount"/>
+                    <field name="amount_total" sum="Total Amount"/>
+                    <field name="state"/>
+
+                    <button name="invoice_open" states="draft,proforma2" string="Approve" icon="terp-camera_test"/>
+                    </tree>
+             </field>
+         </record>
+
+        <record id="action_invoice_tree_prof" model="ir.actions.act_window">
+            <field name="name">Fatture trasmesse</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="view_id" ref="view_invoice_tree_inherit_fatturapa_prof"/>
+            <field name="context">{'type':'out_invoice'}</field>
+            <field name="search_view_id" ref="account.view_account_invoice_filter"/>
+           <field name="domain">[('trasmessa','=',True)]</field>
+
+        </record>
+         <menuitem action="action_invoice_tree_prof"
+            parent="l10n_it_fatturapa.menu_fattura_pa_receivables"
+            name="Monitor Fatture"
+            id="fatturapa_monitor_menu_prof"/>
+
+
+    <record id="view_account_config_settings_ftpa_in_prof" model="ir.ui.view">
+        <field name="name">view_account_config_settings_ftpa_in_prof</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Fatturapa" position="inside">
+                        <separator string="Fatturapa" colspan="4"/>
+                <div>
+                    <label for="dati_bollo_product_id"/>
+                    <field name="dati_bollo_product_id" class="oe_inline"/>
+                </div>
+                <div>
+                    <label for="cassa_previdenziale_product_id"/>
+                    <field name="cassa_previdenziale_product_id" class="oe_inline"/>
+                </div>
+                <div>
+                    <label for="sconto_maggiorazione_product_id"/>
+                    <field name="sconto_maggiorazione_product_id" class="oe_inline"/>
+                </div>
+                    </page>
+                </notebook>
+        </field>
+    </record>
+
+ 
+ </data>
+</openerp>

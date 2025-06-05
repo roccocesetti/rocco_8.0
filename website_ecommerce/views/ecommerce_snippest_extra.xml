@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    	<template id="snippet_photo_gallery" name="customer carousel" inherit_id="website.snippets">
+        	<xpath expr="//div[@id='snippet_effect']" position="inside">
+           	 <div>
+                <div class="oe_snippet_thumbnail">
+                    <img class="oe_snippet_thumbnail_img" src="/website_ecommerce/static/src/img/snippets/s_gallary.png"/>
+                    <span class="oe_snippet_thumbnail_title">Photo gallery</span>
+                </div>
+                <section class="oe_snippet_body ">
+                        <div class="container">
+                            <div class="custom-gallery row mt16">
+                                <div class="col-md-3 col-sm-4 col-xs-6 ">
+                                    <img class="img-responsive" src="/website_ecommerce/static/src/img/snippet/Free Nature Photo.jpg" style="height: 175px; width: 300px;"/>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-6 ">
+                                    <img class="img-responsive" src="/website_ecommerce/static/src/img/snippet/Grandview_Nature_Preserve.jpg" style="height: 175px; width: 300px;"/>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-6 ">
+                                    <img class="img-responsive" src="/website_ecommerce/static/src/img/snippet/NEC1-300x200.jpg" style="height: 175px; width: 300px;" />
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-6 ">
+                                    <img class="img-responsive" src="/website_ecommerce/static/src/img/snippet/painting_of_nature_by_dhikagraph-d2ynalq.jpg" style="height: 175px; width: 300px;"/>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-6 ">
+                                    <img class="img-responsive" src="/website_ecommerce/static/src/img/snippet/Grandview_Nature_Preserve.jpg" style="height: 175px; width: 300px;"/>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-6 ">
+                                    <img class="img-responsive" src="/website_ecommerce/static/src/img/snippet/painting_of_nature_by_dhikagraph-d2ynalq.jpg" style="height: 175px; width: 300px;"/>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-6 ">
+                                    <img class="img-responsive" src="/website_ecommerce/static/src/img/snippet/Free Nature Photo.jpg" style="height: 175px; width: 300px;"/>
+                                </div>
+                                <div class="col-md-3 col-sm-4 col-xs-6 ">
+                                    <img class="img-responsive" src="/website_ecommerce/static/src/img/snippet/NEC1-300x200.jpg" style="height: 175px; width: 300px;"/>
+                                </div>
+                            </div>
+                        </div>
+                </section>
+              </div>
+              <div>
+                <div class="oe_snippet_thumbnail">
+                    <img class="oe_snippet_thumbnail_img" src="/website_ecommerce/static/src/img/snippets/s_slide_banne.jpg"/>
+                    <span class="oe_snippet_thumbnail_title">Image Banner</span>
+                </div>
+  	            <section class="oe_snippet_body ">
+                  <div id="banner_1254017574" class="ux_banner dark" style="height:534px;" data-height="520px" role="banner">
+                    <div class="col-md-12">
+      						    <div class="banner-bg " style="background-image:url('/website_ecommerce/static/src/img/snippet/slide3.jpg');">
+      						    	<img src="/website_ecommerce/static/src/img/snippet/slide3.jpg" alt="" style="visibility:hidden; height:520px"/>
+      						    </div>
+      						    <div class="row">
+      						        <div class="inner center text-center" style="width:80%;margin-top:-438px;  color: white;">
+      						            <div class="inner-wrap animated flipInX start-anim" style=" ">
+      						                <h3 class="alt-font">It has Finaly started…</h3>
+      						                <div class="tx-div medium" style="margin-bottom: 20px;margin-top: 25px;"></div>
+      						                <h1 class="h-large">HUGE SALE</h1>
+      						                <h1>UP TO 70% OFF</h1>
+      						                <div class="tx-div medium" style="margin-bottom: 20px;margin-top: 25px;"></div>
+      						                <a href="http://" class="button  alt-button white">Shop men</a>
+      						                <a href="http://" class="button  alt-button white">Shop women</a>
+      						                <a href="http://" class="button  alt-button white">Shop kids</a>
+      						            </div>
+      						        </div>
+      						    </div>
+      						  </div>
+      					  </div>
+    	          </section>
+              </div>
+            </xpath>
+        </template>
+        <template id="snippet_feature_snippet" name="customer carousel feature " inherit_id="website.snippets">
+            <xpath expr="//div[@id='snippet_feature']" position="inside">
+                <div>
+                    <div class="oe_snippet_thumbnail">
+                        <img class="oe_snippet_thumbnail_img" src="/website_ecommerce/static/src/img/snippets/s_timeline.jpg"/>
+                        <span class="oe_snippet_thumbnail_title">Timeline</span>
+                    </div>
+                    <section class="oe_snippet_body">
+                      <div class="container">
+                        <div class="page-header">
+                            <h1 id="timeline">Timeline</h1>
+                        </div>
+                        <ul class="timeline">
+                            <li>
+                              <div class="timeline-badge"><i class="fa fa-check-square-o"></i></div>
+                              <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                                  <p><small class="text-muted"><i class="fa fa-check-square-o"></i> 11 hours ago via Twitter</small></p>
+                                </div>
+                                <div class="timeline-body">
+                                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="timeline-inverted">
+                              <div class="timeline-badge warning"><i class="fa fa-clipboard"></i></div>
+                              <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                                </div>
+                                <div class="timeline-body">
+                                  <p>Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Interagi no mé, cursus quis, vehicula ac nisi. Aenean vel dui dui. Nullam leo erat, aliquet quis tempus a, posuere ut mi. Ut scelerisque neque et turpis posuere pulvinar pellentesque nibh ullamcorper. Pharetra in mattis molestie, volutpat elementum justo. Aenean ut ante turpis. Pellentesque laoreet mé vel lectus scelerisque interdum cursus velit auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac mauris lectus, non scelerisque augue. Aenean justo massa.</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="timeline-badge danger"><i class="fa fa-pie-chart"></i></div>
+                              <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                                </div>
+                                <div class="timeline-body">
+                                  <p>Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga. Sapien in monti palavris qui num significa nadis i pareci latim. Interessantiss quisso pudia ce receita de bolis, mais bolis eu num gostis.</p>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="timeline-inverted">
+                              <div class="timeline-badge success"><i class="fa fa-floppy-o"></i></div>
+                              <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                  <h4 class="timeline-title">Mussum ipsum cacilds</h4>
+                                </div>
+                                <div class="timeline-body">
+                                  <p>Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Interagi no mé, cursus quis, vehicula ac nisi. Aenean vel dui dui. Nullam leo erat, aliquet quis tempus a, posuere ut mi. Ut scelerisque neque et turpis posuere pulvinar pellentesque nibh ullamcorper. Pharetra in mattis molestie, volutpat elementum justo. Aenean ut ante turpis. Pellentesque laoreet mé vel lectus scelerisque interdum cursus velit auctor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac mauris lectus, non scelerisque augue. Aenean justo massa.</p>
+                                </div>
+                              </div>
+                            </li>
+                        </ul>
+                      </div>
+                    </section>
+                </div>
+                <div>
+                    <div class="oe_snippet_thumbnail">
+                        <img class="oe_snippet_thumbnail_img" src="/website_ecommerce/static/src/img/snippets/s_comparison.jpg"/>
+                        <span class="oe_snippet_thumbnail_title">Discount</span>
+                    </div>
+                    <section class="oe_snippet_body">
+                        <div class="container">
+                          <div class="row">
+                                <div class="col-sm-6 col-md-3">
+                                  <div class="dl">
+                                    <div class="brand">
+                                        <h2>
+                                            mango
+                                        </h2>
+                                    </div>
+                                    <div class="discount alizarin">
+                                        30%
+                                        <div class="type">
+                                            off
+                                        </div>
+                                    </div>
+                                    <div class="descr">
+                                        <strong>
+                                            Mei mucius gloriatur reprimique mollis*. 
+                                        </strong> 
+                                        Ad sonet perfecto antiopam mei, denique molestie ne has. 
+                                    </div>
+                                    <div class="ends">
+                                        <small>
+                                            * Conditions and restrictions apply.
+                                        </small>
+                                    </div>
+                                    <div class="coupon midnight-blue">
+                                        <a data-toggle="collapse" href="#code-1" class="open-code">Get a code</a>
+                                        <div id="code-1" class="collapse code">
+                                            LV5MAY14
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <div  class="dl">
+                                    <div class="brand">
+                                        <h2>
+                                            lacoste
+                                        </h2>
+                                    </div>
+                                    <div class="discount emerald">
+                                        50%
+                                        <div class="type">
+                                            off
+                                        </div>
+                                    </div>
+                                    <div class="descr">
+                                        <strong>
+                                            Ea per iuvaret ocurreret*. 
+                                        </strong> 
+                                        sit ea detraxit menandri mediocritatem, in mel dicant mentitum. 
+                                    </div>
+                                    <div class="ends">
+                                        <small>
+                                           * Conditions and restrictions apply.
+                                        </small>
+                                    </div>
+                                    <div class="coupon midnight-blue">
+                                        <a data-toggle="collapse" href="#code-2" class="open-code">Get a code</a>
+                                        <div id="code-2" class="collapse in code">
+                                            MNO123ST
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <div  class="dl">
+                                    <div class="brand">
+                                        <h2>
+                                            converse
+                                        </h2>
+                                    </div>
+                                    <div class="discount peter-river">
+                                    15%
+                                        <div class="type">
+                                            off
+                                        </div>
+                                    </div>
+                                    <div class="descr">
+                                        <strong>
+                                             Solet consul tractatos ei pro*. 
+                                        </strong> 
+                                        Ei mei quot invidunt explicari, placerat percipitur intellegam.
+                                    </div>
+                                    <div class="ends">
+                                        <small>
+                                           * Conditions and restrictions apply.
+                                        </small>
+                                    </div>
+                                    <div class="coupon midnight-blue">
+                                        <a data-toggle="collapse" href="#code-3" class="open-code">Get a code</a>
+                                        <div id="code-3" class="collapse code">
+                                            OLV4SY3R
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-sm-6 col-md-3">
+                                  <div  class="dl">
+                                    <div class="brand">
+                                        <h2>
+                                            adidas
+                                        </h2>
+                                    </div>
+                                    <div class="discount amethyst">
+                                        25%
+                                        <div class="type">
+                                            off
+                                        </div>
+                                    </div>
+                                    <div class="descr">
+                                        <strong>
+                                            Cu aliquip persius alterum duo*. 
+                                        </strong> 
+                                        Possit equidem disputando usu et, sea invidunt scriptorem in. 
+                                    </div>
+                                    <div class="ends">
+                                        <small>
+                                           * Conditions and restrictions apply.
+                                        </small>
+                                    </div>
+                                    <div class="coupon midnight-blue">
+                                        <a data-toggle="collapse" href="#code-4" class="open-code">Get a code</a>
+                                        <div id="code-4" class="collapse code">
+                                            ZUY4OPLQ
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                          </div>
+                          </div>
+                    </section>
+                </div>
+                <div>
+                    <div class="oe_snippet_thumbnail">
+                        <img class="oe_snippet_thumbnail_img" src="/website_ecommerce/static/src/img/snippets/s_comparison.jpg"/>
+                        <span class="oe_snippet_thumbnail_title">Pricing</span>
+                    </div>
+                    <section class="oe_snippet_body">
+                        <div class="container">
+                        <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                              
+                                <!-- PRICE ITEM -->
+                                <div class="panel price panel-red">
+                                  <div class="panel-heading  text-center">
+                                  <h3>PRO PLAN</h3>
+                                  </div>
+                                  <div class="panel-body text-center">
+                                    <p class="lead" style="font-size:40px"><strong>$10 / month</strong></p>
+                                  </div>
+                                  <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Personal use</li>
+                                    <li class="list-group-item"><i class="icon-ok text-danger"></i> Unlimited projects</li>
+                                    <li class="list-group-item"><i class="icon-ok text-danger"></i> 27/7 support</li>
+                                  </ul>
+                                  <div class="panel-footer">
+                                    <a class="btn btn-lg btn-block btn-danger" href="#">BUY NOW!</a>
+                                  </div>
+                                </div>
+                                <!-- /PRICE ITEM -->
+                              </div>
+                              
+                              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                              
+                                <!-- PRICE ITEM -->
+                                <div class="panel price panel-blue">
+                                  <div class="panel-heading arrow_box text-center">
+                                  <h3>DEV PLAN</h3>
+                                  </div>
+                                  <div class="panel-body text-center">
+                                    <p class="lead" style="font-size:40px"><strong>$20 / month</strong></p>
+                                  </div>
+                                  <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item"><i class="icon-ok text-info"></i> Personal use</li>
+                                    <li class="list-group-item"><i class="icon-ok text-info"></i> Unlimited projects</li>
+                                    <li class="list-group-item"><i class="icon-ok text-info"></i> 27/7 support</li>
+                                  </ul>
+                                  <div class="panel-footer">
+                                    <a class="btn btn-lg btn-block btn-info" href="#">BUY NOW!</a>
+                                  </div>
+                                </div>
+                                <!-- /PRICE ITEM -->
+                                
+                                
+                              </div>
+                              
+                              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                              
+                                <!-- PRICE ITEM -->
+                                <div class="panel price panel-green">
+                                  <div class="panel-heading arrow_box text-center">
+                                  <h3>FREE PLAN</h3>
+                                  </div>
+                                  <div class="panel-body text-center">
+                                    <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>
+                                  </div>
+                                  <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Personal use</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Unlimited projects</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> 27/7 support</li>
+                                  </ul>
+                                  <div class="panel-footer">
+                                    <a class="btn btn-lg btn-block btn-success" href="#">BUY NOW!</a>
+                                  </div>
+                                </div>
+                                <!-- /PRICE ITEM -->
+                                
+                                
+                              </div>
+                              
+                              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                              
+                                <!-- PRICE ITEM -->
+                                <div class="panel price panel-grey">
+                                  <div class="panel-heading arrow_box text-center">
+                                  <h3>FREE PLAN</h3>
+                                  </div>
+                                  <div class="panel-body text-center">
+                                    <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>
+                                  </div>
+                                  <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Personal use</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Unlimited projects</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> 27/7 support</li>
+                                  </ul>
+                                  <div class="panel-footer">
+                                    <a class="btn btn-lg btn-block btn-primary" href="#">BUY NOW!</a>
+                                  </div>
+                                </div>
+                                <!-- /PRICE ITEM -->
+                                
+                                
+                              </div>
+                              
+                              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                              
+                                <!-- PRICE ITEM -->
+                                <div class="panel price panel-white">
+                                  <div class="panel-heading arrow_box text-center">
+                                  <h3>FREE PLAN</h3>
+                                  </div>
+                                  <div class="panel-body text-center">
+                                    <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>
+                                  </div>
+                                  <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Personal use</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Unlimited projects</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> 27/7 support</li>
+                                  </ul>
+                                  <div class="panel-footer">
+                                    <a class="btn btn-lg btn-block btn-default" href="#">BUY NOW!</a>
+                                  </div>
+                                </div>
+                                <!-- /PRICE ITEM -->
+                                
+                                
+                              </div>
+                              
+                              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                              
+                                <!-- PRICE ITEM -->
+                                <div class="panel price panel-white">
+                                  <div class="panel-heading arrow_box text-center">
+                                  <h3>FREE PLAN</h3>
+                                  </div>
+                                  <div class="panel-body text-center">
+                                    <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>
+                                  </div>
+                                  <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Personal use</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Unlimited projects</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> 27/7 support</li>
+                                  </ul>
+                                  <div class="panel-footer">
+                                    <a class="btn btn-lg btn-block btn-default" href="#">BUY NOW!</a>
+                                  </div>
+                                </div>
+                                <!-- /PRICE ITEM -->
+                                
+                                
+                              </div>
+                              
+                              <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                              
+                                <!-- PRICE ITEM -->
+                                <div class="panel price panel-white">
+                                  <div class="panel-heading arrow_box text-center">
+                                  <h3>FREE PLAN</h3>
+                                  </div>
+                                  <div class="panel-body text-center">
+                                    <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>
+                                  </div>
+                                  <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Personal use</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Unlimited projects</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> 27/7 support</li>
+                                  </ul>
+                                  <div class="panel-footer">
+                                    <a class="btn btn-lg btn-block btn-default" href="#">BUY NOW!</a>
+                                  </div>
+                                </div>
+                                <!-- /PRICE ITEM -->
+                                
+                                
+                              </div>
+                              
+                                <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3">
+                              
+                                <!-- PRICE ITEM -->
+                                <div class="panel price panel-white">
+                                  <div class="panel-heading arrow_box text-center">
+                                  <h3>FREE PLAN</h3>
+                                  </div>
+                                  <div class="panel-body text-center">
+                                    <p class="lead" style="font-size:40px"><strong>$0 / month</strong></p>
+                                  </div>
+                                  <ul class="list-group list-group-flush text-center">
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Personal use</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> Unlimited projects</li>
+                                    <li class="list-group-item"><i class="icon-ok text-success"></i> 27/7 support</li>
+                                  </ul>
+                                  <div class="panel-footer">
+                                    <a class="btn btn-lg btn-block btn-default" href="#">BUY NOW!</a>
+                                  </div>
+                                </div>
+                                <!-- /PRICE ITEM -->         
+                              </div>
+                            </div> 
+                      </div>
+                    </section>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</openerp>

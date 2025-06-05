@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+  <!-- Skype Call added into website form view-->
+  <record id="view_website_form_ecommerce" model="ir.ui.view">
+    <field name="name">website.form.inherit</field>
+    <field name="model">website</field>
+    <field name="inherit_id" ref="website.view_website_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//group[@name='social_media']" position="inside">
+        <field name="social_skype" placeholder="skype:skypename"/>
+      </xpath>
+    </field>
+  </record>
+
+  <!-- Website Social Share Menu-->
+  <record id="action_website_share" model="ir.actions.act_window">
+      <field name="name">Website Social</field>
+      <field name="res_model">website</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+  </record>
+  <menuitem id="menu_social_share"
+            name="Website Share"
+            action="action_website_share" sequence="5"/>
+</data>
+</openerp>

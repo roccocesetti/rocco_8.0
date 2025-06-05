@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!-- Copyright 2017 Davide Corio
+     Copyright 2017 Alex Comba - Agile Business Grou
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<openerp>
+    <data>
+        <record id="view_rc_type_form_prof_inherit" model="ir.ui.view">
+            <field name="name">account.rc.type.inherit</field>
+            <field name="model">account.rc.type</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="l10n_it_reverse_charge.view_rc_type_form" />
+            <field name="arch" type="xml">
+                 <data>
+                    <field name="name"  position="before">
+                    		<field name="create_date"/>
+            		</field>
+                    <field name="description"  position="after">
+                   		<field name="doc_type_id" />
+                   		<field name="fiscal_doc_type_id" />
+            		</field>
+                 </data>
+            </field>
+        </record>
+    </data>
+</openerp>

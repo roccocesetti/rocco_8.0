@@ -1,7 +1,0 @@
-id,group_id:id,name,model_id,perm_create,perm_unlink,perm_write,perm_read
-res_users_heartwood_manager,heartwood_manager,Utenti,res.users,1,1,1,1
-res_users_heartwood_user,heartwood_user,utenti,res.users,0,0,0,1
-res_users_heartwood_manager,heartwood_manager,product.import,product.import,1,1,1,1
-res_users_heartwood_user,heartwood_user,product.import,product.import,1,1,1,1
-res_users_heartwood_manager,heartwood_manager,product.price_list.heartwood,product.price_list.heartwood,1,1,1,1
-res_users_heartwood_user,heartwood_user,product.price_list.heartwood,product.price_list.heartwood,1,1,1,1

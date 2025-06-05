@@ -1,0 +1,9 @@
+
+.o_website_event .ribbon.ribbon_Green {
+  background-color: #408c46;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#BBBBBB), to(#CCCCCC));
+  background-image: -webkit-linear-gradient(top, #BBBBBB, #CCCCCC);
+  background-image: -moz-linear-gradient(top, #BBBBBB, #CCCCCC);
+  background-image: -ms-linear-gradient(top, #BBBBBB, #CCCCCC);
+  background-image: -o-linear-gradient(top, #BBBBBB, #CCCCCC);
+}

@@ -22,7 +22,10 @@
             <field name="inherit_id" ref="website_blog.view_blog_blog_list"/>
             <field name="arch" type="xml">
             	<field name="name" position="after" >
+            		<field name="company_id" />
             		<field name="x_rss_channel" />
+            		<field name="x_site_channel_image" />
+            		<field name="x_image_tag" />
             		<field name="x_rss_number" />
             		<field name="x_elimina_art" />
             	</field>
@@ -34,10 +37,15 @@
             <field name="inherit_id" ref="website_blog.view_blog_blog_form"/>
             <field name="arch" type="xml">
                             <field name="description"  position="after" >
-            					<field name="x_rss_channel" />
+            					<field name="company_id" />
+                                <field name="x_rss_channel" />
+            					<field name="x_site_channel_image" />
+            					<field name="x_image_tag" />
             					<field name="x_rss_number" />
             					<field name="x_elimina_art" />
-            				</field>
+            					<field name="x_tag_ids" />
+            					<field name="website_noindex" />
+            			 </field>
             </field>
             </record>
         <record id="blog_tag_rocco_sport" model="blog.tag">

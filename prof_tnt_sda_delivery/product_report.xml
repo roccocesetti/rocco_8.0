@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report 
+            id="action_report_pricelist_heartwood" 
+            string="Pricelist_heartwood" 
+            model="product.product" 
+            report_type="qweb-pdf" 
+            name="heartwood.report_pricelist_heartwood" 
+            file="heartwood.report_pricelist_heartwood"
+	    menu="False"/>
+    </data>
+</openerp>

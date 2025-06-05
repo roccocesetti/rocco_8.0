@@ -1,0 +1,4 @@
+﻿update product_pricelist  pprice set name=(new.id || '-'  || new.name) from   (
+select rp.id,rp.name,pp.name as ragsoc,cast(substr(ir.res_id,13,10) as integer) as partner_id ,cast(substr(ir.value_reference,19,10) as integer) as pricelist_id 
+from ir_property ir  inner join res_partner rp on cast(substr(ir.res_id,13,10) as integer)=rp.id inner join  product_pricelist pp on pp.id=cast(substr(ir.value_reference,19,10) as integer)
+ where ir.name='property_product_pricelist') as new where new.pricelist_id=pprice.id;

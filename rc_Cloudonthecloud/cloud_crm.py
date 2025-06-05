@@ -179,13 +179,16 @@ class email_template(osv.osv):
         (base_scheme, base_netloc, bpath, bparams, bquery, bfragment) = urlparse.urlparse(base_url)
 
         def _process_link(url):
-            new_url = url
-            _logger.info("url %s",url)
-
-            (scheme, netloc, path, params, query, fragment) = urlparse.urlparse(url)
-            if not scheme and not netloc:
-                new_url = urlparse.urlunparse((base_scheme, base_netloc, path, params, query, fragment))
-            return new_url
+            if url:
+                new_url = url
+                _logger.info("url %s",url)
+    
+                (scheme, netloc, path, params, query, fragment) = urlparse.urlparse(url)
+                if not scheme and not netloc:
+                    new_url = urlparse.urlunparse((base_scheme, base_netloc, path, params, query, fragment))
+                return new_url
+            else:
+                return '#'
 
         # check all nodes, replace :
         # - img src -> check URL
